@@ -1,0 +1,27 @@
+doctype html 
+html(data-ng-app='goal')
+    head
+        title= title
+        script(src='/bower_components/angular/angular.js')
+        script(src='/bower_components/angular-route/angular-route.js')
+        script(src='/bower_components/jquery/jquery.js')
+        script(src='/bower_components/bootstrap/dist/js/bootstrap.js')
+
+        script(src='/javascripts/client.js')
+        link(rel='stylesheet', href='/stylesheets/style.css')
+        link(rel='stylesheet', href='/bower_components/bootstrap/dist/css/bootstrap.css')
+
+    body
+        h1= title
+        ul(class='list-inline')
+            li
+                a(href='/')
+                    button(class='btn btn-default btn-sm' type='button') Home
+            li
+                a(href='/')
+                    button(class='btn btn-primary btn-sm' type='button') List All Goals
+            li
+                a(href='/#/add')
+                    button(class='btn btn-success btn-sm' type='button') New Goal
+        hr
+        block content
