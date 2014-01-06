@@ -1,7 +1,8 @@
 "use strict";
 var goalModel = require('../models/goal.js');
 var persistent = require('mongoose');
-persistent.connect('mongodb://heroku:staging@paulo.mongohq.com:10081/app20994225');
+var mongodbUrl = process.env.MONGOHQ_URL || 'mongodb://localhost/test';
+persistent.connect(mongodbUrl);
 var Model = goalModel.getModel(persistent);
 
 exports.list = function (req, res) {
