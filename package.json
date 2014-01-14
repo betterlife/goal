@@ -10,6 +10,9 @@
         "jade": "*",
         "mongoose": "*"
     },
+    "devDependencies" : {
+        "mocha" : "*"
+    },
     "engines": {
         "node": "0.10.x"
     }
