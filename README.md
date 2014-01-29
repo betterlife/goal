@@ -7,4 +7,5 @@ This is a web based app built to help you tracking all your goals and their stat
 
 
 - [Staging environment on heroku](http://staging.betterlife.io/)
+- [Production environment on heroku](http://www.betterlife.io/)
 
