@@ -1,4 +1,5 @@
 "use strict";
+require('newrelic');
 var express = require('express');
 var routes = require('./routes/index');
 var goalRouter = require('./routes/goal.js');
