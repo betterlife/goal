@@ -8,7 +8,7 @@ exports.config = {
   /**
    * Array of application names.
    */
-  app_name : ['Life Better Goal'],
+  app_name : ['Life Better Goal Staging'],
   /**
    * Your New Relic license key.
    */
