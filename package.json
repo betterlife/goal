@@ -3,7 +3,8 @@
     "version": "0.0.1",
     "private": true,
     "scripts": {
-        "start": "node app.js"
+        "start" : "node app.js",
+        "test"  : "mocha -u bdd -R Spec"
     },
     "dependencies": {
         "express": "3.4.7",
@@ -12,7 +13,9 @@
         "newrelic" : "*"
     },
     "devDependencies" : {
-        "mocha" : "*"
+        "mocha" : "*",
+        "supertest" : "*",
+        "should" : "*"
     },
     "engines": {
         "node": "0.10.x"
