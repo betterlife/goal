@@ -1,0 +1,24 @@
+div(class='jumbotron')
+  div(class='container')
+    div(class='panel panel-success')
+        div(class="panel-heading") {{goal.title}}  @ {{goal.createDate | date:'MM/dd/yyyy'}}
+        div(class="panel-body")
+          table
+            tr
+              td Description: 
+              td       
+                 div(id='description') {{goal.description}}
+            tr 
+              td Type: 
+              td 
+                 div(id='type') {{goal.type}}
+            tr 
+              td Status: 
+              td 
+                 div(id='status') {{goal.status}}
+        div(class="panel-footer")
+          ul(class='list-inline text-center')
+              li
+                  a(class='btn btn-primary' href='/#/edit/{{goal._id}}') Edit
+              li
+                  button(type='submit' class='btn btn-primary' onclick='window.history.back();') Cancel

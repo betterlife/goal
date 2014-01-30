@@ -1,24 +1,35 @@
-p {{action}} Goal
-form(role='form')
-    div(class='form-group')
-        label(for='title') Title
-        input(name='title' ng-model='goal.title' id='title' placeholder='Goal Title' class='form-control')
-    div(class='form-group')
-        label(for='description') Description
-        textarea(name='description' ng-model='goal.description' id='description' class='form-control')
-    div(class='form-group')
-        label(for='type') Type
-        select(name='type' ng-model='goal.type' id='type' class='form-control')
-            for item in goalTypes
-                option #{item}
-    div(class='form-group')
-        label(for='status') Status
-        select(name='status' ng-model='goal.status' class='form-control' id='status')
-            for item in goalStatuses
-                option #{item}
-    div(class='form-group') Create Date: {{goal.createDate | date:'MM/dd/yyyy @ h:mma'}}
-    ul(class='list-inline')
-        li
-            button(type='submit' class='btn btn-primary' ng-click='save()') {{action}}
-        li
-            button(type='submit' class='btn btn-primary' onclick='window.history.back();') Cancel
+div(class='jumbotron')
+  div(class='container')
+    div(class='panel panel-success')
+        div(class="panel-heading") {{action}} Goal
+        div(class="panel-body" id='goal-edit-panel')
+          form(role='form' class='form-horizontal')
+              div(class='form-group')
+                  label(for='title' class='control-label col-sm-2') Title
+                  div(class='col-sm-10 pt-10')
+                    input(name='title' ng-model='goal.title' id='title' placeholder='Goal Title' class='form-control')
+              div(class='form-group')
+                  label(for='description' class='control-label col-sm-2') Description
+                  div(class='col-sm-10 pt-10')
+                    textarea(name='description' ng-model='goal.description' id='description' class='form-control' rows='6')
+              div(class='form-group')
+                  label(for='type' class='control-label col-sm-2') Type
+                  div(class='col-sm-10 pt-10')
+                    select(name='type' ng-model='goal.type' id='type' class='form-control')
+                        for item in goalTypes
+                          option #{item}
+              div(class='form-group')
+                  label(for='status' class='control-label col-sm-2') Status
+                  div(class='col-sm-10 pt-10')
+                    select(name='status' ng-model='goal.status' class='form-control' id='status')
+                        for item in goalStatuses
+                          option #{item}
+              div(class='form-group') 
+                  label(class='control-label col-sm-2') Create Date:
+                  div(class='col-sm-10 pt-7') {{goal.createDate | date:'MM/dd/yyyy @ h:mma'}}
+        div(class="panel-footer")
+              ul(class='list-inline text-center')
+                  li
+                      button(type='submit' class='btn btn-primary' ng-click='save()') {{action}}
+                  li
+                      button(type='submit' class='btn btn-primary' onclick='window.history.back();') Cancel

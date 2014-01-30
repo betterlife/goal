@@ -60,6 +60,13 @@ var listCtrl = function ($scope, $http, $location, $routeParams) {
     };
 };
 
+var viewCtrl = function($scope, $http, $location, $routeParams) {
+    var id = $routeParams.id;
+    $http.get('/goals/' + id).success(function (data, status, headers, config) {
+        $scope.goal = data.goal;
+    });
+};
+
 angular.module('goal', ['ngRoute']).config(function ($routeProvider, $locationProvider) {
     $routeProvider.
         when('/', {
@@ -81,6 +88,10 @@ angular.module('goal', ['ngRoute']).config(function ($routeProvider, $locationPr
         when('/edit/:id', {
             templateUrl: '/partials/edit',
             controller: editCtrl
+        }).
+        when('/view/:id', {
+            templateUrl : '/partials/view',
+            controller: viewCtrl
         }).
         otherwise({
             redirectTo: '/'
