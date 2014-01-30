@@ -7,8 +7,8 @@ var path = require('path');
 var goalApp = express();
 var server = http.createServer(goalApp);
 
-var setAppParameters = function(app) {
-    app.set('port', process.env.PORT || 3000);
+var setAppParameters = function(app, port) {
+    app.set('port', process.env.PORT || port);
     app.set('views', path.join(__dirname, 'views'));
     app.set('view engine', 'jade');
     app.set('env', 'development');
@@ -32,10 +32,12 @@ var setRouters = function(app) {
     app.get('/goals/:id', goalRouter.get);
     app.put('/goals/:id', goalRouter.update);
     app.delete('/goals/:id', goalRouter.remove);
+
+    app.post('/notes/:id', goalRouter.createNote);
 };
 
-exports.startServer = function() {
-    setAppParameters(goalApp);
+exports.startServer = function(portNumber) {
+    setAppParameters(goalApp, portNumber);
     setRouters(goalApp);
     server.listen(goalApp.get('port'), function () {
         console.log('Express server listening on port ' + goalApp.get('port'));

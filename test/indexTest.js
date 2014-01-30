@@ -4,12 +4,13 @@ var request = require('supertest');
 var mongoose = require('mongoose');
 var testUtil = require('./testUtil');
 var app = require('../app');
+var port = 3001;
 
 describe('Routing', function() {
-    var url = 'http://localhost:3000';
+    var url = 'http://localhost:' + port;
     
     before(function(done) {
-        app.startServer();
+        app.startServer(port);
         done();
     });
 
