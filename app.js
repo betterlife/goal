@@ -34,6 +34,7 @@ var setRouters = function(app) {
     app.delete('/goals/:id', goalRouter.remove);
 
     app.post('/notes/:id', goalRouter.createNote);
+    app.delete('/notes/:id/:noteId', goalRouter.removeNote);
 };
 
 exports.startServer = function(portNumber) {

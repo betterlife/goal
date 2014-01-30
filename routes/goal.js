@@ -16,8 +16,6 @@ exports.list = function (req, res) {
 
 exports.create = function (req, res) {
     var goal;
-    console.log("POST: ");
-    console.log(req.body);
     goal = new Model({
         title: req.body.goal.title,
         description: req.body.goal.description,
@@ -25,7 +23,6 @@ exports.create = function (req, res) {
         status: req.body.goal.status,
         createDate: req.body.createDate
     });
-    console.log(goal);
     goal.save(goal, function (err) {
         if (!err) {
             return console.log("created");
@@ -33,6 +30,25 @@ exports.create = function (req, res) {
         return console.log(err);
     });
     return res.send(goal);
+};
+
+exports.createNote = function (req, res) {
+    return Model.findById(req.params.id, function (err, goal) {
+        goal.comments.push({
+            'content' : req.body.comment.content,
+            'date'    : req.body.comment.date
+        });
+        return goal.save(function (err) {
+            if (err) {
+                console.log(err);
+            }
+            return res.send(goal);
+        });
+    });
+};
+
+exports.removeNote = function (req, res) {
+    return res.send();
 };
 
 exports.get = function (req, res) {

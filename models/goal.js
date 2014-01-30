@@ -2,35 +2,15 @@
 "use strict";
 exports.getSchema = function (Schema) {
     return new Schema({
-        title: {
-            type: String,
-            required: true
-        },
-        description: {
-            type: String
-        },
-        type: {
-            type: String,
-            required: true
-        },
-        createDate: {
-            type: Date,
-            default: Date.now
-        },
-        status: {
-            type: String
-        },
-        comments: [
-            {
-                date: {
-                    type: Date,
-                    default: Date.now
-                },
-                content: {
-                    type: String
-                }
-            }
-        ]
+        title       : { type : String, required : true },
+        description : { type : String },
+        type        : { type : String, required : true },
+        createDate  : { type : Date,   default  : Date.now },
+        status      : { type : String },
+        comments: [{
+            date    : { type : Date, default : Date.now },
+            content : { type : String }
+        }]
     });
 };
 

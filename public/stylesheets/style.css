@@ -7,10 +7,14 @@ a {
   color: #00B7FF;
 }
 
-#goal-edit-panel .pt-7 {
+.pt-7 {
     padding-top: 7px;
 }
 
-#goal-edit-panel .pt-10 {
+.pt-10 {
     padding-top: 10px;
+}
+
+.goal-comment {
+    background-color:whitesmoke;
 }
