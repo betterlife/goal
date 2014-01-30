@@ -3,12 +3,18 @@ var assert = require('assert');
 var request = require('supertest');
 var mongoose = require('mongoose');
 var testUtil = require('./testUtil');
-var server = require('../app');
+var app = require('../app');
 
 describe('Routing', function() {
     var url = 'http://localhost:3000';
     
     before(function(done) {
+        app.startServer();
+        done();
+    });
+
+    after(function(done) {
+        app.stopServer();
         done();
     });
 
