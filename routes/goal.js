@@ -1,7 +1,9 @@
+/*jshint node:true */
 "use strict";
 var goalModel = require('../models/goal.js');
 var persistent = require('mongoose');
 var mongodbUrl = process.env.MONGOHQ_URL || 'mongodb://localhost/test';
+var modelUtil = require('../util/modelUtil.js');
 persistent.connect(mongodbUrl);
 var Model = goalModel.getModel(persistent);
 
@@ -23,13 +25,7 @@ exports.create = function (req, res) {
         status: req.body.goal.status,
         createDate: req.body.createDate
     });
-    goal.save(goal, function (err) {
-        if (!err) {
-            return console.log("created");
-        }
-        return console.log(err);
-    });
-    return res.send(goal);
+    return modelUtil.saveToDb(goal, res); 
 };
 
 exports.createNote = function (req, res) {
@@ -38,12 +34,7 @@ exports.createNote = function (req, res) {
             'content' : req.body.comment.content,
             'date'    : req.body.comment.date
         });
-        return goal.save(function (err) {
-            if (err) {
-                console.log(err);
-            }
-            return res.send(goal);
-        });
+        return modelUtil.saveToDb(goal, res); 
     });
 };
 
@@ -54,12 +45,7 @@ exports.removeNote = function (req, res) {
                 '_id' : req.params.noteId
             });
         }
-        return goal.save(function (err) {
-            if (err) {
-                console.log(err);
-            }
-            return res.send(goal);
-        });
+        return modelUtil.saveToDb(goal, res); 
     });
 };
 
@@ -78,12 +64,7 @@ exports.update = function (req, res) {
         goal.description = req.body.goal.description;
         goal.type = req.body.goal.type;
         goal.status = req.body.goal.status;
-        return goal.save(function (err) {
-            if (err) {
-                console.log(err);
-            }
-            return res.send(goal);
-        });
+        return modelUtil.saveToDb(goal, res); 
     });
 };
 
