@@ -48,7 +48,19 @@ exports.createNote = function (req, res) {
 };
 
 exports.removeNote = function (req, res) {
-    return res.send();
+    return Model.findById(req.params.id, function (err, goal) {
+        if (goal) {
+            goal.comments.pull({
+                '_id' : req.params.noteId
+            });
+        }
+        return goal.save(function (err) {
+            if (err) {
+                console.log(err);
+            }
+            return res.send(goal);
+        });
+    });
 };
 
 exports.get = function (req, res) {
