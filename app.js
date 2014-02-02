@@ -3,6 +3,7 @@ var routes = require('./routes/index');
 var goalRouter = require('./routes/goal.js');
 var http = require('http');
 var path = require('path');
+var reload = require('reload');
 
 var goalApp = express();
 var server = http.createServer(goalApp);
@@ -40,6 +41,7 @@ var setRouters = function(app) {
 exports.startServer = function(portNumber) {
     setAppParameters(goalApp, portNumber);
     setRouters(goalApp);
+    reload(server, goalApp);
     server.listen(goalApp.get('port'), function () {
         console.log('Express server listening on port ' + goalApp.get('port'));
     });
