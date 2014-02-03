@@ -22,18 +22,18 @@ div(class='jumbotron')
     div(class='panel panel-success')
         div(class="panel-heading") Add note to this goal
         div(class="panel-body")
-          form(role='form' class='form-horizontal')
+          form(role='form' class='form-horizontal' name='addnoteform')
               div(class='form-group')
                   label(for='content' class='control-label col-sm-2') Content
                   div(class='col-sm-10 pt-10')
-                    textarea(name='content' id='content' class='form-control' rows='6' ng-model='comment.content' required ng-required='true')
+                    textarea(name='content', id='content', class='form-control', rows='6', ng-model='comment.content', required, ng-required='true')
               div(class='form-group') 
                   label(class='control-label col-sm-2') Create Date:
                   div(class='col-sm-10 pt-7') {{comment.date | date:'MM/dd/yyyy @ h:mma'}}
         div(class="panel-footer")
           ul(class='list-inline text-center')
             li
-              button(type='submit' class='btn btn-primary' ng-click='saveNote()') Save
+              button(type='submit' class='btn btn-primary' ng-click='saveNote()' ng-disabled='addnoteform.$invalid') Save
             li
               button(type='submit' class='btn btn-primary' ng-click='toggleAddNoteForm()') Cancel
   div(class='container hidden' id='notes')

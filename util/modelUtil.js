@@ -4,6 +4,7 @@ exports.saveToDb = function (data, res) {
     return data.save(function (err) {
         if (err) {
             console.log(err);
+            return res.send(err);
         }
         return res.send(data);
     });

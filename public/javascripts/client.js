@@ -35,7 +35,7 @@
 
         $scope.deleteGoal = function () {
             if(window.confirm("Are you sure to delete this goal?")){
-                var id = this.comment._id;
+                var id = this.goal._id;
                 $http.delete('/goals/' + id).success(function (data) {
                     $("#item_" + id).fadeOut();
                 });

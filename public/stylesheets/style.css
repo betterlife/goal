@@ -18,3 +18,18 @@ a {
 .goal-comment {
     background-color:whitesmoke;
 }
+
+input.ng-invalid, select.ng-invalid, textarea.ng-invalid {
+    border: 1px solid lightgray;
+    background-color: floralwhite;
+}
+input.ng-valid, select.ng-valid, textarea.ng-valid { /*border: 1px solid green;*/ }
+
+.errormsg-box {
+    background-color: slategray;
+    color: white;
+    margin-top: 10px;
+    padding-left: 10px;
+    font-weight: bolder;
+    border-radius: 5px;
+}
