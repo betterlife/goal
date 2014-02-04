@@ -46,10 +46,9 @@ div(class='jumbotron')
                 pre(class='goal-comment') 
                     span(class='pull-left')
                         i(class='glyphicon glyphicon-comment')
-                        span(style='padding-right:10px')
-                        {{comment.date | date:'MM/dd/yyyy h:mma'}} 
+                        span(style='padding-right:10px') &nbsp;&nbsp;{{comment.date | date:'MM/dd/yyyy h:mma'}} 
                     span(class='pull-right')
                         a(href='#' ng-click='deleteNote()')
                             i(class='glyphicon glyphicon-remove')
                     hr
-                    {{comment.content}} 
+                    {{comment.content}}
