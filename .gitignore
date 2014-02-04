@@ -8,6 +8,13 @@ lib-cov
 *.gz
 .idea
 
+# Ignore concated js files
+*concat*.js
+# Ignore minified js files
+*min*.js
+# Ignore minified css files
+*min*.css
+
 pids
 logs
 results

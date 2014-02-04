@@ -1,6 +1,7 @@
 // Declare app level module which depends on filters, and services
 (function() {
     "use strict";
+
     var createCtrl = function($scope, $http, $location, $routeParams) {
         $scope.action = "Create";
         $scope.goal = { createDate : new Date()};
@@ -12,6 +13,8 @@
             });
         };
     };
+
+    createCtrl.$inject = ['$scope', '$http', '$location', '$routeParams'];
 
     var editCtrl = function($scope, $http, $location, $routeParams) {
         var id = $routeParams.id;
@@ -27,6 +30,8 @@
             });
         };
     };
+
+    editCtrl.$inject = ['$scope', '$http', '$location', '$routeParams'];
 
     var listCtrl = function ($scope, $http, $location, $routeParams) {
         $http.get('/goals').success(function (data, status, headers, config) {
@@ -59,6 +64,8 @@
             $location.url('/');
         };
     };
+
+    listCtrl.$inject = ['$scope', '$http', '$location', '$routeParams'];
 
     var viewCtrl = function($scope, $http, $location, $routeParams) {
         var id = $routeParams.id;
@@ -104,7 +111,10 @@
         };
     };
 
-    angular.module('goal', ['ngRoute']).config(function ($routeProvider, $locationProvider) {
+    viewCtrl.$inject = ['$scope', '$http', '$location', '$routeParams'];
+
+    angular.module('goal', ['ngRoute']).config(['$routeProvider','$locationProvider',
+                                                function ($routeProvider, $locationProvider) {
         $routeProvider.
         when('/', {
             templateUrl: '/partials/list',
@@ -134,5 +144,5 @@
             redirectTo: '/'
         });
         $locationProvider.html5Mode(true);
-    });
+    }]);
 })();

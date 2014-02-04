@@ -23,7 +23,7 @@ input.ng-invalid, select.ng-invalid, textarea.ng-invalid {
     border: 1px solid lightgray;
     background-color: floralwhite;
 }
-input.ng-valid, select.ng-valid, textarea.ng-valid { /*border: 1px solid green;*/ }
+/* input.ng-valid, select.ng-valid, textarea.ng-valid { border: 1px solid green; }*/
 
 .errormsg-box {
     background-color: slategray;
