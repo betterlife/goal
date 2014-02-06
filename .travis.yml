@@ -4,4 +4,4 @@ node_js:
 before_script:
   - npm install -g grunt-cli
 env:
-  - MONGO_TEST_URL=mongodb://localhost/test
+  - MONGO_TEST_URL="mongodb://localhost/test"
