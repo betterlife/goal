@@ -19,6 +19,6 @@ describe('Routing', function() {
         done();
     });
 
-    describe('Note', function() {
+    describe('Note object CRUD API', function() {
     });
 });

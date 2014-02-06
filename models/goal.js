@@ -1,5 +1,8 @@
 //Goal Model
 "use strict";
+
+var model;
+
 exports.getSchema = function (Schema) {
     return new Schema({
         title       : { type : String, required : true },
@@ -15,7 +18,10 @@ exports.getSchema = function (Schema) {
 };
 
 exports.getModel = function (persistent) {
-    return persistent.model('Goal', exports.getSchema(persistent.Schema));
+    if (model === undefined) {
+        model = persistent.model('Goal', exports.getSchema(persistent.Schema));
+    } 
+    return model;
 };
 
 exports.getGoalTypes = function () {

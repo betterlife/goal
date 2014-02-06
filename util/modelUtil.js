@@ -1,11 +1,19 @@
 "use strict";
 /*jshint node:true */
-exports.saveToDb = function (data, res) {
+
+var constructResponse = function(res, err, data) {
+    if (err) {
+        console.log(err);
+        return res.send(err);
+    }
+    return res.send(data);
+};
+
+var saveToDb = function (data, res) {
     return data.save(function (err) {
-        if (err) {
-            console.log(err);
-            return res.send(err);
-        }
-        return res.send(data);
+        return constructResponse(res, err, data);
     });
 };
+
+exports.saveToDb          = saveToDb;
+exports.constructResponse = constructResponse;

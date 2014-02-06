@@ -8,13 +8,12 @@ var reload = require('reload');
 var goalApp = express();
 var server = http.createServer(goalApp);
 
-var setAppParameters = function(app, port) {
-    app.set('port', process.env.PORT || port);
+var setAppParameters = function(app, serverConfig) {
+    app.set('port', serverConfig.port);
+    app.set('env', serverConfig.env);
     app.set('views', path.join(__dirname, 'views'));
     app.set('view engine', 'jade');
-    app.set('env', 'development');
     app.use(express.favicon());
-    app.use(express.logger('dev'));
     app.use(express.json());
     app.use(express.urlencoded());
     app.use(express.methodOverride());
@@ -22,6 +21,7 @@ var setAppParameters = function(app, port) {
     app.use(express.session());
     app.use(app.router);
     app.use(express.static(path.join(__dirname, 'public')));
+    app.use(express.logger(serverConfig.logger));
 };
 
 var setRouters = function(app) {
@@ -38,12 +38,14 @@ var setRouters = function(app) {
     app.delete('/notes/:id/:noteId', goalRouter.removeNote);
 };
 
-exports.startServer = function(portNumber) {
-    setAppParameters(goalApp, portNumber);
+exports.startServer = function(serverConfig) {
+    setAppParameters(goalApp, serverConfig);
     setRouters(goalApp);
-    reload(server, goalApp);
+    if (serverConfig.env === 'development') {
+        reload(server, goalApp);
+        goalApp.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+    }
     server.listen(goalApp.get('port'), function () {
-        console.log('Express server listening on port ' + goalApp.get('port'));
     });
 };
 
