@@ -14,6 +14,9 @@ table(class="table table-striped table-condensed table-hover")
             td {{goal.status}}
             td {{goal.createDate | date:'MM/dd/yyyy @ h:mma'}}
             td
+                a(href='/#/view/{{goal._id}}')
+                    i(class='glyphicon glyphicon-eye-open')
+                span(style='padding-right:10px')
                 a(href='/#/edit/{{goal._id}}')
                     i(class='glyphicon glyphicon-edit')
                 span(style='padding-right:10px')

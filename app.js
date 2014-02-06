@@ -1,42 +1,54 @@
-"use strict";
-require('newrelic');
 var express = require('express');
 var routes = require('./routes/index');
 var goalRouter = require('./routes/goal.js');
 var http = require('http');
 var path = require('path');
+var reload = require('reload');
 
-var app = express();
+var goalApp = express();
+var server = http.createServer(goalApp);
 
-// all environments
-app.set('port', process.env.PORT || 3000);
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'jade');
-app.set('env', 'development');
-app.use(express.favicon());
-app.use(express.logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded());
-app.use(express.methodOverride());
-app.use(express.cookieParser('your secret here'));
-app.use(express.session());
-app.use(app.router);
-app.use(express.static(path.join(__dirname, 'public')));
+var setAppParameters = function(app, serverConfig) {
+    app.set('port', serverConfig.port);
+    app.set('env', serverConfig.env);
+    app.set('views', path.join(__dirname, 'views'));
+    app.set('view engine', 'jade');
+    app.use(express.favicon());
+    app.use(express.json());
+    app.use(express.urlencoded());
+    app.use(express.methodOverride());
+    app.use(express.cookieParser('your secret here'));
+    app.use(express.session());
+    app.use(app.router);
+    app.use(express.static(path.join(__dirname, 'public')));
+    app.use(express.logger(serverConfig.logger));
+};
 
-// development only
-if ('development' === app.get('env')) {
-    app.use(express.errorHandler());
-}
+var setRouters = function(app) {
+    app.get('/', routes.index);
+    app.get('/partials/:name', routes.partials);
 
-app.get('/', routes.index);
-app.get('/partials/:name', routes.partials);
+    app.get('/goals', goalRouter.list);
+    app.post('/goals', goalRouter.create);
+    app.get('/goals/:id', goalRouter.get);
+    app.put('/goals/:id', goalRouter.update);
+    app.delete('/goals/:id', goalRouter.remove);
 
-app.get('/goals', goalRouter.list);
-app.post('/goals', goalRouter.create);
-app.get('/goals/:id', goalRouter.get);
-app.put('/goals/:id', goalRouter.update);
-app.delete('/goals/:id', goalRouter.remove);
+    app.post('/notes/:id', goalRouter.createNote);
+    app.delete('/notes/:id/:noteId', goalRouter.removeNote);
+};
 
-http.createServer(app).listen(app.get('port'), function () {
-    console.log('Express server listening on port ' + app.get('port'));
-});
+exports.startServer = function(serverConfig) {
+    setAppParameters(goalApp, serverConfig);
+    setRouters(goalApp);
+    if (serverConfig.env === 'development') {
+        reload(server, goalApp);
+        goalApp.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+    }
+    server.listen(goalApp.get('port'), function () {
+    });
+};
+
+exports.stopServer = function() {
+    server.close();
+};
