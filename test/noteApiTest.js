@@ -1,16 +1,16 @@
-var should = require('should');
-var assert = require('assert');
-var request = require('supertest');
-var mongoose = require('mongoose');
-var testUtil = require('./testUtil');
-var app = require('../app');
-var port = 3001;
+var should     = require('should');
+var assert     = require('assert');
+var request    = require('supertest');
+var mongoose   = require('mongoose');
+var testUtil   = require('./testUtil');
+var testConfig = require('./testConfig');
+var app        = require('../app');
 
 describe('Routing', function() {
-    var url = 'http://localhost:' + port;
+    var url = testConfig.url;
     
     before(function(done) {
-        app.startServer(port);
+        app.startServer(testConfig.serverConfig);
         done();
     });
 

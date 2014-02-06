@@ -61,8 +61,8 @@ module.exports = function(grunt){
             test : {
                 options : {
                     ui : 'bdd',
-                    reporter: 'landing',
-                    //reporter: 'Spec',
+                    //reporter: 'landing',
+                    reporter: 'Spec',
                     require: [
                     ]
                 },
