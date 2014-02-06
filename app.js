@@ -3,7 +3,6 @@ var routes = require('./routes/index');
 var goalRouter = require('./routes/goal.js');
 var http = require('http');
 var path = require('path');
-var reload = require('reload');
 
 var goalApp = express();
 var server = http.createServer(goalApp);
@@ -42,7 +41,12 @@ exports.startServer = function(serverConfig) {
     setAppParameters(goalApp, serverConfig);
     setRouters(goalApp);
     if (serverConfig.env === 'development') {
-        reload(server, goalApp);
+        try {
+            var reload = require('reload');
+            reload(server, goalApp);
+        } catch(e) {
+            console.info('Reload module was not found'); 
+        }
         goalApp.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
     }
     server.listen(goalApp.get('port'), function () {
