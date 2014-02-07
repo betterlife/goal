@@ -70,6 +70,7 @@
     var viewCtrl = function($scope, $http, $location, $routeParams) {
         var id = $routeParams.id;
         $http.get('/goals/' + id).success(function (data, status, headers, config) {
+            console.log(data.markedDescription);
             $scope.goal = clientUtil.bindGoalView(data.goal, 'notes');
         });
 
@@ -113,36 +114,42 @@
 
     viewCtrl.$inject = ['$scope', '$http', '$location', '$routeParams'];
 
-    angular.module('goal', ['ngRoute']).config(['$routeProvider','$locationProvider',
-                                                function ($routeProvider, $locationProvider) {
-        $routeProvider.
-        when('/', {
-            templateUrl: '/partials/list',
-            controller: listCtrl
-        }).
-        when('/list', {
-            templateUrl: '/partials/list',
-            controller: listCtrl
-        }).
-        when('/delete/:id', {
-            templateUrl: '/partials/delete',
-            controller: listCtrl
-        }).
-        when('/add', {
-            templateUrl: '/partials/edit',
-            controller: createCtrl
-        }).
-        when('/edit/:id', {
-            templateUrl: '/partials/edit',
-            controller: editCtrl
-        }).
-        when('/view/:id', {
-            templateUrl : '/partials/view',
-            controller: viewCtrl
-        }).
-        otherwise({
-            redirectTo: '/'
-        });
-        $locationProvider.html5Mode(true);
-    }]);
+    angular.module('goal', ['ngRoute'])
+        .filter('to_trusted', ['$sce', function($sce){
+            return function(text) {
+                return $sce.trustAsHtml(text);
+            };
+        }])
+        .config(['$routeProvider','$locationProvider',
+                 function ($routeProvider, $locationProvider) {
+                     $routeProvider.
+                         when('/', {
+                             templateUrl: '/partials/list',
+                             controller: listCtrl
+                         }).
+                         when('/list', {
+                             templateUrl: '/partials/list',
+                             controller: listCtrl
+                         }).
+                         when('/delete/:id', {
+                             templateUrl: '/partials/delete',
+                             controller: listCtrl
+                         }).
+                         when('/add', {
+                             templateUrl: '/partials/edit',
+                             controller: createCtrl
+                         }).
+                         when('/edit/:id', {
+                             templateUrl: '/partials/edit',
+                             controller: editCtrl
+                         }).
+                         when('/view/:id', {
+                             templateUrl : '/partials/view',
+                             controller: viewCtrl
+                         }).
+                         otherwise({
+                             redirectTo: '/'
+                         });
+                     $locationProvider.html5Mode(true);
+                 }]);
 })();

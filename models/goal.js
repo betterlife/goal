@@ -1,10 +1,10 @@
 //Goal Model
 "use strict";
-
+var marked = require('marked');
 var model;
 
 exports.getSchema = function (Schema) {
-    return new Schema({
+    var schema = new Schema({
         title       : { type : String, required : true },
         description : { type : String },
         type        : { type : String, required : true },
@@ -15,6 +15,11 @@ exports.getSchema = function (Schema) {
             content : { type : String }
         }]
     });
+    schema.virtual('markedDescription').get(function(){
+        return marked(this.description);
+    });
+    schema.set('toJSON', { virtuals: true });
+    return schema;
 };
 
 exports.getModel = function (persistent) {

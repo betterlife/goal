@@ -45,7 +45,9 @@ exports.startServer = function(serverConfig) {
             var reload = require('reload');
             reload(server, goalApp);
         } catch(e) {
-            console.info('Reload module was not found'); 
+            if ( e.code === 'MODULE_NOT_FOUND' ) {
+                console.info('Reload module was not found'); 
+            }
         }
         goalApp.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
     }

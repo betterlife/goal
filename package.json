@@ -10,7 +10,8 @@
     "express"    : "3.4.7",
     "jade"       : "*",
     "mongoose"   : "*",
-    "newrelic"   : "*"
+    "newrelic"   : "*",
+    "marked"     : "*"
   },
   "devDependencies": {
     "mocha"                 : "*",

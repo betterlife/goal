@@ -1,9 +1,10 @@
 /*jshint node:true */
 "use strict";
-var goalModel = require('../models/goal.js');
+var goalModel  = require('../models/goal.js');
 var persistent = require('mongoose');
 var mongodbUrl = process.env.MONGOHQ_URL || process.env.MONGO_TEST_URL ||'mongodb://localhost/development';
-var modelUtil = require('../util/modelUtil.js');
+var modelUtil  = require('../util/modelUtil.js');
+var marked     = require('marked');
 persistent.connect(mongodbUrl);
 var Model = goalModel.getModel(persistent);
 
@@ -16,11 +17,11 @@ exports.list = function (req, res) {
 exports.create = function (req, res) {
     var goal;
     goal = new Model({
-        title: req.body.goal.title,
-        description: req.body.goal.description,
-        type: req.body.goal.type,
-        status: req.body.goal.status,
-        createDate: req.body.goal.createDate
+        title       : req.body.goal.title,
+        description : req.body.goal.description,
+        type        : req.body.goal.type,
+        status      : req.body.goal.status,
+        createDate  : req.body.goal.createDate
     });
     if (req.body.goal._id) {
         goal._id = req.body.goal._id;
@@ -30,16 +31,20 @@ exports.create = function (req, res) {
 
 exports.get = function (req, res) {
     return Model.findById(req.params.id, function (err, goal) {
+        var i = 0, comments = goal.comments, comment;
+        for (i = 0; i < comments.length; i++){
+            comments[i].content = marked(comments[i].content);
+        }
         return modelUtil.constructResponse(res, err, {'goal' : goal});
     });
 };
 
 exports.update = function (req, res) {
     var goal = {
-        title : req.body.goal.title,
+        title       : req.body.goal.title,
         description : req.body.goal.description,
-        type : req.body.goal.type,
-        status : req.body.goal.status
+        type        : req.body.goal.type,
+        status      : req.body.goal.status
     };
     var query   = {'_id' : req.params.id};
     var options = {'new' : true};
