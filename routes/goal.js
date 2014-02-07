@@ -31,9 +31,11 @@ exports.create = function (req, res) {
 
 exports.get = function (req, res) {
     return Model.findById(req.params.id, function (err, goal) {
-        var i = 0, comments = goal.comments, comment;
-        for (i = 0; i < comments.length; i++){
-            comments[i].content = marked(comments[i].content);
+        if (goal !== undefined && goal !== null) {
+            var i = 0, comments = goal.comments, comment;
+            for (i = 0; i < comments.length; i++){
+                comments[i].content = marked(comments[i].content);
+            }
         }
         return modelUtil.constructResponse(res, err, {'goal' : goal});
     });
