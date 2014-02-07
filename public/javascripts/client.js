@@ -70,7 +70,6 @@
     var viewCtrl = function($scope, $http, $location, $routeParams) {
         var id = $routeParams.id;
         $http.get('/goals/' + id).success(function (data, status, headers, config) {
-            console.log(data.markedDescription);
             $scope.goal = clientUtil.bindGoalView(data.goal, 'notes');
         });
 
