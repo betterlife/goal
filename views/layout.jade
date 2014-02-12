@@ -1,13 +1,13 @@
 doctype html 
-html(data-ng-app='goal')
+html(data-ng-app='mainApp')
     head
         title= title
         script(src='/bower_components/angular/angular.min.js')
         script(src='/bower_components/angular-route/angular-route.min.js')
         script(src='/bower_components/jquery/jquery.min.js')
         script(src='/bower_components/bootstrap/dist/js/bootstrap.min.js')
-
-        script(src='/javascripts/client.min.js')
+        script(src='/javascripts/clientUtil.js')
+        script(src='/javascripts/client.js')
         link(rel='stylesheet', href='/stylesheets/style.min.css')
         link(rel='stylesheet', href='/bower_components/bootstrap/dist/css/bootstrap.min.css')
 
@@ -18,10 +18,16 @@ html(data-ng-app='goal')
                 a(href='/')
                     button(class='btn btn-default btn-sm' type='button') Home
             li
-                a(href='/')
-                    button(class='btn btn-primary btn-sm' type='button') List All Goals
+                a(href='/#/goal/list')
+                    button(class='btn btn-primary btn-sm' type='button') All Goals
             li
-                a(href='/#/add')
+                a(href='/#/goal/add')
                     button(class='btn btn-success btn-sm' type='button') New Goal
+            li
+                a(href='/#/sr/list')
+                    button(class='btn btn-primary btn-sm' type='button') All Stock Recommend
+            li
+                a(href='/#/sr/add')
+                    button(class='btn btn-success btn-sm' type='button') New Stock Recommend
         hr
         block content

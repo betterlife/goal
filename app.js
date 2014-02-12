@@ -1,11 +1,15 @@
 var express = require('express');
 var indexRoute = require('./routes/index');
 var goalRouter = require('./routes/goal.js');
+var srRouter = require('./routes/sr.js');
 var http = require('http');
 var path = require('path');
+var mongodbUrl = process.env.MONGOHQ_URL || process.env.MONGO_TEST_URL ||'mongodb://localhost/development';
+var persistent = require('mongoose');
+persistent.connect(mongodbUrl);
 
-var goalApp = express();
-var server = http.createServer(goalApp);
+var mainApp = express();
+var server = http.createServer(mainApp);
 
 var setAppParameters = function(app, serverConfig) {
     app.set('port', serverConfig.port);
@@ -26,23 +30,24 @@ var setAppParameters = function(app, serverConfig) {
 var setRouters = function(app) {
     indexRoute.registerMe(app);
     goalRouter.registerMe(app);
+    srRouter.registerMe(app);
 };
 
 exports.startServer = function(serverConfig) {
-    setAppParameters(goalApp, serverConfig);
-    setRouters(goalApp);
+    setAppParameters(mainApp, serverConfig);
+    setRouters(mainApp);
     if (serverConfig.env === 'development') {
         try {
             var reload = require('reload');
-            reload(server, goalApp);
+            reload(server, mainApp);
         } catch(e) {
             if ( e.code === 'MODULE_NOT_FOUND' ) {
                 console.info('Reload module was not found'); 
             }
         }
-        goalApp.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
+        mainApp.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
     }
-    server.listen(goalApp.get('port'), function () {
+    server.listen(mainApp.get('port'), function () {
     });
 };
 

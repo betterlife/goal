@@ -10,9 +10,10 @@ exports.index = function (req, res) {
 
 exports.partials = function (req, res) {
     var name = req.params.name,
+        objectType = req.params.objectType,
         types = goalModel.getGoalTypes(),
         statuses = goalModel.getStatuses();
-    res.render('partials/' + name, {
+    res.render('partials/' + objectType + '/' + name, {
         goalTypes: types,
         goalStatuses: statuses
     });
@@ -20,5 +21,5 @@ exports.partials = function (req, res) {
 
 exports.registerMe = function(app) {
     app.get('/', this.index);
-    app.get('/partials/:name', this.partials);
+    app.get('/partials/:objectType/:name', this.partials);
 };
