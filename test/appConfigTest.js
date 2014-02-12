@@ -19,7 +19,7 @@ describe('API', function() {
         'logger' : 'dev'
     };
     var prdServerConfig = {
-        'port'   : 3000,
+        'port'   : 3003,
         'env'    : 'production',
         'logger' : 'dev'
     };
