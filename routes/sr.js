@@ -83,11 +83,11 @@ exports.removeNote = function (req, res) {
 };
 
 exports.registerMe = function(app) {
-    app.get('/sr', this.list);
-    app.post('/sr', this.create);
-    app.get('/sr/:id', this.get);
-    app.put('/sr/:id', this.update);
-    app.delete('/sr/:id', this.remove);
+    app.get('/srs', this.list);
+    app.post('/srs', this.create);
+    app.get('/srs/:id', this.get);
+    app.put('/srs/:id', this.update);
+    app.delete('/srs/:id', this.remove);
     app.post('/sr/notes/:id', this.createNote);
     app.delete('/sr/notes/:id/:noteId', this.removeNote);
 };

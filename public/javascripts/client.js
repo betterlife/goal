@@ -69,7 +69,7 @@
                 $http.put('/goals/' + id, {
                     'goal' : goal
                 }).success(function (data) {
-                    $location.path('/list');
+                    $location.path('/goal/list');
                 });
             });
         };
@@ -82,7 +82,7 @@
     listCtrl.$inject = ['$scope', '$http', '$location', '$routeParams'];
 
     var srListCtrl = function ($scope, $http, $location, $routeParams) {
-           $http.get('/sr').success(function (data, status, headers, config) {
+           $http.get('/srs').success(function (data, status, headers, config) {
                $scope.records = data.records;
            });
 

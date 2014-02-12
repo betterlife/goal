@@ -6,10 +6,10 @@ html(data-ng-app='mainApp')
         script(src='/bower_components/angular-route/angular-route.min.js')
         script(src='/bower_components/jquery/jquery.min.js')
         script(src='/bower_components/bootstrap/dist/js/bootstrap.min.js')
-        script(src='/javascripts/clientUtil.js')
-        script(src='/javascripts/client.js')
+        script(src='/javascripts/client.min.js')
         link(rel='stylesheet', href='/stylesheets/style.min.css')
         link(rel='stylesheet', href='/bower_components/bootstrap/dist/css/bootstrap.min.css')
+        base(href="/")
 
     body
         h1= title
@@ -22,12 +22,14 @@ html(data-ng-app='mainApp')
                     button(class='btn btn-primary btn-sm' type='button') All Goals
             li
                 a(href='/#/goal/add')
-                    button(class='btn btn-success btn-sm' type='button') New Goal
+                    button(class='btn btn-primary btn-sm' type='button') New Goal
             li
                 a(href='/#/sr/list')
                     button(class='btn btn-primary btn-sm' type='button') All Stock Recommend
             li
                 a(href='/#/sr/add')
-                    button(class='btn btn-success btn-sm' type='button') New Stock Recommend
+                    button(class='btn btn-primary btn-sm' type='button') New Stock Recommend
         hr
         block content
+        if env == 'development'
+            script(src='http://localhost:35729/livereload.js')

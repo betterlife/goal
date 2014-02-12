@@ -28,9 +28,10 @@ var setAppParameters = function(app, serverConfig) {
 };
 
 var setRouters = function(app) {
-    indexRoute.registerMe(app);
     goalRouter.registerMe(app);
     srRouter.registerMe(app);
+    indexRoute.registerMe(app);
+    indexRoute.catchAll(app);
 };
 
 exports.startServer = function(serverConfig) {

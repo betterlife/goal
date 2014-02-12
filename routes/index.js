@@ -3,10 +3,7 @@
  */
 "use strict";
 var goalModel = require('../models/goal.js');
-
-exports.index = function (req, res) {
-    res.render('index', { title: 'Index Page' });
-};
+var env;
 
 exports.partials = function (req, res) {
     var name = req.params.name,
@@ -20,6 +17,15 @@ exports.partials = function (req, res) {
 };
 
 exports.registerMe = function(app) {
-    app.get('/', this.index);
+    env = app.get('env');
     app.get('/partials/:objectType/:name', this.partials);
+};
+
+exports.catchAll = function(app){
+    app.use(function(req, res){
+        res.render('index', {
+            title : 'Index Page',
+            env   : env
+        });
+    });
 };
