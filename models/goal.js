@@ -16,7 +16,10 @@ exports.getSchema = function (Schema) {
         }]
     });
     schema.virtual('markedDescription').get(function(){
-        return marked(this.description);
+        if (this.description != undefined && this.description != null) {
+            return marked(this.description);
+        }
+        return this.description;
     });
     schema.set('toJSON', { virtuals: true });
     return schema;
