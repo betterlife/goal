@@ -5,7 +5,7 @@
 var goalModel = require('../models/goal.js');
 
 exports.index = function (req, res) {
-    res.render('index', { title: 'Goals' });
+    res.render('index', { title: 'Index Page' });
 };
 
 exports.partials = function (req, res) {
@@ -16,4 +16,9 @@ exports.partials = function (req, res) {
         goalTypes: types,
         goalStatuses: statuses
     });
+};
+
+exports.registerMe = function(app) {
+    app.get('/', this.index);
+    app.get('/partials/:name', this.partials);
 };

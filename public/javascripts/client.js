@@ -89,7 +89,7 @@
         };
 
         $scope.saveNote = function () {
-            $http.post('/notes/' + id, {
+            $http.post('/goal/notes/' + id, {
                'comment' : $scope.comment 
             }).success(function (data) {
                 $scope.toggleAddNoteForm();
@@ -102,7 +102,7 @@
         $scope.deleteNote = function() {
             if(window.confirm("Are you sure to delete this note?")){
                 var noteId = this.comment._id;
-                $http.delete('/notes/' + id + '/' + noteId).success(function (data) {
+                $http.delete('/goal/notes/' + id + '/' + noteId).success(function (data) {
                     $http.get('/goals/' + id).success(function (data, status, headers, config) {
                         $scope.goal = clientUtil.bindGoalView(data.goal, 'notes');
                     });

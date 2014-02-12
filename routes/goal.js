@@ -83,3 +83,13 @@ exports.removeNote = function (req, res) {
         return modelUtil.saveToDb(goal, res); 
     });
 };
+
+exports.registerMe = function(app) {
+    app.get('/goals', this.list);
+    app.post('/goals', this.create);
+    app.get('/goals/:id', this.get);
+    app.put('/goals/:id', this.update);
+    app.delete('/goals/:id', this.remove);
+    app.post('/goal/notes/:id', this.createNote);
+    app.delete('/goal/notes/:id/:noteId', this.removeNote);
+};

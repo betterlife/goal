@@ -1,5 +1,5 @@
 var express = require('express');
-var routes = require('./routes/index');
+var indexRoute = require('./routes/index');
 var goalRouter = require('./routes/goal.js');
 var http = require('http');
 var path = require('path');
@@ -24,17 +24,8 @@ var setAppParameters = function(app, serverConfig) {
 };
 
 var setRouters = function(app) {
-    app.get('/', routes.index);
-    app.get('/partials/:name', routes.partials);
-
-    app.get('/goals', goalRouter.list);
-    app.post('/goals', goalRouter.create);
-    app.get('/goals/:id', goalRouter.get);
-    app.put('/goals/:id', goalRouter.update);
-    app.delete('/goals/:id', goalRouter.remove);
-
-    app.post('/notes/:id', goalRouter.createNote);
-    app.delete('/notes/:id/:noteId', goalRouter.removeNote);
+    indexRoute.registerMe(app);
+    goalRouter.registerMe(app);
 };
 
 exports.startServer = function(serverConfig) {
