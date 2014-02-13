@@ -24,7 +24,7 @@
     "grunt-contrib-cssmin"  : "~0.6.2",
     "grunt-contrib-jshint"  : "~0.8.0",
     "grunt-contrib-csslint" : "~0.2.0",
-    "grunt-contrib-watch"   : "*",
+    "grunt-contrib-watch"   : "~0.5.3",
     "grunt-mocha-test"      : "~0.9.0"
   },
   "engines": {

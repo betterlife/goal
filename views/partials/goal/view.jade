@@ -4,7 +4,7 @@ div(class='jumbotron')
         div(class="panel-heading") {{goal.title}}  @ {{goal.createDate | date:'MM/dd/yyyy'}}
         div(class="panel-body")
           div(class='col-sm-2') Description: 
-          div(id='description' class='col-sm-10') 
+          div(id='description' class='col-sm-10')
               pre(ng-bind-html="goal.markedDescription | to_trusted")
           div(class='col-sm-2') Type: 
           div(id='type' class='col-sm-10') {{goal.type}}
