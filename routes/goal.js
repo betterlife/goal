@@ -16,7 +16,7 @@ exports.create = function (req, res) {
     var goal;
     goal = new Model({
         title       : req.body.goal.title,
-        description : req.body.goal.description,
+        description : req.body.goal.description === undefined ? '' : req.body.goal.description,
         type        : req.body.goal.type,
         status      : req.body.goal.status,
         createDate  : req.body.goal.createDate
@@ -30,7 +30,7 @@ exports.create = function (req, res) {
 exports.get = function (req, res) {
     return Model.findById(req.params.id, function (err, goal) {
         if (goal !== undefined && goal !== null) {
-            var i = 0, comments = goal.comments, comment;
+            var i, comments = goal.comments;
             for (i = 0; i < comments.length; i++){
                 comments[i].content = marked(comments[i].content);
             }
@@ -42,7 +42,7 @@ exports.get = function (req, res) {
 exports.update = function (req, res) {
     var goal = {
         title       : req.body.goal.title,
-        description : req.body.goal.description,
+        description : req.body.goal.description === undefined ? '' : req.body.goal.description,
         type        : req.body.goal.type,
         status      : req.body.goal.status
     };
