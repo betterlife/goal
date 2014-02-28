@@ -25,6 +25,9 @@ var setAppParameters = function(app, serverConfig) {
     app.use(app.router);
     app.use(express.static(path.join(__dirname, 'public')));
     app.use(express.logger(serverConfig.logger));
+    app.configure('development', function(){
+      app.locals.pretty = true;
+    });
 };
 
 var setRouters = function(app) {
