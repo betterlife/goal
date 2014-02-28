@@ -25,9 +25,15 @@ exports.partials = function (req, res) {
     });
 };
 
+exports.templates = function(req, res) {
+    var name = req.params.name;
+    res.render('templates/' + name);
+};
+
 exports.registerMe = function(app) {
     env = app.get('env');
     app.get('/partials/:objectType/:name', this.partials);
+    app.get('/templates/:name', this.templates);
 };
 
 exports.catchAll = function(app){

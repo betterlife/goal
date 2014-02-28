@@ -47,18 +47,49 @@
 
     editCtrl.$inject = ['$scope', '$http', '$location', '$routeParams'];
 
-    var listCtrl = function ($scope, $http, $location, $routeParams) {
+    var modalInstanceCtrl = function ($scope, $modalInstance, modalData) {
+        $scope.modalData = modalData;
+        $scope.id = modalData.id;
+        $scope.ok = function () {
+            $modalInstance.close($scope.id);
+        };
+
+        $scope.cancel = function () {
+            $modalInstance.dismiss('cancel');
+        };
+    };
+
+    modalInstanceCtrl.$inject = ['$scope', '$modalInstance', 'modalData'];
+
+    var listCtrl = function ($scope, $http, $modal, $location, $routeParams) {
         $http.get('/goals').success(function (data, status, headers, config) {
             $scope.goals = data.goals;
         });
 
         $scope.deleteGoal = function () {
-            if(window.confirm("Are you sure to delete this goal?")){
-                var id = this.goal._id;
+            var id = this.goal._id;
+            var modalInstance = $modal.open({
+                templateUrl: '/templates/modal',
+                controller: modalInstanceCtrl,
+                resolve: {
+                    modalData : function () {
+                        return {
+                            title    : "Do you really want to delete the goal?",
+                            body     : "This deletion operation can not be undo",
+                            yesLabel : "Yes",
+                            noLabel  : "No",
+                            id       : id
+                        };
+                    }
+                }
+              });
+            modalInstance.result.then(function (id) {
                 $http.delete('/goals/' + id).success(function (data) {
                     $("#item_" + id).fadeOut();
                 });
-            }
+             }, function () {
+               console.debug('Modal dismissed at: ' + new Date());
+             });
         };
 
         $scope.finishGoal = function() {
@@ -79,7 +110,7 @@
         };
     };
 
-    listCtrl.$inject = ['$scope', '$http', '$location', '$routeParams'];
+    listCtrl.$inject = ['$scope', '$http', '$modal', '$location', '$routeParams'];
 
     var srListCtrl = function ($scope, $http, $location, $routeParams) {
            $http.get('/srs').success(function (data, status, headers, config) {
@@ -102,7 +133,7 @@
 
     srListCtrl.$inject = ['$scope', '$http', '$location', '$routeParams'];
 
-    var viewCtrl = function($scope, $http, $location, $routeParams) {
+    var viewCtrl = function($scope, $http, $location, $modal, $routeParams) {
         var id = $routeParams.id;
         $http.get('/goals/' + id).success(function (data, status, headers, config) {
             $scope.goal = clientUtil.bindGoalView(data.goal, 'notes');
@@ -135,20 +166,37 @@
         };
 
         $scope.deleteNote = function() {
-            if(window.confirm("Are you sure to delete this note?")){
-                var noteId = this.comment._id;
+            var noteId = this.comment._id,
+                modalInstance = $modal.open({
+                    templateUrl: '/templates/modal',
+                    controller: modalInstanceCtrl,
+                    resolve: {
+                        modalData: function () {
+                            return {
+                                title : "Do you really want to delete this note?",
+                                body  : "This deletion operation can not be undo",
+                                yesLabel: "Delete it",
+                                noLabel: "Dismiss",
+                                id: noteId
+                        };
+                    }
+                }
+            });
+            modalInstance.result.then(function (noteId) {
                 $http.delete('/goal/notes/' + id + '/' + noteId).success(function (data) {
                     $http.get('/goals/' + id).success(function (data, status, headers, config) {
                         $scope.goal = clientUtil.bindGoalView(data.goal, 'notes');
                     });
                 });
-            }
+            }, function () {
+                console.debug('Modal dismissed at: ' + new Date());
+            });
         };
     };
 
-    viewCtrl.$inject = ['$scope', '$http', '$location', '$routeParams'];
+    viewCtrl.$inject = ['$scope', '$http', '$location', '$modal', '$routeParams'];
 
-    angular.module('mainApp', ['ngRoute'])
+    angular.module('mainApp', ['ngRoute', 'ui.bootstrap'])
         .filter('to_trusted', ['$sce', function($sce){
             return function(text) {
                 return $sce.trustAsHtml(text);

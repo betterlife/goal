@@ -1,0 +1,7 @@
+.modal-header
+    button(type="button" class="close" data-dismiss="modal" aria-hidden="true")
+    h4(class="modal-title" id="modalLabel") {{modalData.title}}
+.modal-body {{modalData.body}}
+.modal-footer
+    button(type="button" class="btn btn-default" ng-click="cancel()") {{modalData.noLabel}}
+    button(type="button" class="btn btn-primary" ng-click="ok()") {{modalData.yesLabel}}

@@ -46,3 +46,4 @@ input.ng-invalid, select.ng-invalid, textarea.ng-invalid {
     width:150px !important;
     display: inline-block !important;
 }
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
