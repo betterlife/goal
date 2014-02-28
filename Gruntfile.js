@@ -72,7 +72,7 @@ module.exports = function(grunt){
         watch : {
           scripts: {
             files: ['**/*.js', '**/*.jade', '**/*.css', '!**/*.min.css', '!**/*.min.js', '!**/*.concat.js', '!Gruntfile.js'],
-            tasks: ['cssmin','csslint','concat','uglify','jshint'],
+            tasks: ['cssmin','concat','uglify'],
             options: {
               interrupt: true,
               livereload: true,
