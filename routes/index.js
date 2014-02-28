@@ -3,16 +3,25 @@
  */
 "use strict";
 var goalModel = require('../models/goal.js');
+var srModel = require('../models/sr.js');
 var env;
 
 exports.partials = function (req, res) {
     var name = req.params.name,
         objectType = req.params.objectType,
+        stockIndustries = srModel.getIndustries(),
+        stockBrokers = srModel.getBrokers(),
+        stockRecommendLevels = srModel.getRecommendLevels(),
+        stockPriceDateScope = srModel.getDateScope(),
         types = goalModel.getGoalTypes(),
         statuses = goalModel.getStatuses();
     res.render('partials/' + objectType + '/' + name, {
         goalTypes: types,
-        goalStatuses: statuses
+        goalStatuses: statuses,
+        stockIndustries: stockIndustries,
+        stockBrokers : stockBrokers,
+        stockRecommendLevels : stockRecommendLevels,
+        stockPriceDateScope : stockPriceDateScope
     });
 };
 

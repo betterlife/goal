@@ -15,6 +15,14 @@ a {
     padding-top: 10px;
 }
 
+.pl-10 {
+    padding-left: 10px;
+}
+
+.pr-10 {
+    padding-right: 10px;
+}
+
 .goal-comment {
     background-color:whitesmoke;
 }
@@ -32,4 +40,9 @@ input.ng-invalid, select.ng-invalid, textarea.ng-invalid {
     padding-left: 10px;
     font-weight: bolder;
     border-radius: 5px;
+}
+
+.width-200-form-controller {
+    width:150px !important;
+    display: inline-block !important;
 }

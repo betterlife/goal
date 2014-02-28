@@ -111,15 +111,15 @@
         $scope.toggleAddNoteForm = function () {
             var formDiv = $('#add-note-form');
             if (formDiv.hasClass('hidden')) {
-                $('#add-note-form').removeClass('hidden');
-                $('#add-note-form').fadeIn();
+                formDiv.removeClass('hidden');
+                formDiv.fadeIn();
                 $scope.comment = {
                    date    : new Date(),
                    content : null
                 };
             } else {
-                $('#add-note-form').addClass('hidden');
-                $('#add-note-form').fadeOut();
+                formDiv.addClass('hidden');
+                formDiv.fadeOut();
             }
         };
 
@@ -154,6 +154,33 @@
                 return $sce.trustAsHtml(text);
             };
         }])
+        .directive('jqdatepicker', function () {
+            return {
+                restrict: "A",
+                require: "ngModel",
+                link: function (scope, elem, attrs, ngModelCtrl) {
+                    var updateModel = function (dateText) {
+                        // call $apply to bring stuff to angular model
+                        scope.$apply(function () {
+                            ngModelCtrl.$setViewValue(dateText);
+                        });
+                    };
+
+                    var options = {
+                        dateFormat: "dd/mm/yy",
+                        numberOfMonths: 3,
+                        showButtonPanel: true,
+                        // handle jquery date change
+                        onSelect: function (dateText) {
+                            updateModel(dateText);
+                        }
+                    };
+
+                    // jqueryfy the element
+                    elem.datepicker(options);
+                }
+            }
+        })
         .config(['$routeProvider','$locationProvider',
                  function ($routeProvider, $locationProvider) {
                      $routeProvider.
