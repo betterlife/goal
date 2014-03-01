@@ -42,8 +42,8 @@ input.ng-invalid, select.ng-invalid, textarea.ng-invalid {
     border-radius: 5px;
 }
 
-.width-200-form-controller {
-    width:150px !important;
-    display: inline-block !important;
+.form-group .less-width-form-controller {
+    width:150px;
+    display: inline-block;
 }
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }

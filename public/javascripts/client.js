@@ -227,7 +227,7 @@
                     // jqueryfy the element
                     elem.datepicker(options);
                 }
-            }
+            };
         })
         .config(['$routeProvider','$locationProvider',
                  function ($routeProvider, $locationProvider) {
