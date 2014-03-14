@@ -12,9 +12,9 @@ This is a web based app built to help you tracking all your goals and their stat
 Build Status
 =====
 
-Development: [![Build Status](https://travis-ci.org/betterlife/goal.png?branch=master)](https://travis-ci.org/lifebetter/goal)
-Staging: [![Build Status](https://travis-ci.org/betterlife/goal.png?branch=staging)](https://github.com/lifebetter/goal/tree/staging)
-Stable: [![Build Status](https://travis-ci.org/betterlife/goal.png?branch=stable)](https://github.com/lifebetter/goal/tree/stable)
+Development: [![Build Status](https://travis-ci.org/betterlife/goal.png?branch=master)](https://travis-ci.org/betterlife/goal)
+Staging: [![Build Status](https://travis-ci.org/betterlife/goal.png?branch=staging)](https://github.com/betterlife/goal/tree/staging)
+Stable: [![Build Status](https://travis-ci.org/betterlife/goal.png?branch=stable)](https://github.com/betterlife/goal/tree/stable)
 
 Code Quantity
 =====
