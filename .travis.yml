@@ -9,10 +9,3 @@ services:
 - mongodb
 env:
 - MONGO_TEST_URL="mongodb://localhost/test"
-deploy:
-  provider: heroku
-  api_key:
-    secure: ewwV5maneL/T4A83wpxZacqsP4Kb5YkoCuMVhKlE46NlHhmhLzAhpxBYlxR1aPQqznEAO1XRAO1RmVo+DoPpVxSdXUCdE0ZAJJ6ygITJ9/8OOCJ5WJCFLg0EsnsB10VH9NIWgEbFcyQd5WcrHgwR+o1cOJPCJQalsbHwf2N2Hmk=
-  app: betterlife-staging
-  on:
-    repo: lifebetter/goal
