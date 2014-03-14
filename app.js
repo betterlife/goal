@@ -2,6 +2,7 @@ var express = require('express');
 var indexRoute = require('./routes/index');
 var goalRouter = require('./routes/goal.js');
 var srRouter = require('./routes/sr.js');
+var accountRouter = require('./routes/account.js');
 var http = require('http');
 var path = require('path');
 var mongodbUrl = process.env.MONGOHQ_URL || process.env.MONGO_TEST_URL ||'mongodb://localhost/development';
@@ -33,6 +34,7 @@ var setAppParameters = function(app, serverConfig) {
 var setRouters = function(app) {
     goalRouter.registerMe(app);
     srRouter.registerMe(app);
+    accountRouter.registerMe(app);
     indexRoute.registerMe(app);
     indexRoute.catchAll(app);
 };

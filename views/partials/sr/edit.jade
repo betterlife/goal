@@ -1,4 +1,3 @@
-doctype html
 .jumbotron
     .container
         div(class='panel panel-success')
@@ -43,11 +42,11 @@ doctype html
                         label(for='targetPrice' class='control-label col-sm-3') Target Price
                         div(class='col-sm-9 pt-10')
                             span.pr-10 The price might be between
-                            input#targetLowerPrice(name='lower' ng-model='sr.targetPrice.lower' type='number' class='form-control width-200-form-controller')
+                            input#targetLowerPrice(name='lower' ng-model='sr.targetPrice.lower' type='number' class='form-control less-width-form-controller')
                             span(class='pl-10 pr-10') and
-                            input#targetUpperPrice(name='upper' ng-model='sr.targetPrice.upper' type='number' class='form-control width-200-form-controller')
+                            input#targetUpperPrice(name='upper' ng-model='sr.targetPrice.upper' type='number' class='less-width-form-controller form-control')
                             span(class='pl-10 pr-10') in
-                            select#targetPriceDateScope(name='dateScope' ng-model='sr.targetPrice.dateScope' class='form-control width-200-form-controller')
+                            select#targetPriceDateScope(name='dateScope' ng-model='sr.targetPrice.dateScope' class='less-width-form-controller form-control')
                                 for item in stockPriceDateScope
                                     option #{item}
     div(class="panel-footer")

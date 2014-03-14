@@ -38,6 +38,12 @@ html(data-ng-app='mainApp')
             li
                 a(href='/#/sr/add')
                     button(class='btn btn-primary btn-sm' type='button') New Stock Recommend
+            li
+                a(href='/login')
+                    button(class='btn btn-primary btn-sm' type='button') Login
+            li
+                a(href='/register')
+                    button(class='btn btn-primary btn-sm' type='button') Register
         hr
         block content
         if env == 'development'
