@@ -4,7 +4,7 @@
   "private" : true,
   "scripts" : {
     "start" : "node server.js",
-    "test"  : "grunt; istanbul cover _mocha -- -u exports -R spec",
+    "test"  : "grunt; istanbul cover _mocha -- -u exports -R spec; cp -R coverage/* $CIRCLE_ARTIFACTS",
     "postinstall" : "./node_modules/bower/bin/bower install; ./node_modules/.bin/grunt deploy"
   },
   "dependencies" : {
