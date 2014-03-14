@@ -90,6 +90,8 @@ module.exports = function(grunt){
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-mocha-test');
 
-    grunt.registerTask('default', ['cssmin', "csslint", 'concat', 'uglify', 'jshint', 'mochaTest']);
-    grunt.registerTask('listen', ['watch']);
+    grunt.registerTask('deploy',  ['cssmin', 'concat', 'uglify']);
+    grunt.registerTask('default', ['cssmin', "csslint", 'concat', 'uglify', 'jshint']);
+    grunt.registerTask('test',    ['cssmin', "csslint", 'concat', 'uglify', 'jshint', 'mochaTest']);
+    grunt.registerTask('listen',  ['watch']);
 };

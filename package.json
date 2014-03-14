@@ -4,8 +4,8 @@
   "private" : true,
   "scripts" : {
     "start" : "node server.js",
-    "test"  : "grunt",
-    "postinstall" : "./node_modules/bower/bin/bower install; ./node_modules/.bin/grunt cssmin concat uglify"
+    "test"  : "grunt; istanbul cover _mocha -- -u exports -R spec",
+    "postinstall" : "./node_modules/bower/bin/bower install; ./node_modules/.bin/grunt deploy"
   },
   "dependencies" : {
     "express"                 : "3.4.7",
@@ -28,6 +28,7 @@
     "supertest"             : "*",
     "should"                : "*",
     "reload"                : "*",
+    "istanbul"              : "*",
     "grunt-cli"             : "*",
     "grunt"                 : "~0.4.2",
     "grunt-contrib-uglify"  : "~0.3.2",
