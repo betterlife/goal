@@ -2,9 +2,9 @@ var should     = require('should');
 var assert     = require('assert');
 var request    = require('supertest');
 var mongoose   = require('mongoose');
-var testUtil   = require('./testUtil');
+var testUtil   = require('../util/testUtil');
 var app        = require('../app');
-var testConfig = require('./testConfig');
+var testConfig = require('../util/testConfig');
 
 describe('Routing', function() {
     var url = testConfig.url;
