@@ -1,11 +1,18 @@
 language: node_js
 node_js:
-  - "0.10"
+- '0.10'
 before_script:
-  - npm install -g grunt-cli
-  - npm install -g bower
-  - bower install
+- npm install -g grunt-cli
+- npm install -g bower
+- bower install
 services:
-  - mongodb
+- mongodb
 env:
-  - MONGO_TEST_URL="mongodb://localhost/test"
+- MONGO_TEST_URL="mongodb://localhost/test"
+deploy:
+  provider: heroku
+  api_key:
+    secure: ewwV5maneL/T4A83wpxZacqsP4Kb5YkoCuMVhKlE46NlHhmhLzAhpxBYlxR1aPQqznEAO1XRAO1RmVo+DoPpVxSdXUCdE0ZAJJ6ygITJ9/8OOCJ5WJCFLg0EsnsB10VH9NIWgEbFcyQd5WcrHgwR+o1cOJPCJQalsbHwf2N2Hmk=
+  app: betterlife-staging
+  on:
+    repo: lifebetter/goal
