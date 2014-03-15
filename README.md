@@ -12,7 +12,7 @@ This is a web based app built to help you tracking all your goals and their stat
 Build Status
 =====
 
-### CircleCI (With auto deployment to Heroku upon each success build)
+### CircleCI (Deploy to Heroku upon success build)
 
 
 [![Build Status](https://circleci.com/gh/betterlife/goal/tree/master.png?circle-token=83fba687a4197e2606dd67f7ace9d06e3e8d474b)](https://circleci.com/gh/betterlife/goal/tree/master)
