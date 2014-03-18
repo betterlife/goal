@@ -47,3 +47,8 @@ input.ng-invalid, select.ng-invalid, textarea.ng-invalid {
     display: inline-block;
 }
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+.icon-header-th, .icon-td {
+    width: 100px;
+    text-align:center;
+}
