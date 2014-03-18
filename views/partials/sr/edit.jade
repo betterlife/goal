@@ -1,0 +1,57 @@
+.jumbotron
+    .container
+        div(class='panel panel-success')
+            .panel-heading {{action}} Stock Recommendation
+            #goal-edit-panel(class='panel-body')
+                form(role='form' class='form-horizontal' name='sreditform')
+                    .form-group
+                        label(for='code' class='control-label col-sm-3') Stock Code
+                        div(class='col-sm-9 pt-10')
+                            input(name='code', ng-model='sr.stockCode', id='code', placeholder='Stock Code', class='form-control', ng-required='true')
+                            .errormsg-box(ng-show='sreditform.code.$dirty && sreditform.code.$invalid')
+                                span(ng-show='sreditform.code.$error.required') Stock code is required
+                    .form-group
+                        label(for='title' class='control-label col-sm-3') Stock Name
+                        div(class='col-sm-9 pt-10')
+                            input(name='name', ng-model='sr.stockName', id='name', placeholder='Stock Name', class='form-control', ng-required='true')
+                            .errormsg-box(ng-show='sreditform.name.$dirty && sreditform.name.$invalid')
+                                span(ng-show='sreditform.name.$error.required') Stock name is required
+                    .form-group
+                        label(for='industry' class='control-label col-sm-3') Industry
+                        div(class='col-sm-9 pt-10')
+                            select#industry(name='industry' ng-model='sr.industry' class='form-control' ng-required='true')
+                                for item in stockIndustries
+                                    option #{item}
+                    .form-group
+                        label(for='broker' class='control-label col-sm-3') Broker
+                        div(class='col-sm-9 pt-10')
+                            select#broker(name='broker' ng-model='sr.recommendBroker' class='form-control' ng-required='true')
+                                for item in stockBrokers
+                                    option #{item}
+                    .form-group
+                        label(for='broker' class='control-label col-sm-3') Recommend Level
+                        div(class='col-sm-9 pt-10')
+                            select#recommendLevel(name='broker' ng-model='sr.recommendLevel' class='form-control' ng-required='true')
+                                for item in stockRecommendLevels
+                                    option #{item}
+                    .form-group
+                        label(for='recommendDate' class='control-label col-sm-3') Recommend Date
+                        div(class='col-sm-9 pt-10')
+                            input#recommendDate(name='recommendDate' ng-model='sr.recommendDate' class='form-control' ng-required='true' type='text' jqdatepicker)
+                    .form-group
+                        label(for='targetPrice' class='control-label col-sm-3') Target Price
+                        div(class='col-sm-9 pt-10')
+                            span.pr-10 The price might be between
+                            input#targetLowerPrice(name='lower' ng-model='sr.targetPrice.lower' type='number' class='form-control less-width-form-controller')
+                            span(class='pl-10 pr-10') and
+                            input#targetUpperPrice(name='upper' ng-model='sr.targetPrice.upper' type='number' class='less-width-form-controller form-control')
+                            span(class='pl-10 pr-10') in
+                            select#targetPriceDateScope(name='dateScope' ng-model='sr.targetPrice.dateScope' class='less-width-form-controller form-control')
+                                for item in stockPriceDateScope
+                                    option #{item}
+    div(class="panel-footer")
+                          ul(class='list-inline text-center')
+                              li
+                                  button(type='submit' class='btn btn-primary' ng-click='save()' ng-disabled='sreditform.$invalid') {{action}}
+                              li
+                                  button(type='submit' class='btn btn-primary' onclick='window.history.back();') Cancel

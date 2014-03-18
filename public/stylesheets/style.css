@@ -15,6 +15,14 @@ a {
     padding-top: 10px;
 }
 
+.pl-10 {
+    padding-left: 10px;
+}
+
+.pr-10 {
+    padding-right: 10px;
+}
+
 .goal-comment {
     background-color:whitesmoke;
 }
@@ -33,3 +41,9 @@ input.ng-invalid, select.ng-invalid, textarea.ng-invalid {
     font-weight: bolder;
     border-radius: 5px;
 }
+
+.form-group .less-width-form-controller {
+    width:150px;
+    display: inline-block;
+}
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }

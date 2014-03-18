@@ -17,7 +17,7 @@ module.exports = function(grunt){
         concat: {
             options: {
                 separator : '',
-                stripBanners: true,
+                stripBanners: true
             },
             dist: {
                 src  : ['public/javascripts/clientUtil.js', 'public/javascripts/client.js'],
@@ -68,6 +68,17 @@ module.exports = function(grunt){
                 },
                 src: ['test/*Test.js']
             }
+        },
+        watch : {
+          scripts: {
+            files: ['**/*.js', '**/*.jade', '**/*.css', '!**/*.min.css', '!**/*.min.js', '!**/*.concat.js', '!Gruntfile.js'],
+            tasks: ['cssmin','concat','uglify'],
+            options: {
+              interrupt: true,
+              livereload: true,
+              debounceDelay: 500
+            }
+          }
         }
     });
 
@@ -76,7 +87,11 @@ module.exports = function(grunt){
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jshint');
+    grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-mocha-test');
 
-    grunt.registerTask('default', ['cssmin', "csslint", 'concat', 'uglify', 'jshint', 'mochaTest']);
+    grunt.registerTask('deploy',  ['cssmin', 'concat', 'uglify']);
+    grunt.registerTask('default', ['cssmin', "csslint", 'concat', 'uglify', 'jshint']);
+    grunt.registerTask('test',    ['cssmin', "csslint", 'concat', 'uglify', 'jshint', 'mochaTest']);
+    grunt.registerTask('listen',  ['watch']);
 };

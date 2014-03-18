@@ -2,8 +2,8 @@ var should     = require('should');
 var assert     = require('assert');
 var request    = require('supertest');
 var mongoose   = require('mongoose');
-var testUtil   = require('./testUtil');
-var testConfig = require('./testConfig');
+var testUtil   = require('../util/testUtil');
+var testConfig = require('../util/testConfig');
 var app        = require('../app');
 
 describe('Routing', function() {

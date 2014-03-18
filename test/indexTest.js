@@ -2,9 +2,9 @@ var should     = require('should');
 var assert     = require('assert');
 var request    = require('supertest');
 var mongoose   = require('mongoose');
-var testUtil   = require('./testUtil');
+var testUtil   = require('../util/testUtil');
 var app        = require('../app');
-var testConfig = require('./testConfig');
+var testConfig = require('../util/testConfig');
 
 describe('Routing', function() {
     var url = testConfig.url;
@@ -29,8 +29,10 @@ describe('Routing', function() {
                 });
         });
         testUtil.textVerify('Home', url, '');
-        testUtil.textVerify('List All Goals', url, '');
+        testUtil.textVerify('All Goals', url, '');
         testUtil.textVerify('New Goal', url, '');
+        testUtil.textVerify('All Stock Recommend', url, '');
+        testUtil.textVerify('New Stock Recommend', url, '');
         testUtil.textVerify('<div ng-view="ng-view"></div>', url, '');
     });
 });

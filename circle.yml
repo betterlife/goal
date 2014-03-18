@@ -1,0 +1,13 @@
+deployment:
+  development:
+    branch: master
+    heroku:
+      appname: betterlife-dev
+  staging:
+    branch: staging
+    heroku:
+      appname: betterlife-staging
+  production:
+    branch: stable
+    heroku:
+      appname: betterlife-production
