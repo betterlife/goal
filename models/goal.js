@@ -37,5 +37,5 @@ exports.getGoalTypes = function () {
 };
 
 exports.getStatuses = function () {
-    return ['New', 'In Progress', 'Finished', 'Postponed', 'Dropped'];
+    return ['New', 'In Progress', 'Finished', 'Postponed', 'Dropped', 'Failed'];
 };
