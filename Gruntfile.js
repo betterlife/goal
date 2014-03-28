@@ -41,18 +41,18 @@ module.exports = function(grunt){
         },
         jshint: {
             src : [
-                'test/*.js', 
-                'routes/*.js', 
-                'models/*.js', 
-                'util/*.js', 
-                './*.js', 
+                'app/test/*.js',
+                'app/routes/*.js',
+                'app/models/*.js',
+                'app/util/*.js',
+                './*.js',
                 'public/javascripts/client.js',
                 'public/javascripts/clientUtil.js'
             ],
             options: {
                 node : true,
                 globals : {
-                    "it"   : true, 
+                    "it"   : true,
                     jQuery : true
                 }
             }
@@ -70,16 +70,16 @@ module.exports = function(grunt){
             }
         },
         watch : {
-          scripts: {
-            files: ['public/javascripts/*.js', 'public/stylesheets/*.css', '!**/*.min.css', '!**/*.min.js', '!**/*.concat.js', '!Gruntfile.js'],
-            tasks: ['cssmin','concat','uglify'],
-            options: {
-              interrupt: true,
-              livereload: true,
-              debounceDelay: 500,
-              spawn: true
+            scripts: {
+                files: ['public/javascripts/*.js', 'public/stylesheets/*.css', '!**/*.min.css', '!**/*.min.js', '!**/*.concat.js', '!Gruntfile.js'],
+                tasks: ['cssmin', 'concat', 'uglify'],
+                options: {
+                    interrupt: true,
+                    livereload: true,
+                    debounceDelay: 500,
+                    spawn: true
+                }
             }
-          }
         }
     });
 

@@ -16,20 +16,6 @@
 
     createCtrl.$inject = ['$scope', '$http', '$location', '$routeParams'];
 
-    var srCreateCtrl = function($scope, $http, $location, $routeParams) {
-        $scope.action = "Create";
-        $scope.goal = { createDate : new Date()};
-        $scope.save = function () {
-            $http.post('/sr', {
-                'record' : $scope.record
-            }).success(function (data) {
-                $location.path('/sr/list');
-            });
-        };
-    };
-
-    srCreateCtrl.$inject = ['$scope', '$http', '$location', '$routeParams'];
-
     var editCtrl = function($scope, $http, $location, $routeParams) {
         var id = $routeParams.id;
         $http.get('/goals/' + id).success(function (data, status, headers, config) {
@@ -111,27 +97,6 @@
     };
 
     listCtrl.$inject = ['$scope', '$http', '$modal', '$location', '$routeParams'];
-
-    var srListCtrl = function ($scope, $http, $location, $routeParams) {
-           $http.get('/srs').success(function (data, status, headers, config) {
-               $scope.records = data.records;
-           });
-
-           $scope.deleteSr = function () {
-               if(window.confirm("Are you sure to delete this goal?")){
-                   var id = this.goal._id;
-                   $http.delete('/sr/' + id).success(function (data) {
-                       $("#item_" + id).fadeOut();
-                   });
-               }
-           };
-
-           $scope.home = function () {
-               $location.url('/sr/list');
-           };
-       };
-
-    srListCtrl.$inject = ['$scope', '$http', '$location', '$routeParams'];
 
     var viewCtrl = function($scope, $http, $location, $modal, $routeParams) {
         var id = $routeParams.id;
@@ -255,14 +220,6 @@
                          when('/goal/view/:id', {
                              templateUrl : '/partials/goal/view',
                              controller: viewCtrl
-                         }).
-                         when('/sr/list', {
-                              templateUrl: '/partials/sr/list',
-                              controller: srListCtrl
-                          }).
-                         when('/sr/add', {
-                             templateUrl: '/partials/sr/edit',
-                             controller: srCreateCtrl
                          }).
                          otherwise({
                              redirectTo: '/'

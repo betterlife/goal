@@ -1,10 +1,9 @@
 /*jshint node:true */
 "use strict";
-var goalModel  = require('../models/goal.js');
-var persistent = require('mongoose');
-var modelUtil  = require('../util/modelUtil.js');
-var marked     = require('marked');
-var Model = goalModel.getModel(persistent);
+var goalModel  = require('../models/goal.js'),
+    modelUtil  = require('../util/modelUtil.js'),
+    marked     = require('marked'),
+    Model      = goalModel.getModel();
 
 exports.list = function (req, res) {
     return Model.find(function (err, goals) {
@@ -24,14 +23,14 @@ exports.create = function (req, res) {
     if (req.body.goal._id) {
         goal._id = req.body.goal._id;
     }
-    return modelUtil.saveToDb(goal, res); 
+    return modelUtil.saveToDb(goal, res);
 };
 
 exports.get = function (req, res) {
     return Model.findById(req.params.id, function (err, goal) {
         if (goal !== undefined && goal !== null) {
             var i, comments = goal.comments;
-            for (i = 0; i < comments.length; i++){
+            for (i = 0; i < comments.length; i++) {
                 comments[i].content = marked(comments[i].content);
             }
         }
@@ -41,13 +40,13 @@ exports.get = function (req, res) {
 
 exports.update = function (req, res) {
     var goal = {
-        title       : req.body.goal.title,
-        description : req.body.goal.description === undefined ? '' : req.body.goal.description,
-        type        : req.body.goal.type,
-        status      : req.body.goal.status
-    };
-    var query   = {'_id' : req.params.id};
-    var options = {'new' : true};
+            title: req.body.goal.title,
+            description: req.body.goal.description === undefined ? '' : req.body.goal.description,
+            type: req.body.goal.type,
+            status: req.body.goal.status
+        },
+        query   = {'_id' : req.params.id},
+        options = {'new' : true};
     return Model.findOneAndUpdate(query, goal, options, function (err, data) {
         return modelUtil.constructResponse(res, err, {'goal' : data});
     });
@@ -67,7 +66,7 @@ exports.createNote = function (req, res) {
             'content' : req.body.comment.content,
             'date'    : req.body.comment.date
         });
-        return modelUtil.saveToDb(goal, res); 
+        return modelUtil.saveToDb(goal, res);
     });
 };
 
@@ -78,11 +77,12 @@ exports.removeNote = function (req, res) {
                 '_id' : req.params.noteId
             });
         }
-        return modelUtil.saveToDb(goal, res); 
+        return modelUtil.saveToDb(goal, res);
     });
 };
 
-exports.registerMe = function(app) {
+exports.registerMe = function (app) {
+    //TODO.xqliu Change /goals --> /internal/goal to make it the same for all URLs.
     app.get('/goals', this.list);
     app.post('/goals', this.create);
     app.get('/goals/:id', this.get);

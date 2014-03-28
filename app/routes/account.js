@@ -1,44 +1,45 @@
-var passport = require('passport');
-var accountModel  = require('../models/account.js');
-var persistent = require('mongoose');
-var Model = accountModel.getModel(persistent);
+"use strict";
+var accountModel = require('../models/account.js'),
+    passport = accountModel.getPassport,
+    Model = accountModel.getModel;
 
 exports.showLoginPage = function (req, res) {
-    "use strict";
-    console.info("I am here");
-    res.render('login', {});
+    res.render('login', { user: req.user, message: req.session.messages });
 };
 
 exports.loginUser = function (req, res) {
-    "use strict";
-    res.redirect('/');
+    res.redirect('index');
 };
 
 exports.showRegisterPage = function (req, res) {
-    "use strict";
-    res.render('register', { });
+    res.render('register', {});
 };
 
 exports.registerUser = function (req, res) {
-    "use strict";
+    console.log(req.body);
     Model.register(
-        new Model({ username: req.body.username }),
-        req.body.password, function (err, account) {
+        new Model({
+            username: req.body.username,
+            email: req.body.email,
+            nickname: req.body.nickname
+        }),
+        req.body.password,
+        function (err, account) {
             if (err) {
+                console.error(err);
                 return res.render('register', { account: account });
             }
             res.redirect('/');
-        });
+        }
+    );
 };
 
 exports.logoutUser = function (req, res) {
-    "use strict";
     req.logout();
     res.redirect('/');
 };
 
 exports.registerMe = function (app) {
-    "use strict";
     app.get('/login', this.showLoginPage);
     app.post('/login', passport.authenticate('local'), this.loginUser);
     app.get('/register', this.showRegisterPage);

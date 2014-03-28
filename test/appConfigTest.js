@@ -1,12 +1,13 @@
+"use strict";
 var should     = require('should');
 var assert     = require('assert');
 var request    = require('supertest');
 var mongoose   = require('mongoose');
-var testUtil   = require('../util/testUtil');
-var testConfig = require('../util/testConfig');
-var app        = require('../app');
+var testUtil   = require('../app/util/testUtil');
+var testConfig = require('../app/util/testConfig');
+var app        = require('../app/app');
 
-describe('API', function() {
+describe('API', function () {
     var url = 'http://localhost';
     var devServerConfig = {
         'port'   : 3001,
@@ -25,28 +26,28 @@ describe('API', function() {
     };
 
     function runTest(serverConfig) {
-        it(serverConfig.env, function(done) {
+        it(serverConfig.env, function (done) {
             var serverUrl = url + ":" + serverConfig.port;
             app.startServer(serverConfig);
-            request(serverUrl).get('/')                
+            request(serverUrl).get('/')
                 .expect('Content-Type', 'text/html; charset=utf-8')
                 .expect(200)
-                .end(function(err, res) {
+                .end(function (err, res) {
                     app.stopServer();
                     return testUtil.done(err, res, done);
                 });
         });
     }
 
-    describe('Start server in dev model', function(){
+    describe('Start server in dev model', function () {
         runTest(devServerConfig);
     });
 
-    describe('Start server in testing model', function(){
+    describe('Start server in testing model', function () {
         runTest(testingServerConfig);
     });
 
-    describe('Start server in prd model', function(){
+    describe('Start server in prd model', function () {
         runTest(prdServerConfig);
     });
 });

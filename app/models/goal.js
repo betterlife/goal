@@ -1,6 +1,8 @@
 //Goal Model
 "use strict";
-var marked = require('marked');
+var marked = require('marked'),
+    mongoose = require('mongoose'),
+    Schema = mongoose.Schema;
 var model;
 
 exports.getSchema = function (Schema) {
@@ -15,7 +17,7 @@ exports.getSchema = function (Schema) {
             content : { type : String }
         }]
     });
-    schema.virtual('markedDescription').get(function(){
+    schema.virtual('markedDescription').get(function () {
         if (this.description !== '' && this.description !== undefined && this.description !== null) {
             return marked(this.description);
         }
@@ -25,15 +27,15 @@ exports.getSchema = function (Schema) {
     return schema;
 };
 
-exports.getModel = function (persistent) {
+exports.getModel = function () {
     if (model === undefined) {
-        model = persistent.model('Goal', exports.getSchema(persistent.Schema));
-    } 
+        model = mongoose.model('Goal', exports.getSchema(Schema));
+    }
     return model;
 };
 
 exports.getGoalTypes = function () {
-    return [ 'Long term(10 to 20 Year)', 'Middle term(3-5 Year)', 'Annually', 'Monthly', 'Weekly'];
+    return [ 'Long term(10 to 20 Year)', 'Middle term(3-5 Year)', 'Annually', 'Half-Year', 'Monthly', 'Weekly'];
 };
 
 exports.getStatuses = function () {

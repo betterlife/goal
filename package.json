@@ -1,46 +1,60 @@
 {
-  "name"    : "lifebetter-suite-goal-model",
-  "version" : "0.0.1",
-  "private" : true,
-  "scripts" : {
-    "start" : "node server.js",
-    "test"  : "grunt; istanbul cover _mocha -- -u exports -R spec; cp -R coverage/* $CIRCLE_ARTIFACTS",
-    "postinstall" : "./node_modules/bower/bin/bower install; ./node_modules/.bin/grunt deploy"
-  },
-  "dependencies" : {
-    "express"                 : "3.4.7",
-    "jade"                    : "*",
-    "mongoose"                : "*",
-    "newrelic"                : "*",
-    "marked"                  : "*",
-    "passport"                : "*",
-    "passport-local"          : "*",
-    "passport-local-mongoose" : "*",
-    "bower"                   : "*",
-    "grunt-cli"               : "*",
-    "grunt"                   : "~0.4.2",
-    "grunt-contrib-uglify"    : "~0.3.2",
-    "grunt-contrib-concat"    : "~0.3.0",
-    "grunt-contrib-cssmin"    : "~0.6.2"
-  },
-  "devDependencies": {
-    "mocha"                 : "*",
-    "supertest"             : "*",
-    "should"                : "*",
-    "reload"                : "*",
-    "istanbul"              : "*",
-    "grunt-cli"             : "*",
-    "grunt"                 : "~0.4.2",
-    "grunt-contrib-uglify"  : "~0.3.2",
-    "grunt-contrib-concat"  : "~0.3.0",
-    "grunt-contrib-cssmin"  : "~0.6.2",
-    "grunt-contrib-jshint"  : "~0.8.0",
-    "grunt-contrib-csslint" : "~0.2.0",
-    "grunt-contrib-watch"   : "~0.5.3",
-    "grunt-mocha-test"      : "~0.9.0"
-  },
-  "engines": {
-    "node" : "0.10.x"
-  },
-  "public-folder" : "public"
+    "name"    : "betterlife-suite",
+    "version" : "0.0.1",
+    "author"  : "Lawrence Liu(xqliu) (http://github.com/xqliu)",
+    "scripts" : {
+      "start" : "supervisor -- --debug=5858 app/server.js",
+      "test"  : "grunt; istanbul cover _mocha -- -u exports -R spec; cp -R coverage/* $CIRCLE_ARTIFACTS",
+      "postinstall" : "./node_modules/bower/bin/bower install; ./node_modules/.bin/grunt deploy"
+    },
+    "dependencies" : {
+      "express"                 : "3.4.7",
+      "jade"                    : "*",
+      "mongoose"                : "*",
+      "newrelic"                : "*",
+      "marked"                  : "*",
+      "passport"                : "*",
+      "passport-local"          : "*",
+      "passport-local-mongoose" : "*",
+      "bcrypt"                  : ">= 0.0.0",
+      "bower"                   : "*",
+      "grunt-cli"               : "*",
+      "grunt"                   : "~0.4.2",
+      "grunt-contrib-uglify"    : "~0.3.2",
+      "grunt-contrib-concat"    : "~0.3.0",
+      "grunt-contrib-cssmin"    : "~0.6.2",
+      "connect-flash"           : "*"
+    },
+    "devDependencies": {
+      "mocha"                 : "*",
+      "supertest"             : "*",
+      "should"                : "*",
+      "reload"                : "*",
+      "istanbul"              : "*",
+      "grunt-cli"             : "*",
+      "grunt"                 : "~0.4.2",
+      "grunt-contrib-uglify"  : "~0.3.2",
+      "grunt-contrib-concat"  : "~0.3.0",
+      "grunt-contrib-cssmin"  : "~0.6.2",
+      "grunt-contrib-jshint"  : "~0.8.0",
+      "grunt-contrib-csslint" : "~0.2.0",
+      "grunt-contrib-watch"   : "~0.5.3",
+      "grunt-mocha-test"      : "~0.9.0"
+    },
+    "engines": {
+      "node" : "0.10.x"
+    },
+    "public-folder" : "public",
+    "repository": {
+       "type" : "git",
+       "url"  : "https://github.com/betterlife/goal.git"
+     },
+     "licenses": [
+       {
+         "type" : "MIT"
+       }
+     ],
+     "bugs": {
+       "url": "http://github.com/betterlife/goal/issues"
+     }
 }

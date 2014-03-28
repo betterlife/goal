@@ -52,3 +52,9 @@ input.ng-invalid, select.ng-invalid, textarea.ng-invalid {
     width: 100px;
     text-align:center;
 }
+
+.login-panel {
+    width:50%;
+    margin:10em auto;
+    text-align: center;
+}

@@ -1,12 +1,13 @@
+"use strict";
 var should     = require('should');
 var assert     = require('assert');
 var request    = require('supertest');
 var mongoose   = require('mongoose');
-var testUtil   = require('../util/testUtil');
-var testConfig = require('../util/testConfig');
-var app        = require('../app');
+var testUtil   = require('../app/util/testUtil');
+var testConfig = require('../app/util/testConfig');
+var app        = require('../app/app');
 
-describe('API', function() {
+describe('API', function () {
     var url = testConfig.url;
     var id = mongoose.Types.ObjectId('123456789012');
     var insertId =  mongoose.Types.ObjectId('123456789ABC');
@@ -35,19 +36,19 @@ describe('API', function() {
         'createDate'  : new Date()
     };
     
-    before(function(done) {
+    before(function (done) {
         app.startServer(testConfig.serverConfig);
         testUtil.removeAllGoals();
         done();
     });
 
-    after(function(done) {
+    after(function (done) {
         app.stopServer();
         testUtil.removeAllGoals();
         done();
     });
 
-    beforeEach(function(done) {        
+    beforeEach(function (done) {
         request(url).post('/goals').send({'goal' : goalObj}).expect(200, done);
     });
 
@@ -56,12 +57,12 @@ describe('API', function() {
         done();
     });
     
-    describe('Goal object CRUD ', function() {
-        it('Create goal object', function(done) {
+    describe('Goal object CRUD ', function () {
+        it('Create goal object', function (done) {
             request(url).post('/goals')
                 .set('Accept', 'application/json')
                 .send({'goal': insertGoalObj})
-                .end(function(err, res){
+                .end(function (err, res) {
                     testUtil.assertDefined(res);
                     testUtil.assertDefined(res.body);
                     testUtil.assertGoalObj(insertGoalObj, res.body);
@@ -69,12 +70,12 @@ describe('API', function() {
                 });
         });
 
-        it('Read goal object', function(done) {
+        it('Read goal object', function (done) {
             request(url)
                 .get('/goals/' + id)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
-                .expect(200).end(function(err, res){
+                .expect(200).end(function (err, res) {
                     testUtil.assertDefined(res);
                     testUtil.assertDefined(res.body);
                     testUtil.assertDefined(res.body.goal);
@@ -82,13 +83,13 @@ describe('API', function() {
                     done();
                 });
         });
-        it('Update goal object', function(done) {
+        it('Update goal object', function (done) {
             request(url)
                 .put('/goals/' + id)
                 .send({'goal' : updatedGoalObj})
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
-                .expect(200).end(function(err, res){
+                .expect(200).end(function (err, res) {
                     testUtil.assertDefined(res);
                     testUtil.assertDefined(res.body);
                     testUtil.assertDefined(res.body.goal);
@@ -98,23 +99,23 @@ describe('API', function() {
                     done();
                 });
         });
-        it('Delete goal object', function(done) {
+        it('Delete goal object', function (done) {
             request(url)
                 .get('/goals/' + id)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
-                .expect(200).end(function(err, res){
+                .expect(200).end(function (err, res) {
                     testUtil.assertDefined(res);
                     testUtil.assertDefined(res.body);
                     testUtil.assertDefined(res.body.goal);
                     testUtil.assertGoalObj(goalObj, res.body.goal);
                 });
-            request(url).del('/goals/' + id).expect(200, function(err, res) {
+            request(url).del('/goals/' + id).expect(200, function (err, res) {
                 request(url)
                     .get('/goals/' + id)
                     .set('Accept', 'application/json')
                     .expect('Content-Type', /json/)
-                    .expect(200).end(function(err, res){
+                    .expect(200).end(function (err, res) {
                         testUtil.assertDefined(res);
                         testUtil.assertDefined(res.body);
                         assert.equal(res.body.goal, null);

@@ -1,7 +1,7 @@
 "use strict";
 /*jshint node:true */
 
-var constructResponse = function(res, err, data) {
+var constructResponse = function (res, err, data) {
     if (err) {
         console.log(err);
         return res.send(err);

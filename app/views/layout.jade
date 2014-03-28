@@ -1,0 +1,17 @@
+extends base
+block body
+    h1= title
+    ul(class='list-inline')
+        li
+            a(href='/')
+                button(class='btn btn-default btn-sm' type='button') Home
+        li
+            a(href='/#/goal/list')
+                button(class='btn btn-primary btn-sm' type='button') All Goals
+        li
+            a(href='/#/goal/add')
+                button(class='btn btn-primary btn-sm' type='button') New Goal
+    hr
+    block content
+    if env == 'development'
+        script(src='http://localhost:35729/livereload.js')
