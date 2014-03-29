@@ -1,0 +1,39 @@
+form(role='form' class='form-horizontal' name='signupform' method='post' action='/register')
+    div(class='panel panel-success login-panel')
+        div(class="panel-heading") Register as a User
+        div(class="panel-body" id='goal-edit-panel')
+              div(class='form-group')
+                  label(for='username' class='control-label col-sm-4') Username
+                  div(class='col-sm-5 pt-10')
+                      input#username(name="username", placeholder='Username', class='form-control', ng-required='true', ng-model='username')
+                      div(ng-show='signupform.username.$dirty && signupform.username.$invalid', class='errormsg-box')
+                        span(ng-show='signupform.username.$error.required') Username is required
+              div(class='form-group')
+                  label(for='email' class='control-label col-sm-4') Email Address
+                  div(class='col-sm-5 pt-10')
+                      input#username(name="email", placeholder='Email Address', class='form-control', ng-required='true', ng-model='email' type='email')
+                      div(ng-show='signupform.email.$dirty && signupform.email.$invalid', class='errormsg-box')
+                          span(ng-show='signupform.email.$error.required') Email Address is required
+              div(class='form-group')
+                  label(for='password' class='control-label col-sm-4') Password
+                  div(class='col-sm-5 pt-10')
+                    input#password(name='password', type='password', ng-model='password', class='form-control', ng-required='true', placeholder='Password')
+                    div(ng-show='signupform.password.$dirty && signupform.password.$invalid', class='errormsg-box')
+                        span(ng-show='signupform.password.$error.required') Password is required
+              div(class='form-group')
+                  label(for='password2' class='control-label col-sm-4') Password again
+                  div(class='col-sm-5 pt-10')
+                      input#password(name='password2', type='password', ng-model='password2', class='form-control', ng-required='true', placeholder='Password again')
+                      div(ng-show='signupform.password2.$dirty && signupform.password2.$invalid', class='errormsg-box')
+                          span(ng-show='signupform.password.$error.required') Please input password again to verify it.
+              div(class='form-group')
+                  label(for='nickname' class='control-label col-sm-4') Nickname
+                  div(class='col-sm-5 pt-10')
+                      input#nickname(name="nickname", placeholder='Your nickname (Will be displayed)', class='form-control', ng-model='nickname')
+        div(class="panel-footer")
+            ul(class='list-inline text-center')
+                li
+                    button(type='submit' class='btn btn-primary') Signup
+                li  or
+                li
+                    a(href='/login') Login

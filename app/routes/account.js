@@ -4,11 +4,19 @@ var accountModel = require('../models/account.js'),
     Model = accountModel.getModel;
 
 exports.showLoginPage = function (req, res) {
-    res.render('login', { user: req.user, message: req.session.messages });
+    console.log("Login in page");
+    res.render('login');
 };
 
 exports.loginUser = function (req, res) {
-    res.redirect('index');
+    console.log(req);
+    res.send({
+        user : {
+            username: req.user.username, 
+            email: req.user.email, 
+            nickname: req.user.nickname
+        }
+    });
 };
 
 exports.showRegisterPage = function (req, res) {
@@ -35,14 +43,15 @@ exports.registerUser = function (req, res) {
 };
 
 exports.logoutUser = function (req, res) {
+    console.log("Logout user");
     req.logout();
     res.redirect('/');
 };
 
 exports.registerMe = function (app) {
-    app.get('/login', this.showLoginPage);
-    app.post('/login', passport.authenticate('local'), this.loginUser);
-    app.get('/register', this.showRegisterPage);
-    app.post('/register', this.registerUser);
-    app.get('/logout', this.logoutUser);
+    app.get('/internal/login', this.showLoginPage);
+    app.post('/internal/login', passport.authenticate('local'), this.loginUser);
+    app.get('/internal/register', this.showRegisterPage);
+    app.post('/internal/register', this.registerUser);
+    app.get('/internal/logout', this.logoutUser);
 };

@@ -2,8 +2,11 @@
  * GET home page.
  */
 "use strict";
-var goalModel = require('../models/goal.js'),
-    env;
+var goalModel = require('../models/goal.js'), env;
+
+exports.index = function (req, res) {
+    res.render('index', { user : req.user, env: env  });
+};
 
 exports.partials = function (req, res) {
     var name = req.params.name,
@@ -22,22 +25,17 @@ exports.templates = function (req, res) {
 };
 
 exports.registerMe = function (app) {
-    env = app.get('env');
+    env = app.settings.env;
+    app.get('/', this.index);
     app.get('/partials/:objectType/:name', this.partials);
     app.get('/templates/:name', this.templates);
 };
 
 exports.catchAll = function (app) {
     app.use(function (req, res) {
-        if (req.user) {
-            res.render('index', {
-                title: 'Index Page',
-                env: env
-            });
-        } else {
-            res.render('login', {
-                env: env
-            });
-        }
+        res.render('index', {
+            user: req.user,
+            env : env
+        });
     });
 };

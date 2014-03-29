@@ -2,6 +2,45 @@
 (function() {
     "use strict";
 
+    var loginCtrl = function($scope, $http, $location, $routeParams) {
+        $scope.login = function() {
+            var username = $scope.username,
+                password = $scope.password;
+            if (username !== undefined && username !== '' && 
+                password !== undefined && password !== '') {
+                $http.post('/internal/login').success(function (data) {
+                    $scope.user = data.user;
+                    $location.path('/');
+                    if ($scope.errors === undefined){
+                        $scope.errors = {};
+                    }
+                    $scope.errors.other = undefined;
+                }).error(function(data, status){
+                    if ($scope.errors === undefined){
+                        $scope.errors = {};
+                    }
+                    $scope.errors.other = 'Login failed, please confirm username and password is correct';
+                }); 
+            }
+        };
+    };
+
+    loginCtrl.$inject = ['$scope', '$http', '$location', '$routeParams'];
+
+    var logoutCtrl = function($scope, $http, $location, $routeParams) {
+        $http.get('/internal/logout').success(function (data, status, headers, config) {
+            console.log("I am here for logout");
+            $location.path('/login');
+        });                        
+    };
+
+    logoutCtrl.$inject = ['$scope', '$http', '$location', '$routeParams'];
+
+    var registerCtrl = function($scope, $http, $location, $routeParams) {
+    };
+
+    registerCtrl.$inject = ['$scope', '$http', '$location', '$routeParams'];
+
     var createCtrl = function($scope, $http, $location, $routeParams) {
         $scope.action = "Create";
         $scope.goal = { createDate : new Date()};
@@ -220,6 +259,18 @@
                          when('/goal/view/:id', {
                              templateUrl : '/partials/goal/view',
                              controller: viewCtrl
+                         }).
+                         when('/login', {
+                            templateUrl : '/partials/account/login',
+                            controller: loginCtrl
+                         }).
+                         when('/logout', {
+                            templateUrl : '/partials/account/login',
+                            controller: logoutCtrl
+                         }).
+                         when('/register', {
+                            templateUrl : '/partials/account/register',
+                            controller: registerCtrl
                          }).
                          otherwise({
                              redirectTo: '/'

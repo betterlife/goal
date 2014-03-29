@@ -1,0 +1,17 @@
+.row
+    .col-sm-5(class='center-block' style='float:none')
+        form(role='form' class='form-horizontal' name='loginform' class='form')
+            div(class='form-group')
+                label(for='username') Username/Email
+                input#username(name="username", placeholder='Username/Email', class='form-control', ng-required='true', ng-model='username')
+            div(class='form-group')
+                label(for='password') Password
+                input#password(name='password', type='password', ng-model='password', class='form-control', ng-required='true', placeholder='Password')
+            div(class='form-group has-error')
+                p.help-block {{errors.other}}
+            ul(class='list-inline text-center')
+                li
+                    button(ng-click='login()' class='btn btn-primary') Login
+            hr
+            div Not registered? 
+               a(href="/register" class="text-center new-account") Create an account.
