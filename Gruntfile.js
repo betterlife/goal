@@ -53,8 +53,12 @@ module.exports = function(grunt){
             options: {
                 node : true,
                 globals : {
-                    "it"   : true,
-                    jQuery : true
+                    "it"                : true,
+                    jQuery              : true,
+                    'angular'           : true,
+                    '$'                 : true,
+                    'modalInstanceCtrl' : true,
+                    'clientUtil'        : true
                 }
             }
         },
