@@ -20,7 +20,7 @@ module.exports = function(grunt){
                 stripBanners: true
             },
             dist: {
-                src  : ['public/javascripts/clientUtil.js', 'public/javascripts/client.js'],
+                src  : ['public/javascripts/clientUtil.js', 'public/javascripts/client.js', 'public/javascripts/controllers/*.js'],
                 dest : 'public/javascripts/client.concat.js'
             }
         },
@@ -47,7 +47,8 @@ module.exports = function(grunt){
                 'app/util/*.js',
                 './*.js',
                 'public/javascripts/client.js',
-                'public/javascripts/clientUtil.js'
+                'public/javascripts/clientUtil.js',
+                'public/javascripts/controllers/*.js'
             ],
             options: {
                 node : true,
