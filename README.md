@@ -31,4 +31,3 @@ Development Links
 
 * [Code Climate](https://codeclimate.com/github/betterlife/goal)
 * [Circle CI](https://circleci.com/gh/betterlife/goal)
-* [Travis CI](https://travis-ci.org/betterlife/goal) (Current disabled)
