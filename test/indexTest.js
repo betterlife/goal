@@ -28,10 +28,9 @@ describe('Routing', function () {
                     return testUtil.done(err, res, done);
                 });
         });
-        testUtil.textVerify('Login to the System', url, '');
-        testUtil.textVerify('Username/Email', url, '');
-        testUtil.textVerify('Password', url, '');
-        testUtil.textVerify('Signup', url, '');
+        testUtil.textVerify('Goals', url, '');
+        testUtil.textVerify('Home', url, '');
         testUtil.textVerify('Login', url, '');
+        testUtil.textVerify('Register', url, '');
     });
 });

@@ -12,6 +12,15 @@ html(data-ng-app='mainApp')
         if env == 'development'
             script(src='/javascripts/client.js')
             script(src='/javascripts/clientUtil.js')
+            script(src='/javascripts/controllers/create.js')
+            script(src='/javascripts/controllers/edit.js')
+            script(src='/javascripts/controllers/list.js')
+            script(src='/javascripts/controllers/login.js')
+            script(src='/javascripts/controllers/logout.js')
+            script(src='/javascripts/controllers/modal.js')
+            script(src='/javascripts/controllers/nav.js')
+            script(src='/javascripts/controllers/register.js')
+            script(src='/javascripts/controllers/view.js')
         else
             script(src='/javascripts/client.min.js')
         link(rel='stylesheet', href='/stylesheets/style.min.css')
@@ -21,7 +30,7 @@ html(data-ng-app='mainApp')
         base(href="/")
     body
         div.container
-            div.header
+            div.header(ng-controller='navController')
                 ul(class='nav nav-pills pull-right')
                     li
                         a(href='/') Home

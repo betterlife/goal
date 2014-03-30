@@ -48,7 +48,7 @@ var setRouters = function (app) {
 exports.startServer = function (serverConfig) {
     setAppParameters(mainApp, serverConfig);
     setRouters(mainApp);
-    if (serverConfig.env === 'development') {
+    if (serverConfig.env === 'development' && serverConfig.reload === true) {
         try {
             var reload = require('reload');
             reload(server, mainApp);
