@@ -32,7 +32,7 @@ html(data-ng-app='mainApp')
             div.header(ng-controller='navController')
                 ul(class='nav nav-pills pull-right')
                     li(ng-class="{active: isActive('/')}")
-                        a(href='/') Home
+                        a(href='/' ng-show='user') Home
                     li(ng-class="{active: isActive('/goal/list')}")
                         a(href='/#/goal/list' ng-show="user") All Goals
                     li(ng-class="{active: isActive('/goal/add')}")
@@ -43,7 +43,7 @@ html(data-ng-app='mainApp')
                         a(href='/login' ng-hide='user') Login
                     li(ng-class="{active: isActive('/register')}")
                         a(href='/register' ng-hide='user') Register
-                h3.text-muted GOALS
+                h3.text-muted GOAL | Betterlife
             block content
             if env == 'development'
                 hr

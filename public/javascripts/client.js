@@ -40,43 +40,59 @@
                      $routeProvider.
                          when('/', {
                              templateUrl: '/partials/goal/list',
-                             controller: listCtrl
+                             controller: listCtrl,
+                             authenticate: true
                          }).
                          when('/goal/list', {
                              templateUrl: '/partials/goal/list',
-                             controller: listCtrl
+                             controller: listCtrl,
+                             authenticate: true
                          }).
                          when('/goal/delete/:id', {
                              templateUrl: '/partials/goal/delete',
-                             controller: listCtrl
+                             controller: listCtrl,
+                             authenticate: true
                          }).
                          when('/goal/add', {
                              templateUrl: '/partials/goal/edit',
-                             controller: createCtrl
+                             controller: createCtrl,
+                             authenticate: true
                          }).
                          when('/goal/edit/:id', {
                              templateUrl: '/partials/goal/edit',
-                             controller: editCtrl
+                             controller: editCtrl,
+                             authenticate: true
                          }).
                          when('/goal/view/:id', {
                              templateUrl : '/partials/goal/view',
-                             controller: viewCtrl
+                             controller: viewCtrl,
+                             authenticate: true
                          }).
                          when('/login', {
                             templateUrl : '/partials/account/login',
                             controller: loginCtrl
                          }).
                          when('/logout', {
-                            templateUrl : '/partials/account/login',
-                            controller: logoutCtrl
+                             templateUrl : '/partials/account/login',
+                             controller: logoutCtrl,
+                             authenticate: true
                          }).
                          when('/register', {
-                            templateUrl : '/partials/account/register',
-                            controller: registerCtrl
+                             templateUrl : '/partials/account/register',
+                             controller: registerCtrl
                          }).
                          otherwise({
                              redirectTo: '/'
                          });
                      $locationProvider.html5Mode(true);
-                 }]);
+                 }])
+        .run(['$rootScope', '$location', 'loginService', 
+              function ($rootScope, $location, loginService) {
+                  // Redirect to login if route requires auth and you're not logged in
+                  $rootScope.$on('$routeChangeStart', function (event, next) {
+                      if (next.authenticate && !loginService.isLoggedIn()) {
+                          $location.path('/login');
+                      }
+                  });
+              }]);
 })();
