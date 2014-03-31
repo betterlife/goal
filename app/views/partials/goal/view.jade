@@ -36,7 +36,7 @@ div(class='jumbotron')
               button(type='submit' class='btn btn-primary' ng-click='saveNote()' ng-disabled='addnoteform.$invalid') Save
             li
               button(type='submit' class='btn btn-primary' ng-click='toggleAddNoteForm()') Cancel
-  div(class='container hidden' id='notes')
+  div(class='container' id='notes' ng-show='showNotePanel')
     div(class='panel panel-success')
         div(class="panel-heading") 
             span Notes / Comments 
