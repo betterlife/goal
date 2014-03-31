@@ -8,17 +8,14 @@ var viewCtrl = function($scope, $http, $location, $modal, $routeParams) {
     });
 
     $scope.toggleAddNoteForm = function () {
-        var formDiv = $('#add-note-form');
-        if (formDiv.hasClass('hidden')) {
-            formDiv.removeClass('hidden');
-            formDiv.fadeIn();
-            $scope.comment = {
-                date    : new Date(),
-                content : null
-            };
+        if ($scope.showAddNoteForm !== true) {
+            if (!$scope.comment) {
+                $scope.comment = {};
+            } 
+            $scope.comment.date = new Date();
+            $scope.showAddNoteForm = true;
         } else {
-            formDiv.addClass('hidden');
-            formDiv.fadeOut();
+            $scope.showAddNoteForm = false;
         }
     };
 

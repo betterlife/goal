@@ -18,7 +18,7 @@ div(class='jumbotron')
                   a(class='btn btn-primary' href='/#/goal/edit/{{goal._id}}') Edit
               li
                   button(type='submit' class='btn btn-primary' onclick='window.history.back();') Cancel
-  div(class='container hidden' id='add-note-form')
+  div(class='container' id='add-note-form' ng-show="showAddNoteForm")
     div(class='panel panel-success')
         div(class="panel-heading") Add note to this goal
         div(class="panel-body")
