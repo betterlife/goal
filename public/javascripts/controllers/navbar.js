@@ -1,12 +1,10 @@
-/*jshint global: angluar*/
-"use strict";
-
-var navController = function($scope, $http, $location, $modal, $routeParams) {
+var navController = function($scope, $rootScope, $http, $location, $routeParams) {
+    "use strict";
     $scope.isActive = function(route) {
-      return route === $location.path();        
+        return route === $location.path();        
     };
 };
 
-navController.$inject = ['$scope', '$http', '$location', '$modal', '$routeParams'];
+navController.$inject = ['$scope', '$rootScope', '$http', '$location', '$routeParams'];
 
 angular.module('mainApp').controller('navController', navController);

@@ -1,6 +1,12 @@
 {
   "globals": {
-    "angular" : false,
-    "$"       : false
-  } 
+    "angular"  : false,
+    "$"        : false,
+    "console"  : false,
+    "describe" : false,
+    "require"  : false,
+    "before"   : false,
+    "after"    : false,
+    "it"       : false
+  }
 }
