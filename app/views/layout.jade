@@ -32,17 +32,17 @@ html(data-ng-app='mainApp')
         div.container
             div.header(ng-controller='navController')
                 ul(class='nav nav-pills pull-right')
-                    li
+                    li(ng-class="{active: isActive('/')}")
                         a(href='/') Home
-                    li
+                    li(ng-class="{active: isActive('/goal/list')}")
                         a(href='/#/goal/list' ng-show="user") All Goals
-                    li
+                    li(ng-class="{active: isActive('/goal/add')}")
                         a(href='/#/goal/add' ng-show='user') New Goal
-                    li
+                    li(ng-class="{active: isActive('/logout')}")
                         a(href='/logout' ng-show='user') Logout
-                    li
+                    li(ng-class="{active: isActive('/login')}")
                         a(href='/login' ng-hide='user') Login
-                    li
+                    li(ng-class="{active: isActive('/register')}")
                         a(href='/register' ng-hide='user') Register
                 h3.text-muted Goals
             block content
