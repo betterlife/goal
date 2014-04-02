@@ -11,9 +11,9 @@ lib-cov
 # Ignore concated js files
 *concat*.js
 # Ignore minified js files
-# *min*.js
+*min*.js
 # Ignore minified css files
-# *min*.css
+*min*.css
 
 pids
 logs
