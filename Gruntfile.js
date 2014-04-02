@@ -20,7 +20,7 @@ module.exports = function(grunt){
                 stripBanners: true
             },
             dist: {
-                src  : ['public/javascripts/clientUtil.js', 'public/javascripts/client.js'],
+                src  : ['public/javascripts/clientUtil.js', 'public/javascripts/client.js', 'public/javascripts/controllers/*.js'],
                 dest : 'public/javascripts/client.concat.js'
             }
         },
@@ -41,19 +41,24 @@ module.exports = function(grunt){
         },
         jshint: {
             src : [
-                'test/*.js', 
-                'routes/*.js', 
-                'models/*.js', 
-                'util/*.js', 
-                './*.js', 
+                'app/test/*.js',
+                'app/routes/*.js',
+                'app/models/*.js',
+                'app/util/*.js',
+                './*.js',
                 'public/javascripts/client.js',
-                'public/javascripts/clientUtil.js'
+                'public/javascripts/clientUtil.js',
+                'public/javascripts/controllers/*.js'
             ],
             options: {
                 node : true,
                 globals : {
-                    "it"   : true, 
-                    jQuery : true
+                    "it"                : true,
+                    jQuery              : true,
+                    'angular'           : true,
+                    '$'                 : true,
+                    'modalInstanceCtrl' : true,
+                    'clientUtil'        : true
                 }
             }
         },
@@ -70,15 +75,16 @@ module.exports = function(grunt){
             }
         },
         watch : {
-          scripts: {
-            files: ['**/*.js', '**/*.jade', '**/*.css', '!**/*.min.css', '!**/*.min.js', '!**/*.concat.js', '!Gruntfile.js'],
-            tasks: ['cssmin','concat','uglify'],
-            options: {
-              interrupt: true,
-              livereload: true,
-              debounceDelay: 500
+            scripts: {
+                files: ['public/javascripts/*.js', 'public/stylesheets/*.css', '!**/*.min.css', '!**/*.min.js', '!**/*.concat.js', '!Gruntfile.js'],
+                tasks: ['cssmin', 'concat', 'uglify'],
+                options: {
+                    interrupt: true,
+                    livereload: true,
+                    debounceDelay: 500,
+                    spawn: true
+                }
             }
-          }
         }
     });
 

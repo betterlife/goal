@@ -1,0 +1,13 @@
+{
+  "globals": {
+    "angular"  : false,
+    "$"        : false,
+    "console"  : false,
+    "describe" : false,
+    "require"  : false,
+    "before"   : false,
+    "after"    : false,
+    "it"       : false,
+    "exports"  : false
+  }
+}

@@ -1,0 +1,51 @@
+doctype html
+html(data-ng-app='mainApp')
+    head
+        title #{title}
+        script(src='/bower_components/jquery/dist/jquery.min.js')
+        script(src='/bower_components/jquery-ui/ui/jquery-ui.js')
+        script(src='/bower_components/jquery-ui/ui/jquery.ui.datepicker.js')
+        script(src='/bower_components/bootstrap/dist/js/bootstrap.min.js')
+        script(src='/bower_components/angular/angular.min.js')
+        script(src='/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js')
+        script(src='/bower_components/angular-route/angular-route.min.js')
+        if env == 'development'
+            script(src='/javascripts/client.js')
+            script(src='/javascripts/controllers/create.js')
+            script(src='/javascripts/controllers/edit.js')
+            script(src='/javascripts/controllers/list.js')
+            script(src='/javascripts/controllers/login.js')
+            script(src='/javascripts/controllers/modal.js')
+            script(src='/javascripts/controllers/navbar.js')
+            script(src='/javascripts/controllers/register.js')
+            script(src='/javascripts/controllers/view.js')
+            script(src='/javascripts/services/auth.js')
+        else
+            script(src='/javascripts/client.min.js')
+        link(rel='stylesheet', href='/stylesheets/style.min.css')
+        link(rel='stylesheet', href='/bower_components/jquery-ui/themes/base/jquery-ui.css')
+        link(rel='stylesheet', href='/bower_components/jquery-ui/themes/base/jquery.ui.datepicker.css')
+        link(rel='stylesheet', href='/bower_components/bootstrap/dist/css/bootstrap.min.css')
+        base(href="/")
+    body
+        div.container
+            div.header(ng-controller='navController')
+                ul(class='nav nav-pills pull-right')
+                    li(ng-class="{active: isActive('/')}")
+                        a(href='/' ng-show='user') Home
+                    li(ng-class="{active: isActive('/goal/list')}")
+                        a(href='/#/goal/list' ng-show="user") All Goals
+                    li(ng-class="{active: isActive('/goal/add')}")
+                        a(href='/#/goal/add' ng-show='user') New Goal
+                    li(ng-class="{active: isActive('/logout')}")
+                        a(href='/logout' ng-show='user') Logout
+                    li(ng-class="{active: isActive('/login')}")
+                        a(href='/login' ng-hide='user') Login
+                    li(ng-class="{active: isActive('/register')}")
+                        a(href='/register' ng-hide='user') Register
+                h3.text-muted GOAL | Betterlife
+            block content
+            if env == 'development'
+                hr
+                span Environment: #{env}
+                script(src='http://localhost:35729/livereload.js')
