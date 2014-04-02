@@ -6,7 +6,9 @@ var goalModel  = require('../models/goal.js'),
     Model      = goalModel.getModel();
 
 exports.list = function (req, res) {
-    return Model.find(function (err, goals) {
+    return Model.find({
+        userId: req.user._id
+    }, function (err, goals) {
         return modelUtil.constructResponse(res, err, {'goals' : goals});
     });
 };
@@ -18,7 +20,8 @@ exports.create = function (req, res) {
         description : req.body.goal.description === undefined ? '' : req.body.goal.description,
         type        : req.body.goal.type,
         status      : req.body.goal.status,
-        createDate  : req.body.goal.createDate
+        createDate  : req.body.goal.createDate,
+        userId      : req.body.goal.userId
     });
     if (req.body.goal._id) {
         goal._id = req.body.goal._id;

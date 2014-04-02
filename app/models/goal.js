@@ -7,6 +7,7 @@ var model;
 
 exports.getSchema = function (Schema) {
     var schema = new Schema({
+        userId      : { type : Schema.ObjectId, ref: 'UserSchema'},
         title       : { type : String, required : true },
         description : { type : String },
         type        : { type : String, required : true },
