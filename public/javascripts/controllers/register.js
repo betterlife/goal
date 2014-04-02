@@ -2,7 +2,6 @@
 
 var registerCtrl = function($scope, $http, $location, $routeParams) {
     $scope.register = function () {
-        console.log($scope.signup);
         var signup = $scope.signup;
         if (signup !== undefined && signup.password !== signup.password2){
             if ($scope.errors === undefined){

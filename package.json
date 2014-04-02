@@ -1,6 +1,6 @@
 {
     "name"    : "betterlife-suite",
-    "version" : "0.0.1",
+    "version" : "0.0.2",
     "author"  : "Lawrence Liu(xqliu) (http://github.com/xqliu)",
     "scripts" : {
       "start" : "supervisor -- --debug=5858 app/server.js",
@@ -16,7 +16,6 @@
       "passport"                : "*",
       "passport-local"          : "*",
       "passport-local-mongoose" : "*",
-      "bcrypt"                  : ">= 0.0.0",
       "bower"                   : "*",
       "grunt-cli"               : "*",
       "grunt"                   : "~0.4.2",
