@@ -4,19 +4,18 @@ var accountModel = require('../models/account.js'),
     Model = accountModel.getModel;
 
 exports.loginUser = function (req, res) {
-    console.log("Login user here");
-    console.log(req);
+    
     res.send({
         user : {
-            username: req.user.username, 
-            email: req.user.email, 
-            nickname: req.user.nickname
+            _id      : req.user._id,
+            username : req.user.username, 
+            email    : req.user.email, 
+            nickname : req.user.nickname
         }
     });
 };
 
 exports.registerUser = function (req, res) {
-    console.log(req.body);
     Model.register(
         new Model({
             username: req.body.username,
@@ -35,7 +34,6 @@ exports.registerUser = function (req, res) {
 };
 
 exports.logoutUser = function (req, res) {
-    console.log("Logout user");
     req.logout();
     res.redirect('/');
 };
