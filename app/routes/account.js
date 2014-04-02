@@ -39,7 +39,7 @@ exports.logoutUser = function (req, res) {
 };
 
 exports.registerMe = function (app) {
-    app.post('/internal/login', passport.authenticate('local'), this.loginUser);
-    app.post('/internal/register', this.registerUser);
-    app.get('/internal/logout', this.logoutUser);
+    app.post('/api/login', passport.authenticate('local'), this.loginUser);
+    app.post('/api/register', this.registerUser);
+    app.get('/api/logout', this.logoutUser);
 };

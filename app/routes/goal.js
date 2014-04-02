@@ -86,11 +86,11 @@ exports.removeNote = function (req, res) {
 
 exports.registerMe = function (app) {
     //TODO.xqliu Change /goals --> /internal/goal to make it the same for all URLs.
-    app.get('/goals', this.list);
-    app.post('/goals', this.create);
-    app.get('/goals/:id', this.get);
-    app.put('/goals/:id', this.update);
-    app.delete('/goals/:id', this.remove);
-    app.post('/goal/notes/:id', this.createNote);
-    app.delete('/goal/notes/:id/:noteId', this.removeNote);
+    app.get('/api/goals', this.list);
+    app.post('/api/goals', this.create);
+    app.get('/api/goals/:id', this.get);
+    app.put('/api/goals/:id', this.update);
+    app.delete('/api/goals/:id', this.remove);
+    app.post('/api/goal/notes/:id', this.createNote);
+    app.delete('/api/goal/notes/:id/:noteId', this.removeNote);
 };

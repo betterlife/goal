@@ -2,7 +2,7 @@
 
 var viewCtrl = function($scope, $http, $location, $modal, $routeParams) {
     var id = $routeParams.id;
-    $http.get('/goals/' + id).success(function (data, status, headers, config) {
+    $http.get('/api/goals/' + id).success(function (data, status, headers, config) {
         $scope.goal = data.goal;
         $scope.showNotePanel = ($scope.goal.comments.length > 0);
     });
@@ -20,11 +20,11 @@ var viewCtrl = function($scope, $http, $location, $modal, $routeParams) {
     };
 
     $scope.saveNote = function () {
-        $http.post('/goal/notes/' + id, {
+        $http.post('/api/goal/notes/' + id, {
             'comment' : $scope.comment 
         }).success(function (data) {
             $scope.toggleAddNoteForm();
-            $http.get('/goals/' + id).success(function (data, status, headers, config) {
+            $http.get('/api/goals/' + id).success(function (data, status, headers, config) {
                 $scope.goal = data.goal;
                 $scope.showNotePanel = ($scope.goal.comments.length > 0);
             });
@@ -49,8 +49,8 @@ var viewCtrl = function($scope, $http, $location, $modal, $routeParams) {
             }
         });
         modalInstance.result.then(function (noteId) {
-            $http.delete('/goal/notes/' + id + '/' + noteId).success(function (data) {
-                $http.get('/goals/' + id).success(function (data, status, headers, config) {
+            $http.delete('/api/goal/notes/' + id + '/' + noteId).success(function (data) {
+                $http.get('/api/goals/' + id).success(function (data, status, headers, config) {
                     $scope.goal = data.goal;
                     $scope.showNotePanel = ($scope.goal.comments.length > 0);
                 });

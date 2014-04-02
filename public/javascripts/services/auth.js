@@ -2,7 +2,7 @@ var loginService = function($rootScope, $http, $location){
     "use strict";
     return {
         login : function(username, password){
-            $http.post('/internal/login', {
+            $http.post('/api/login', {
                 username : username,
                 password : password
             }).success(function (data) {
@@ -22,7 +22,7 @@ var loginService = function($rootScope, $http, $location){
         },
 
         logout : function(){
-            $http.get('/internal/logout').success(function (data, status, headers, config) {
+            $http.get('/api/logout').success(function (data, status, headers, config) {
                 $location.path('/login');
                 $rootScope.user = undefined;
             });                        

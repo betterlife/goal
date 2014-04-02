@@ -49,7 +49,7 @@ describe('API', function () {
     });
 
     beforeEach(function (done) {
-        request(url).post('/goals').send({'goal' : goalObj}).expect(200, done);
+        request(url).post('/api/goals').send({'goal' : goalObj}).expect(200, done);
     });
 
     afterEach(function(done) {
@@ -59,20 +59,20 @@ describe('API', function () {
     
     describe('Goal object CRUD ', function () {
         it('Create goal object', function (done) {
-            request(url).post('/goals')
+            request(url).post('/api/goals')
                 .set('Accept', 'application/json')
                 .send({'goal': insertGoalObj})
                 .end(function (err, res) {
                     testUtil.assertDefined(res);
                     testUtil.assertDefined(res.body);
                     testUtil.assertGoalObj(insertGoalObj, res.body);
-                    request(url).del('/goals/' + insertId).expect(200,done);
+                    request(url).del('/api/goals/' + insertId).expect(200,done);
                 });
         });
 
         it('Read goal object', function (done) {
             request(url)
-                .get('/goals/' + id)
+                .get('/api/goals/' + id)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(200).end(function (err, res) {
@@ -85,7 +85,7 @@ describe('API', function () {
         });
         it('Update goal object', function (done) {
             request(url)
-                .put('/goals/' + id)
+                .put('/api/goals/' + id)
                 .send({'goal' : updatedGoalObj})
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
@@ -101,7 +101,7 @@ describe('API', function () {
         });
         it('Delete goal object', function (done) {
             request(url)
-                .get('/goals/' + id)
+                .get('/api/goals/' + id)
                 .set('Accept', 'application/json')
                 .expect('Content-Type', /json/)
                 .expect(200).end(function (err, res) {
@@ -110,9 +110,9 @@ describe('API', function () {
                     testUtil.assertDefined(res.body.goal);
                     testUtil.assertGoalObj(goalObj, res.body.goal);
                 });
-            request(url).del('/goals/' + id).expect(200, function (err, res) {
+            request(url).del('/api/goals/' + id).expect(200, function (err, res) {
                 request(url)
-                    .get('/goals/' + id)
+                    .get('/api/goals/' + id)
                     .set('Accept', 'application/json')
                     .expect('Content-Type', /json/)
                     .expect(200).end(function (err, res) {

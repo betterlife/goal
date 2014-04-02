@@ -1,7 +1,7 @@
 "use strict";
 
 var listCtrl = function ($scope, $http, $modal, $location, $routeParams) {
-    $http.get('/goals').success(function (data, status, headers, config) {
+    $http.get('/api/goals').success(function (data, status, headers, config) {
         $scope.goals = data.goals;
     });
 
@@ -23,7 +23,7 @@ var listCtrl = function ($scope, $http, $modal, $location, $routeParams) {
             }
         });
         modalInstance.result.then(function (id) {
-            $http.delete('/goals/' + id).success(function (data) {
+            $http.delete('/api/goals/' + id).success(function (data) {
                 $("#item_" + id).fadeOut();
             });
         }, function () {
@@ -33,10 +33,10 @@ var listCtrl = function ($scope, $http, $modal, $location, $routeParams) {
 
     $scope.finishGoal = function() {
         var id = this.goal._id;
-        $http.get('/goals/' + id).success(function (data, status, headers, config) {
+        $http.get('/api/goals/' + id).success(function (data, status, headers, config) {
             var goal = data.goal;
             goal.status = 'Finished';
-            $http.put('/goals/' + id, {
+            $http.put('/api/goals/' + id, {
                 'goal' : goal
             }).success(function (data) {
                 $location.path('/goal/list');

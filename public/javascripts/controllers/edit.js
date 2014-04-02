@@ -2,12 +2,12 @@
 
 var editCtrl = function($scope, $http, $location, $routeParams) {
     var id = $routeParams.id;
-    $http.get('/goals/' + id).success(function (data, status, headers, config) {
+    $http.get('/api/goals/' + id).success(function (data, status, headers, config) {
         $scope.goal = data.goal;
         $scope.action = "Update";
     });
     $scope.save = function () {
-        $http.put('/goals/' + id, {
+        $http.put('/api/goals/' + id, {
             'goal' : $scope.goal
         }).success(function (data) {
             $location.path('/goal/list');

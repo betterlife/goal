@@ -10,7 +10,7 @@ var registerCtrl = function($scope, $http, $location, $routeParams) {
             $scope.errors.other = 'Two password input is not the same, please confirm';
             return;
         }
-        $http.post('/internal/register', {
+        $http.post('/api/register', {
             username: signup.username,
             password: signup.password,
             email:signup.email,
