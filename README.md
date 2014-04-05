@@ -31,3 +31,4 @@ Development Links
 
 * [Code Climate](https://codeclimate.com/github/betterlife/goal)
 * [Circle CI](https://circleci.com/gh/betterlife/goal)
+* [npm registry](https://www.npmjs.org/package/betterlife)
