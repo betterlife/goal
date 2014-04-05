@@ -2,9 +2,9 @@ table(class="table table-striped table-condensed table-hover")
     thead
         th Title
         th Type
-        th Description
         th Status
         th Create Date
+        th Description
         th.icon-header-th Edit
         th.icon-header-th Delete
         th.icon-header-th Finish this
@@ -13,10 +13,12 @@ table(class="table table-striped table-condensed table-hover")
             td 
                 a(href='/#/goal/view/{{goal._id}}') {{goal.title}}
             td {{goal.type}}
-            td 
-                a(href='/#/goal/view/{{goal._id}}') {{goal.description}}
             td {{goal.status}}
             td {{goal.createDate | date:'MM/dd/yyyy @ h:mma'}}
+            td.icon-td                 
+                a(href="#" id="description{{goal._id}}" 
+                popover="{{goal.markedDescription}}" popover-placement="left" popover-title="Description")
+                    span.glyphicon.glyphicon-info-sign
             td.icon-td 
                 a(href='/#/goal/edit/{{goal._id}}')
                     i(class='glyphicon glyphicon-edit')

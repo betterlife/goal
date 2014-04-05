@@ -7,36 +7,9 @@
             return function(text) {
                 return $sce.trustAsHtml(text);
             };
-        }])
-        .directive('jqdatepicker', function () {
-            return {
-                restrict: "A",
-                require: "ngModel",
-                link: function (scope, elem, attrs, ngModelCtrl) {
-                    var updateModel = function (dateText) {
-                        // call $apply to bring stuff to angular model
-                        scope.$apply(function () {
-                            ngModelCtrl.$setViewValue(dateText);
-                        });
-                    };
-
-                    var options = {
-                        dateFormat: "dd/mm/yy",
-                        numberOfMonths: 3,
-                        showButtonPanel: true,
-                        // handle jquery date change
-                        onSelect: function (dateText) {
-                            updateModel(dateText);
-                        }
-                    };
-
-                    // jqueryfy the element
-                    elem.datepicker(options);
-                }
-            };
-        })
-        .config(['$routeProvider','$locationProvider',
-                 function ($routeProvider, $locationProvider) {
+        }])    
+        .config(['$routeProvider','$locationProvider', '$tooltipProvider',
+                 function ($routeProvider, $locationProvider, $tooltipProvider) {
                      $routeProvider.
                          when('/', {
                              templateUrl: '/partials/goal/list',
@@ -85,6 +58,12 @@
                              redirectTo: '/'
                          });
                      $locationProvider.html5Mode(true);
+                     $tooltipProvider.setTriggers({
+                         'click' : 'mouseleave'
+                     });
+                     $tooltipProvider.options({
+                         popupDelay: 50
+                     });
                  }])
         .run(['$rootScope', '$location', 'loginService', 
               function ($rootScope, $location, loginService) {
@@ -95,4 +74,18 @@
                       }
                   });
               }]);
+
+    // update popover template for binding unsafe html
+    angular.module("template/popover/popover.html", []).run(["$templateCache", function ($templateCache) {
+        $templateCache.put("template/popover/popover.html",
+                           "<div class=\"popover {{placement}}\" ng-class=\"{ in: isOpen(), fade: animation() }\">\n" +
+                           "  <div class=\"arrow\"></div>\n" +
+                           "\n" +
+                           "  <div class=\"popover-inner\">\n" +
+                           "      <h3 class=\"popover-title\" ng-bind-html=\"title | to_trusted\" ng-show=\"title\"></h3>\n" +
+                           "      <div class=\"popover-content\"ng-bind-html=\"content | to_trusted\"></div>\n" +
+                           "  </div>\n" +
+                           "</div>\n" +
+                           "");
+    }]);
 })();
