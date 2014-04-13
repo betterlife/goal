@@ -5,7 +5,7 @@ div(class='jumbotron')
         div(class="panel-body")
           div(class='col-sm-2') Description: 
           div(id='description' class='col-sm-10')
-              pre(ng-bind-html="goal.markedDescription | to_trusted")
+              pre(ng-bind-html="goal.markedDescription | to_trusted" class="goal-description")
           div(class='col-sm-2') Type: 
           div(id='type' class='col-sm-10') {{goal.type}}
           div(class='col-sm-2') Status: 
@@ -42,13 +42,13 @@ div(class='jumbotron')
             span Notes / Comments 
                 span(class='badge') {{goal.comments.length}}
         div(class="panel-body")
-            div(ng-repeat="comment in goal.comments | orderBy:'date':true" id='item_{{comment._id}}') 
-                pre(class='goal-comment') 
-                   span(class='pull-left')
-                        i(class='glyphicon glyphicon-comment')
-                        span(style='padding-right:10px') &nbsp;&nbsp;{{comment.date | date:'MM/dd/yyyy h:mma'}} 
-                    span(class='pull-right')
-                        a(ng-click='deleteNote()')
-                          i(class='glyphicon glyphicon-remove')
-                    hr                    
-                   div(ng-bind-html="comment.content | to_trusted")
+          div(ng-repeat="comment in goal.comments | orderBy:'date':true" id='item_{{comment._id}}') 
+               pre(class='goal-comment') 
+                 span(class='pull-left')
+                   i(class='glyphicon glyphicon-comment')
+                   span(style='padding-right:10px') &nbsp;&nbsp;{{comment.date | date:'MM/dd/yyyy h:mma'}} 
+                 span(class='pull-right')
+                   a(ng-click='deleteNote()')
+                     i(class='glyphicon glyphicon-remove')
+                 hr                    
+                 div(ng-bind-html="comment.content | to_trusted")

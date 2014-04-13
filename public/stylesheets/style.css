@@ -23,9 +23,17 @@ a {
     padding-right: 10px;
 }
 
-.goal-comment {
+.goal-comment, .goal-description {
     background-color:whitesmoke;
 }
+
+.goal-comment hr {
+    margin: 0;
+}
+pre.goal-comment, pre.goal-description{
+    line-height:1;
+}
+
 
 input.ng-invalid, select.ng-invalid, textarea.ng-invalid {
     border: 1px solid lightgray;
