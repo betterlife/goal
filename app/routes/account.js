@@ -18,9 +18,9 @@ exports.loginUser = function (req, res) {
 exports.registerUser = function (req, res) {
     Model.register(
         new Model({
-            username: req.body.username,
-            email: req.body.email,
-            nickname: req.body.nickname
+            username : req.body.username,
+            email    : req.body.email,
+            nickname : req.body.nickname
         }),
         req.body.password,
         function (err, account) {
