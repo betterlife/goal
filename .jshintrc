@@ -9,6 +9,6 @@
     "after"     : false,
     "it"        : false,
     "exports"   : false,
-    "__dirname" : false,
+    "__dirname" : false
   }
 }
