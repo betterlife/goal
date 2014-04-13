@@ -33,11 +33,17 @@ var registerCtrl = function($scope, $http, $location, loginService, $routeParams
                 email:signup.email,
                 nickname:$scope.signup.nickname
             }).success(function(data, status, headers, config){
-                console.info("Register successfully, login automatically");
-                $scope.regSuccess = true;
-                setTimeout(function(){
-                    loginService.login(signup.username, signup.password);
-                }, 1000);
+                console.dir(data);
+                console.info("Register data received");
+                if(data.error !== undefined) {
+                    $scope.errors.push(data.error.message);
+                    return;
+                } else {
+                    $scope.regSuccess = true;
+                    setTimeout(function(){
+                        loginService.login(signup.username, signup.password);
+                    }, 1000);
+                }
             });
         } else {
             $scope.errors.push("Please input all required data above");

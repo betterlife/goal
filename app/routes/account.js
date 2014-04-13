@@ -26,7 +26,7 @@ exports.registerUser = function (req, res) {
         function (err, account) {
             if (err) {
                 console.error(err);
-                return res.send({ account: account });
+                return res.send({"error" : err});
             }
             res.redirect('/');
         }
