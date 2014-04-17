@@ -24,6 +24,7 @@ var viewCtrl = function($scope, $http, $location, $modal, $routeParams) {
             'comment' : $scope.comment 
         }).success(function (data) {
             $scope.toggleAddNoteForm();
+            $scope.comment = undefined;
             $http.get('/api/goals/' + id).success(function (data, status, headers, config) {
                 $scope.goal = data.goal;
                 $scope.showNotePanel = ($scope.goal.comments.length > 0);
