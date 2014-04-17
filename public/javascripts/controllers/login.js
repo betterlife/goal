@@ -18,6 +18,7 @@ loginCtrl.$inject = ['$scope', '$http', 'loginService', '$location', '$routePara
 
 var logoutCtrl = function($scope, $http, $location, $routeParams, loginService) {
     "use strict";
+    console.log("I am logout in controller");
     loginService.logout();
 };
 

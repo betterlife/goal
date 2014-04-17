@@ -4,7 +4,6 @@ var accountModel = require('../models/account.js'),
     Model = accountModel.getModel;
 
 exports.loginUser = function (req, res) {
-    
     res.send({
         user : {
             _id      : req.user._id,
@@ -35,7 +34,7 @@ exports.registerUser = function (req, res) {
 
 exports.logoutUser = function (req, res) {
     req.logout();
-    res.redirect('/');
+    res.send({});
 };
 
 exports.registerMe = function (app) {

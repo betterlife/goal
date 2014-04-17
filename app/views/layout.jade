@@ -9,6 +9,7 @@ html(data-ng-app='mainApp')
         script(src='/bower_components/angular/angular.min.js')
         script(src='/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js')
         script(src='/bower_components/angular-route/angular-route.min.js')
+        script(src='/bower_components/angular-cookies/angular-cookies.min.js')
         if env == 'development'
             script(src='/javascripts/client.js')
             script(src='/javascripts/controllers/create.js')
@@ -32,17 +33,17 @@ html(data-ng-app='mainApp')
             div.header(ng-controller='navController')
                 ul(class='nav nav-pills pull-right')
                     li(ng-class="{active: isActive('/')}")
-                        a(href='/' ng-show='user') Home
+                        a(href='/' ng-show='isLoggedIn()') Home
                     li(ng-class="{active: isActive('/goal/list')}")
-                        a(href='/#/goal/list' ng-show="user") All Goals
+                        a(href='/#/goal/list' ng-show="isLoggedIn()") All Goals
                     li(ng-class="{active: isActive('/goal/add')}")
-                        a(href='/#/goal/add' ng-show='user') New Goal
+                        a(href='/#/goal/add' ng-show='isLoggedIn()') New Goal
                     li(ng-class="{active: isActive('/logout')}")
-                        a(href='/logout' ng-show='user') Logout
+                        a(href='/logout' ng-show='isLoggedIn()') Logout
                     li(ng-class="{active: isActive('/login')}")
-                        a(href='/login' ng-hide='user') Login
+                        a(href='/login' ng-hide='isLoggedIn()') Login
                     li(ng-class="{active: isActive('/register')}")
-                        a(href='/register' ng-hide='user') Register
+                        a(href='/register' ng-hide='isLoggedIn()') Register
                 h3.text-muted GOAL | Betterlife
             block content
             if env == 'development'

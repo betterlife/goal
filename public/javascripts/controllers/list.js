@@ -2,7 +2,11 @@
 
 var listCtrl = function ($scope, $http, $modal, $location, $routeParams) {
     $http.get('/api/goals').success(function (data, status, headers, config) {
-        $scope.goals = data.goals;
+        if (data.error === true){
+            $location.url("/login");
+        } else {
+            $scope.goals = data.goals;
+        }
     });
 
     $scope.deleteGoal = function () {

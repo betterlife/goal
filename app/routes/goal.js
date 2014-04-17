@@ -6,11 +6,19 @@ var goalModel  = require('../models/goal.js'),
     Model      = goalModel.getModel();
 
 exports.list = function (req, res) {
-    return Model.find({
-        userId: req.user._id
-    }, function (err, goals) {
-        return modelUtil.constructResponse(res, err, {'goals' : goals});
-    });
+    if (req.user === null || req.user === undefined){
+        res.send({
+            "error" : true,
+            "errorCode" : 1
+        });
+    } else {
+        console.log("User in req: " + req.user._id);
+        return Model.find({
+            userId: req.user._id
+        }, function (err, goals) {
+            return modelUtil.constructResponse(res, err, {'goals' : goals});
+        });
+    }
 };
 
 exports.create = function (req, res) {
