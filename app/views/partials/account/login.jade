@@ -1,6 +1,8 @@
 .row
     .col-sm-5(class='center-block' style='float:none')
-        h3#title(style='float:none;text-align:center') GOAL  |  Track --> Action --> Attain
+        h3.login-h3-title GOAL  |  Track --> Action --> Attain
+        hr.login-hr
+        div.login-to-honey HONEY: Use your name(pinyin) and our first meet date(4 digits) to login
         form(role='form' class='form-horizontal' name='loginform' class='form')
             div(class='form-group has-error')
                 div.alert.alert-danger.alert-dismissable(ng-show="errors.other.length > 0") {{errors.other}}

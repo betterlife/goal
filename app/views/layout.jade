@@ -32,8 +32,8 @@ html(data-ng-app='mainApp')
         div.container
             div.header(ng-controller='navController')
                 ul(class='nav nav-pills pull-right')
-                    li(ng-class="{active: isActive('/')}")
-                        a(href='/' ng-show='isLoggedIn()') Home
+                    li#menu-welcome(ng-show="isLoggedIn()" ng-class="{active: false}") 
+                        a(href="#") Welcome to a better life, {{getLoggedInUserDisplay()}}
                     li(ng-class="{active: isActive('/goal/list')}")
                         a(href='/#/goal/list' ng-show="isLoggedIn()") All Goals
                     li(ng-class="{active: isActive('/goal/add')}")
@@ -44,7 +44,8 @@ html(data-ng-app='mainApp')
                         a(href='/login' ng-hide='isLoggedIn()') Login
                     li(ng-class="{active: isActive('/register')}")
                         a(href='/register' ng-hide='isLoggedIn()') Register
-                h3.text-muted GOAL | Betterlife
+                h3.text-muted 
+                    a.text-muted(href="/") GOAL | Betterlife
             block content
             if env == 'development'
                 hr
