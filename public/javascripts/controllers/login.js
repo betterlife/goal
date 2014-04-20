@@ -1,24 +1,23 @@
-var loginCtrl = function($scope, $http, loginService, $location, $routeParams) {
+var loginCtrl = function ($scope, $http, loginService, $location, $routeParams) {
     "use strict";
-    $scope.login = function() {
+    $scope.login = function () {
         var username = $scope.username,
         password = $scope.password;
-        if (username !== undefined && username !== '' && 
+        if (username !== undefined && username !== '' &&
             password !== undefined && password !== '') {
             loginService.login(username, password);
         } else {
             $scope.errors = {
                 other : "Please input both username and password to login"
-            }; 
+            };
         }
     };
 };
 
 loginCtrl.$inject = ['$scope', '$http', 'loginService', '$location', '$routeParams'];
 
-var logoutCtrl = function($scope, $http, $location, $routeParams, loginService) {
+var logoutCtrl = function ($scope, $http, $location, $routeParams, loginService) {
     "use strict";
-    console.log("I am logout in controller");
     loginService.logout();
 };
 

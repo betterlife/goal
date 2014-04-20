@@ -1,8 +1,8 @@
-var loginService = function($rootScope, $http, $cookieStore, $location){
+var loginService = function ($rootScope, $http, $cookieStore, $location) {
     "use strict";
     var internal = {};
     internal.user = null;
-    internal.login = function(username, password){
+    internal.login = function (username, password) {
         $http.post('/api/login', {
             username : username,
             password : password
@@ -13,28 +13,28 @@ var loginService = function($rootScope, $http, $cookieStore, $location){
             if (internal.user === null)  {
                 $cookieStore.remove('user');
             }
-            else { 
+            else {
                 $cookieStore.put('user', internal.user);
             }
-        }).error(function(data, status){
+        }).error(function (data, status) {
             $rootScope.errors = {
                 other : 'Login failed, please confirm username and password is correct'
             };
-        });         
+        });
     };
    
-    internal.getLoggedInUser = function() {
+    internal.getLoggedInUser = function () {
         return internal.user;
     };
 
-    internal.isLoggedIn = function(){
+    internal.isLoggedIn = function () {
         if (internal.user === null || internal.user === undefined) {
             internal.user = $cookieStore.get('user');
         }
         return (internal.user !== null && internal.user !== undefined);
     };
 
-    internal.logout = function(){
+    internal.logout = function () {
         //Clear of cookie and internal data should be synchronized to
         //update menu on the fly
         $cookieStore.remove('user');
@@ -43,9 +43,9 @@ var loginService = function($rootScope, $http, $cookieStore, $location){
         $http.get('/api/logout').success(
             function (data, status, headers, config) {
             //Do nothing here
-        }).error(function(data, status){
+        }).error(function (data, status) {
             //Do nothing here
-        });                           
+        });
     };
 
     return internal;

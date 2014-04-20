@@ -1,4 +1,4 @@
-var registerCtrl = function($scope, $http, $location, loginService, $routeParams) {
+var registerCtrl = function ($scope, $http, $location, loginService, $routeParams) {
     "use strict";
     if ($scope.errors === undefined) {
         $scope.errors = [];
@@ -9,38 +9,38 @@ var registerCtrl = function($scope, $http, $location, loginService, $routeParams
             $scope.errors = [];
         }
         if (signup !== undefined) {
-            if (signup.username === undefined){
+            if (signup.username === undefined) {
                 $scope.errors.push("Please input username");
             }
-            if (signup.email === undefined){
+            if (signup.email === undefined) {
                 $scope.errors.push("Please input email address");
             }
-            if (signup.password === undefined){
+            if (signup.password === undefined) {
                 $scope.errors.push("Please input password");
             }
-            if (signup.password2 === undefined){
+            if (signup.password2 === undefined) {
                 $scope.errors.push("Please input password confirmation");
             }
-            if (signup.password !== signup.password2){
-                $scope.errors.push ('Two password input is not the same, please confirm');
+            if (signup.password !== signup.password2) {
+                $scope.errors.push('Two password input is not the same, please confirm');
             }
             if ($scope.errors.length !== undefined && $scope.errors.length !== 0) {
                 return;
             }
             $http.post('/api/register', {
-                username: signup.username,
-                password: signup.password,
-                email:signup.email,
-                nickname:$scope.signup.nickname
-            }).success(function(data, status, headers, config){
-                console.dir(data);
-                console.info("Register data received");
-                if(data.error !== undefined) {
+                'account' : {
+                    username: signup.username,
+                    password: signup.password,
+                    email: signup.email,
+                    nickname: $scope.signup.nickname
+                }
+            }).success(function (data, status, headers, config) {
+                if (data.error !== undefined) {
                     $scope.errors.push(data.error.message);
                     return;
                 } else {
                     $scope.regSuccess = true;
-                    setTimeout(function(){
+                    setTimeout(function () {
                         loginService.login(signup.username, signup.password);
                     }, 1000);
                 }
