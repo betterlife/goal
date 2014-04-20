@@ -2,7 +2,7 @@ var serverConfig = {
     'port'   : 3001,
     'env'    : 'testing',
      //To skip log output during testing, set to dev to show logs
-    'logger' : 'dev'
+    'logger' : 'development'
 };
 
 var url = 'http://localhost:' + serverConfig.port;

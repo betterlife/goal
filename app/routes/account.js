@@ -1,33 +1,43 @@
 "use strict";
 var accountModel = require('../models/account.js'),
     passport = accountModel.getPassport,
-    Model = accountModel.getModel;
+    Model = accountModel.getModel();
 
 exports.loginUser = function (req, res) {
     res.send({
         user : {
             _id      : req.user._id,
-            username : req.user.username, 
-            email    : req.user.email, 
+            username : req.user.username,
+            email    : req.user.email,
             nickname : req.user.nickname
         }
     });
 };
 
 exports.registerUser = function (req, res) {
+    var model = new Model({
+        username : req.body.account.username,
+        email    : req.body.account.email,
+        nickname : req.body.account.nickname
+    });
+    if (req.body.account._id) {
+        model._id = req.body.account._id;
+    }
     Model.register(
-        new Model({
-            username : req.body.username,
-            email    : req.body.email,
-            nickname : req.body.nickname
-        }),
-        req.body.password,
+        model,
+        req.body.account.password,
         function (err, account) {
             if (err) {
                 console.error(err);
                 return res.send({"error" : err});
             }
-            res.redirect('/');
+            return res.send({
+                "__v"      : account.__v,
+                "_id"      : account._id,
+                "username" : account.username,
+                "email"    : account.email,
+                "nickname" : account.nickname
+            });
         }
     );
 };

@@ -1,8 +1,17 @@
 "use strict";
 var request = require('supertest');
-var goalModel = require('../models/goal.js');
+var goalModel  =  require('../models/goal.js').getModel();
+var accountModel = require('../models/account.js').getModel();
 var mongodbUrl = 'mongodb://localhost/test';
-var Model = goalModel.getModel();
+var removeAllObj = function (objModel) {
+    objModel.find(function (err, objs) {
+        if (!err && objs.length > 0) {
+            for (var i = 0; i < objs.length; i++) {
+                objs[i].remove();
+            }
+        }
+    });
+};
 
 exports.done = function (err, res, done) {
     if (err) {
@@ -25,14 +34,11 @@ exports.textVerify = function (text, url, path) {
 };
 
 exports.removeAllGoals = function () {
-    Model.find(function (err, goals) {
-        if (!err) {
-            var i;
-            for (i = 0; i < goals.length; i++) {
-                goals[i].remove();
-            }
-        }
-    });
+    removeAllObj(goalModel);
+};
+
+exports.removeAllAccounts = function () {
+    removeAllObj(accountModel);
 };
 
 exports.assertGoalObj = function (expected, actual) {
@@ -43,6 +49,14 @@ exports.assertGoalObj = function (expected, actual) {
     actual.type.should.equal(expected.type);
     actual.status.should.equal(expected.status);
     new Date(actual.createDate).should.eql(expected.createDate);
+};
+
+exports.assertAccountObj = function (expected, actual) {
+    actual.__v.should.equal(0);
+    actual._id.should.equal(expected._id + '');
+    actual.username.should.equal(expected.username);
+    actual.email.should.equal(expected.email);
+    actual.nickname.should.equal(expected.nickname);
 };
 
 exports.assertDefined = function (obj) {

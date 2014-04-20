@@ -1,4 +1,3 @@
-"use strict";
 var should     = require('should');
 var assert     = require('assert');
 var request    = require('supertest');
@@ -7,7 +6,8 @@ var testUtil   = require('../app/util/testUtil');
 var testConfig = require('../app/util/testConfig');
 var app        = require('../app/app');
 
-describe('API', function () {
+describe('Goal and goal notes API', function () {
+    "use strict";
     var url = testConfig.url;
     var id = mongoose.Types.ObjectId('123456789012');
     var insertId =  mongoose.Types.ObjectId('123456789ABC');
@@ -52,7 +52,7 @@ describe('API', function () {
         request(url).post('/api/goals').send({'goal' : goalObj}).expect(200, done);
     });
 
-    afterEach(function(done) {
+    afterEach(function (done) {
         testUtil.removeAllGoals();
         done();
     });
