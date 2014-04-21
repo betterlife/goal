@@ -1,22 +1,28 @@
 var should = require('should');
 var assert = require('assert');
-var request = require('supertest');
+var superTest = require('supertest');
+var superAgent = require('superagent');
+var userAgent  = superAgent.agent();
 var mongoose = require('mongoose');
-var testUtil = require('../app/util/testUtil');
-var testConfig = require('../app/util/testConfig');
+var testUtil = require('./../app/util/testUtil');
+var testConfig = require('./../app/util/testConfig');
 var commonUtil = require('../app/util/commonUtil');
 var app = require('../app/app');
 
 describe('Account API', function () {
     "use strict";
     var url = testConfig.url;
-    var dummyUser = {
-        '_id': mongoose.Types.ObjectId('123456789012'),
-        'username': "testUser",
-        'password': "password",
-        'email': "test@test.com",
-        'nickname': "Test user"
+    var dummyUser = testConfig.dummyUser;
+    var insertId =  mongoose.Types.ObjectId('123456789ABC');
+    var insertGoalObj = {
+        '_id'         : insertId,
+        'title'       : 'Sample Title for Insert',
+        'description' : 'Sample Description for Insert',
+        'type'        : 'Annually',
+        'status'      : 'In Progress',
+        'createDate'  : new Date()
     };
+
     var createUser = {
         '_id': mongoose.Types.ObjectId('123456789013'),
         'username': "testCreateUser",
@@ -24,6 +30,7 @@ describe('Account API', function () {
         'email': "test@test1.com",
         'nickname': "Test create user"
     };
+
     before(function (done) {
         app.startServer(testConfig.serverConfig);
         testUtil.removeAllAccounts();
@@ -37,7 +44,7 @@ describe('Account API', function () {
     });
 
     beforeEach(function (done) {
-        request(url).post('/api/register')
+        superTest(url).post('/api/register')
             .send({"account": dummyUser}).expect(200, done);
     });
 
@@ -47,7 +54,7 @@ describe('Account API', function () {
     });
 
     var testLogin = function (username, password, done, asserts) {
-        request(url).post('/api/login')
+        superTest(url).post('/api/login')
             .set('Accept', 'application/json')
             .send({
                 'username': username,
@@ -68,7 +75,7 @@ describe('Account API', function () {
     };
 
     var testCreateAccount = function (userObj, done, asserts) {
-        request(url).post('/api/register')
+        superTest(url).post('/api/register')
             .set('Accept', 'application/json')
             .send({"account": userObj})
             .end(function (err, res) {
@@ -142,6 +149,21 @@ describe('Account API', function () {
 
         it('Login use empty password', function (done) {
             testWrongLogin(dummyUser.username, '', done);
+        });
+    });
+
+    describe('Logout', function () {
+        it('User should not be able to call API after logout', function (done) {
+            testUtil.decorateSession(
+                userAgent, function (err, res) {
+                    testUtil.assertNormalStatus(err, res);
+                    userAgent.get(url + "/api/logout").end(
+                        function (err, res) {
+                            testUtil.assertNormalStatus(err, res);
+                            should.exist(res.headers['set-cookie']);
+                            done();
+                        });
+                });
         });
     });
 });

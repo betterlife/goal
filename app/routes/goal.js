@@ -3,33 +3,25 @@
 var goalModel  = require('../models/goal.js'),
     modelUtil  = require('../util/modelUtil.js'),
     marked     = require('marked'),
+    authUtil   = require('../util/authUtil.js'),
     Model      = goalModel.getModel();
 
 exports.list = function (req, res) {
-    if (req.user === null || req.user === undefined){
-        res.send({
-            "error" : true,
-            "errorCode" : 1
-        });
-    } else {
-        console.log("User in req: " + req.user._id);
-        return Model.find({
-            userId: req.user._id
-        }, function (err, goals) {
-            return modelUtil.constructResponse(res, err, {'goals' : goals});
-        });
-    }
+    return Model.find({
+        userId: req.user._id
+    }, function (err, goals) {
+        return modelUtil.constructResponse(res, err, {'goals' : goals});
+    });
 };
 
 exports.create = function (req, res) {
-    var goal;
-    goal = new Model({
-        title       : req.body.goal.title,
-        description : req.body.goal.description === undefined ? '' : req.body.goal.description,
-        type        : req.body.goal.type,
-        status      : req.body.goal.status,
-        createDate  : req.body.goal.createDate,
-        userId      : req.body.goal.userId
+    var goal = new Model({
+        title: req.body.goal.title,
+        description: req.body.goal.description === undefined ? '' : req.body.goal.description,
+        type: req.body.goal.type,
+        status: req.body.goal.status,
+        createDate: req.body.goal.createDate,
+        userId: req.body.goal.userId
     });
     if (req.body.goal._id) {
         goal._id = req.body.goal._id;
@@ -93,12 +85,12 @@ exports.removeNote = function (req, res) {
 };
 
 exports.registerMe = function (app) {
-    //TODO.xqliu Change /goals --> /internal/goal to make it the same for all URLs.
-    app.get('/api/goals', this.list);
-    app.post('/api/goals', this.create);
-    app.get('/api/goals/:id', this.get);
-    app.put('/api/goals/:id', this.update);
-    app.delete('/api/goals/:id', this.remove);
-    app.post('/api/goal/notes/:id', this.createNote);
-    app.delete('/api/goal/notes/:id/:noteId', this.removeNote);
+    var checkLoggedIn = authUtil.isLoggedIn;
+    app.get('/api/goals', checkLoggedIn, this.list);
+    app.post('/api/goals', checkLoggedIn, this.create);
+    app.get('/api/goals/:id', checkLoggedIn, this.get);
+    app.put('/api/goals/:id', checkLoggedIn, this.update);
+    app.delete('/api/goals/:id', checkLoggedIn, this.remove);
+    app.post('/api/goal/notes/:id', checkLoggedIn, this.createNote);
+    app.delete('/api/goal/notes/:id/:noteId', checkLoggedIn, this.removeNote);
 };

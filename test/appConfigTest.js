@@ -3,8 +3,8 @@ var should     = require('should');
 var assert     = require('assert');
 var request    = require('supertest');
 var mongoose   = require('mongoose');
-var testUtil   = require('../app/util/testUtil');
-var testConfig = require('../app/util/testConfig');
+var testUtil   = require('./../app/util/testUtil');
+var testConfig = require('./../app/util/testConfig');
 var app        = require('../app/app');
 
 describe('API', function () {

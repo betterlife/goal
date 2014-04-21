@@ -1,10 +1,11 @@
 var should     = require('should');
 var assert     = require('assert');
-var request    = require('supertest');
+var request    = require('superagent');
 var mongoose   = require('mongoose');
-var testUtil   = require('../app/util/testUtil');
-var testConfig = require('../app/util/testConfig');
+var testUtil   = require('./../app/util/testUtil');
+var testConfig = require('./../app/util/testConfig');
 var app        = require('../app/app');
+var userAgent  = request.agent();
 
 describe('Goal and goal notes API', function () {
     "use strict";
@@ -19,6 +20,8 @@ describe('Goal and goal notes API', function () {
         'status'      : 'New',
         'createDate'  : new Date()
     };
+
+    var dummyUser = testConfig.dummyUser;
 
     var updatedGoalObj = {
         'title'       : 'Updated title',
@@ -35,91 +38,118 @@ describe('Goal and goal notes API', function () {
         'status'      : 'In Progress',
         'createDate'  : new Date()
     };
+
+    var decorateSession = function (callback) {
+        testUtil.decorateSession(userAgent, callback);
+    };
     
     before(function (done) {
         app.startServer(testConfig.serverConfig);
-        testUtil.removeAllGoals();
+        testUtil.cleanData();
         done();
     });
 
     after(function (done) {
         app.stopServer();
-        testUtil.removeAllGoals();
         done();
     });
 
     beforeEach(function (done) {
-        request(url).post('/api/goals').send({'goal' : goalObj}).expect(200, done);
+        userAgent.post(url + '/api/register')
+            .send({"account": dummyUser})
+            .end(function (err, res) {
+                testUtil.assertNormalStatus(err, res);
+                done();
+            });
     });
 
     afterEach(function (done) {
-        testUtil.removeAllGoals();
+        testUtil.cleanData();
         done();
     });
     
     describe('Goal object CRUD ', function () {
         it('Create goal object', function (done) {
-            request(url).post('/api/goals')
-                .set('Accept', 'application/json')
-                .send({'goal': insertGoalObj})
-                .end(function (err, res) {
-                    testUtil.assertDefined(res);
-                    testUtil.assertDefined(res.body);
-                    testUtil.assertGoalObj(insertGoalObj, res.body);
-                    request(url).del('/api/goals/' + insertId).expect(200,done);
-                });
+            decorateSession(function (err, res) {
+                testUtil.assertNormalStatus(err, res);
+                userAgent.post(url + '/api/goals')
+                    .send({'goal': insertGoalObj})
+                    .end(function (err, res) {
+                        testUtil.assertNormalStatus(err, res);
+                        testUtil.assertDefined(res);
+                        testUtil.assertDefined(res.body);
+                        testUtil.assertGoalObj(insertGoalObj, res.body);
+                        done();
+                    });
+            });
         });
 
         it('Read goal object', function (done) {
-            request(url)
-                .get('/api/goals/' + id)
-                .set('Accept', 'application/json')
-                .expect('Content-Type', /json/)
-                .expect(200).end(function (err, res) {
-                    testUtil.assertDefined(res);
-                    testUtil.assertDefined(res.body);
-                    testUtil.assertDefined(res.body.goal);
-                    testUtil.assertGoalObj(goalObj, res.body.goal);
-                    done();
-                });
+            decorateSession(function (err, res) {
+                testUtil.assertNormalStatus(err, res);
+                userAgent.post(url + '/api/goals')
+                    .send({'goal': goalObj})
+                    .end(function (err, res) {
+                        testUtil.assertNormalStatus(err, res);
+                        userAgent.get(url + '/api/goals/' + id)
+                            .set('Accept', 'application/json')
+                            .end(function (err, res) {
+                                testUtil.assertNormalStatus(err, res);
+                                testUtil.assertDefined(res);
+                                testUtil.assertDefined(res.body);
+                                testUtil.assertDefined(res.body.goal);
+                                testUtil.assertGoalObj(goalObj, res.body.goal);
+                                done();
+                            });
+                    });
+            });
         });
+
         it('Update goal object', function (done) {
-            request(url)
-                .put('/api/goals/' + id)
-                .send({'goal' : updatedGoalObj})
-                .set('Accept', 'application/json')
-                .expect('Content-Type', /json/)
-                .expect(200).end(function (err, res) {
-                    testUtil.assertDefined(res);
-                    testUtil.assertDefined(res.body);
-                    testUtil.assertDefined(res.body.goal);
-                    updatedGoalObj._id = id;
-                    updatedGoalObj.createDate = goalObj.createDate;
-                    testUtil.assertGoalObj(updatedGoalObj, res.body.goal);
-                    done();
-                });
+            decorateSession(function (err, res) {
+                testUtil.assertNormalStatus(err, res);
+                userAgent.post(url + '/api/goals')
+                    .send({'goal': goalObj})
+                    .end(function (err, res) {
+                        testUtil.assertNormalStatus(err, res);
+                        userAgent.put(url + '/api/goals/' + id)
+                            .send({'goal' : updatedGoalObj})
+                            .end(function (err, res) {
+                                testUtil.assertNormalStatus(err, res);
+                                testUtil.assertDefined(res);
+                                testUtil.assertDefined(res.body);
+                                testUtil.assertDefined(res.body.goal);
+                                updatedGoalObj._id = id;
+                                updatedGoalObj.createDate = goalObj.createDate;
+                                testUtil.assertGoalObj(updatedGoalObj, res.body.goal);
+                                done();
+                            });
+                    });
+            });
         });
         it('Delete goal object', function (done) {
-            request(url)
-                .get('/api/goals/' + id)
-                .set('Accept', 'application/json')
-                .expect('Content-Type', /json/)
-                .expect(200).end(function (err, res) {
-                    testUtil.assertDefined(res);
-                    testUtil.assertDefined(res.body);
-                    testUtil.assertDefined(res.body.goal);
-                    testUtil.assertGoalObj(goalObj, res.body.goal);
-                });
-            request(url).del('/api/goals/' + id).expect(200, function (err, res) {
-                request(url)
-                    .get('/api/goals/' + id)
-                    .set('Accept', 'application/json')
-                    .expect('Content-Type', /json/)
-                    .expect(200).end(function (err, res) {
+            decorateSession(function (err, res) {
+                testUtil.assertNormalStatus(err, res);
+                userAgent.post(url + '/api/goals')
+                    .send({'goal': insertGoalObj})
+                    .end(function (err, res) {
+                        testUtil.assertNormalStatus(err, res);
                         testUtil.assertDefined(res);
                         testUtil.assertDefined(res.body);
-                        assert.equal(res.body.goal, null);
-                        done();
+                        testUtil.assertGoalObj(insertGoalObj, res.body);
+                        userAgent.get(url + '/api/goals/' + insertId)
+                            .set('Accept', 'application/json')
+                            .end(function (err, res) {
+                                testUtil.assertNormalStatus(err, res);
+                                testUtil.assertDefined(res);
+                                testUtil.assertDefined(res.body);
+                                testUtil.assertDefined(res.body.goal);
+                                testUtil.assertGoalObj(insertGoalObj, res.body.goal);
+                                userAgent.del(url + '/api/goals/' + insertId).end(function (err, res) {
+                                    testUtil.assertNormalStatus(err, res);
+                                    done();
+                                });
+                            });
                     });
             });
         });

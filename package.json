@@ -26,6 +26,7 @@
     },
     "devDependencies": {
       "mocha"                 : "*",
+      "superagent"            : "*",
       "supertest"             : "*",
       "should"                : "*",
       "reload"                : "*",

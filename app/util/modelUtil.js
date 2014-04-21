@@ -3,7 +3,6 @@
 
 var constructResponse = function (res, err, data) {
     if (err) {
-        console.log(err);
         return res.send(err);
     }
     return res.send(data);
