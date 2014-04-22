@@ -24,7 +24,9 @@ Build Status
 Code Quantity
 =====
 
-Code Climate Rating: [![Code Climate](https://codeclimate.com/github/lifebetter/goal.png)](https://codeclimate.com/github/betterlife/goal)
+Code Quantity Report: [![Code Climate](https://codeclimate.com/github/lifebetter/goal.png)](https://codeclimate.com/github/betterlife/goal)
+
+Code Coverage Report: [![Code Climate](https://codeclimate.com/github/betterlife/goal/coverage.png)](https://codeclimate.com/github/betterlife/goal)
 
 Development Links
 =====
