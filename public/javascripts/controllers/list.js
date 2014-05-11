@@ -2,7 +2,7 @@
 
 var listCtrl = function ($scope, $http, $modal, $location, $routeParams) {
     $http.get('/api/goals').success(function (data, status, headers, config) {
-        if (data.error === true){
+        if (data.error === true) {
             $location.url("/login");
         } else {
             $scope.goals = data.goals;
@@ -35,7 +35,7 @@ var listCtrl = function ($scope, $http, $modal, $location, $routeParams) {
         });
     };
 
-    $scope.finishGoal = function() {
+    $scope.finishGoal = function () {
         var id = this.goal._id;
         $http.get('/api/goals/' + id).success(function (data, status, headers, config) {
             var goal = data.goal;
