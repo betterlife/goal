@@ -1,19 +1,22 @@
-var navController = function($scope, $rootScope, $http, $location, loginService, $routeParams) {
+var navController = function ($scope, $rootScope, $http, $location, loginService, $routeParams) {
     "use strict";
-    $scope.isActive = function(route) {
-        return route === $location.path();        
+    $scope.isActive = function (route) {
+        return route === $location.path();
     };
 
-    $scope.isLoggedIn = function(){
+    $scope.isLoggedIn = function () {
         return loginService.isLoggedIn();
     };
 
-    $scope.getLoggedInUserDisplay = function(){
+    $scope.getLoggedInUserDisplay = function () {
         var user = loginService.getLoggedInUser();
-        if (user.nickname !== null && user.nickname !== undefined){
-            return user.nickname;
+        if (null !== user && undefined !== user) {
+            if (user.nickname !== null && user.nickname !== undefined) {
+                return user.nickname;
+            }
+            return user.username;
         }
-        return user.username;
+        return "";
     };
 };
 
