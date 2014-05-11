@@ -6,12 +6,21 @@ var goalModel  = require('../models/goal.js'),
     authUtil   = require('../util/authUtil.js'),
     Model      = goalModel.getModel();
 
-exports.list = function (req, res) {
+var queryGoalsByStatus = function (req, res, statusWhere) {
     return Model.find({
-        userId: req.user._id
+        userId: req.user._id,
+        status: statusWhere
     }, function (err, goals) {
         return modelUtil.constructResponse(res, err, {'goals' : goals});
     });
+};
+
+exports.list = function (req, res) {
+    return queryGoalsByStatus(req, res, {$nin: goalModel.getArchivedStatuses()});
+};
+
+exports.listArchived = function (req, res) {
+    return queryGoalsByStatus(req, res, {$in: goalModel.getArchivedStatuses()});
 };
 
 exports.create = function (req, res) {
@@ -87,6 +96,7 @@ exports.removeNote = function (req, res) {
 exports.registerMe = function (app) {
     var checkLoggedIn = authUtil.isLoggedIn;
     app.get('/api/goals', checkLoggedIn, this.list);
+    app.get('/api/goals/archived', checkLoggedIn, this.listArchived);
     app.post('/api/goals', checkLoggedIn, this.create);
     app.get('/api/goals/:id', checkLoggedIn, this.get);
     app.put('/api/goals/:id', checkLoggedIn, this.update);

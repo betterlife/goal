@@ -15,6 +15,7 @@ html(data-ng-app='mainApp')
             script(src='/javascripts/controllers/create.js')
             script(src='/javascripts/controllers/edit.js')
             script(src='/javascripts/controllers/list.js')
+            script(src='/javascripts/controllers/listArchived.js')
             script(src='/javascripts/controllers/login.js')
             script(src='/javascripts/controllers/modal.js')
             script(src='/javascripts/controllers/navbar.js')
@@ -23,7 +24,10 @@ html(data-ng-app='mainApp')
             script(src='/javascripts/services/auth.js')
         else
             script(src='/javascripts/client.min.js')
-        link(rel='stylesheet', href='/stylesheets/style.min.css')
+        if env == 'development'
+            link(rel='stylesheet', href='/stylesheets/style.css')
+        else
+            link(rel='stylesheet', href='/stylesheets/style.min.css')
         link(rel='stylesheet', href='/bower_components/jquery-ui/themes/base/jquery-ui.css')
         link(rel='stylesheet', href='/bower_components/jquery-ui/themes/base/jquery.ui.datepicker.css')
         link(rel='stylesheet', href='/bower_components/bootstrap/dist/css/bootstrap.min.css')
@@ -35,7 +39,9 @@ html(data-ng-app='mainApp')
                     li#menu-welcome(ng-show="isLoggedIn()" ng-class="{active: false}") 
                         a(href="#") Welcome to a better life, {{getLoggedInUserDisplay()}}
                     li(ng-class="{active: isActive('/goal/list')}")
-                        a(href='/#/goal/list' ng-show="isLoggedIn()") All Goals
+                        a(href='/#/goal/list' ng-show="isLoggedIn()") Active Goals
+                    li(ng-class="{active: isActive('/goal/archived')}")
+                        a(href='/#/goal/archived' ng-show="isLoggedIn()") Archived Goals
                     li(ng-class="{active: isActive('/goal/add')}")
                         a(href='/#/goal/add' ng-show='isLoggedIn()') New Goal
                     li(ng-class="{active: isActive('/logout')}")

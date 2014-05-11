@@ -16,9 +16,9 @@ table(class="table table-striped table-condensed table-hover")
             td {{goal.status}}
             td {{goal.createDate | date:'MM/dd/yyyy @ h:mma'}}
             td.icon-td                 
-                a(href="#" id="description{{goal._id}}" 
+                span(id="description{{goal._id}}"
                 popover="{{goal.markedDescription}}" popover-placement="left" popover-title="<div class='text-center'>Description</div>")
-                    span.glyphicon.glyphicon-info-sign
+                    span.glyphicon.glyphicon-info-sign.goal-list-desc-icon
             td.icon-td 
                 a(href='/#/goal/edit/{{goal._id}}')
                     i(class='glyphicon glyphicon-edit')

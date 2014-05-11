@@ -21,6 +21,11 @@
                              controller: listCtrl,
                              authenticate: true
                          }).
+                         when('/goal/archived', {
+                             templateUrl: '/partials/goal/list',
+                             controller: listArchivedCtrl,
+                             authenticate: true
+                         }).
                          when('/goal/delete/:id', {
                              templateUrl: '/partials/goal/delete',
                              controller: listCtrl,

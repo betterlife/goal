@@ -93,3 +93,7 @@ h3 {
     text-align:center;
     margin-bottom: 0;
 }
+
+.goal-list-desc-icon {
+    color: #428bca; cursor: help;
+}
