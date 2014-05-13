@@ -44,7 +44,8 @@ exports.registerUser = function (req, res) {
 
 exports.logoutUser = function (req, res) {
     req.logout();
-    res.send({});
+    delete req.session;
+    res.redirect("/login");
 };
 
 exports.registerMe = function (app) {

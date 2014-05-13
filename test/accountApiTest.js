@@ -20,7 +20,8 @@ describe('Account API', function () {
         'description' : 'Sample Description for Insert',
         'type'        : 'Annually',
         'status'      : 'In Progress',
-        'createDate'  : new Date()
+        'createDate'  : new Date(),
+        'dueDate'     : new Date()
     };
 
     var createUser = {
@@ -34,22 +35,27 @@ describe('Account API', function () {
     before(function (done) {
         app.startServer(testConfig.serverConfig);
         testUtil.removeAllAccounts();
+        testUtil.removeAllGoals();
         done();
     });
 
     after(function (done) {
         app.stopServer();
-        testUtil.removeAllAccounts();
         done();
     });
 
     beforeEach(function (done) {
-        superTest(url).post('/api/register')
-            .send({"account": dummyUser}).expect(200, done);
+        userAgent.post(url + '/api/register')
+            .send({"account": dummyUser})
+            .end(function (err, res) {
+                testUtil.assertNormalStatus(err, res);
+                done();
+            });
     });
 
     afterEach(function (done) {
         testUtil.removeAllAccounts();
+        testUtil.removeAllGoals();
         done();
     });
 
@@ -153,16 +159,44 @@ describe('Account API', function () {
     });
 
     describe('Logout', function () {
-        it('User should not be able to call API after logout', function (done) {
-            testUtil.decorateSession(
-                userAgent, function (err, res) {
+        it('User should be able to logout', function (done) {
+            testUtil.decorateSession(userAgent, function (err, res) {
+                testUtil.assertNormalStatus(err, res);
+                userAgent.get(url + "/api/logout").end(
+                    function (err, res) {
+                        testUtil.assertNormalStatus(err, res);
+                        res.redirects.should.eql(['http://localhost:' + testConfig.serverConfig.port + "/login"]);
+                        done();
+                    });
+            });
+        });
+    });
+
+    describe('Invoke API', function () {
+        it('User should not be able to invoke API before login', function (done) {
+            userAgent.post(url + '/api/goals')
+                .send({'goal': insertGoalObj})
+                .end(function (err, res) {
                     testUtil.assertNormalStatus(err, res);
-                    userAgent.get(url + "/api/logout").end(
-                        function (err, res) {
-                            testUtil.assertNormalStatus(err, res);
-                            should.exist(res.headers['set-cookie']);
-                            done();
-                        });
+                    testUtil.assertDefined(res);
+                    testUtil.assertDefined(res.body);
+                    assert.deepEqual(res.body, {
+                        "error": true,
+                        "errorCode": 1
+                    }, "User should not pass authentication check when invoke API before login");
+                    testUtil.decorateSession(userAgent, function (err, res) {
+                        testUtil.assertNormalStatus(err, res);
+                        userAgent.get(url + '/api/goals/' + insertGoalObj._id)
+                            .set('Accept', 'application/json')
+                            .end(function (err, res) {
+                                testUtil.assertNormalStatus(err, res);
+                                testUtil.assertDefined(res);
+                                testUtil.assertDefined(res.body);
+                                should.equal(res.body.goal, null,
+                                    "Data should not be inserted into DB if invoke API before login");
+                                done();
+                            });
+                    });
                 });
         });
     });
