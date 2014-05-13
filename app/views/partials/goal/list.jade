@@ -25,9 +25,7 @@ table(class="table table-striped table-condensed table-hover")
                 a(href='/#/goal/edit/{{goal._id}}')
                     i(class='glyphicon glyphicon-edit')
             td.icon-td 
-                a(href='#')
-                    i(class='glyphicon glyphicon-remove' ng-click='deleteGoal()')
+                i(class='glyphicon glyphicon-remove goal-list-delete-icon' ng-click='deleteGoal()')
             td.icon-td 
-                a(href='#' ng-click='finishGoal()')
-                    i(class='glyphicon glyphicon-ok')
+                i(class='glyphicon glyphicon-ok goal-list-finish-icon' ng-click='finishGoal()')
 

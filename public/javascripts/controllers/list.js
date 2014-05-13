@@ -51,7 +51,7 @@ var listCtrl = function ($scope, $http, $modal, $location, dueDateService, $rout
             $http.put('/api/goals/' + id, {
                 'goal' : goal
             }).success(function (data) {
-                $location.path('/goal/list');
+                $("#item_" + id).fadeOut();
             });
         });
     };

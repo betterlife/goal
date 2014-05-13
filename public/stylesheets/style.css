@@ -94,8 +94,15 @@ h3 {
     margin-bottom: 0;
 }
 
+.goal-list-desc-icon,
+.goal-list-delete-icon,
+.goal-list-finish-icon {
+    color: #428bca;
+    cursor:pointer
+}
+
 .goal-list-desc-icon {
-    color: #428bca; cursor: help;
+    cursor: help;
 }
 
 .goal-date {
