@@ -59,6 +59,7 @@ exports.assertGoalObj = function (expected, actual) {
     actual.type.should.equal(expected.type);
     actual.status.should.equal(expected.status);
     new Date(actual.createDate).should.eql(expected.createDate);
+    new Date(actual.dueDate).should.eql(expected.dueDate);
 };
 
 exports.assertAccountObj = function (expected, actual) {

@@ -56,11 +56,13 @@ exports.update = function (req, res) {
             title: req.body.goal.title,
             description: req.body.goal.description === undefined ? '' : req.body.goal.description,
             type: req.body.goal.type,
-            dueDate: req.body.goal.dueDate,
             status: req.body.goal.status
         },
         query   = {'_id' : req.params.id},
         options = {'new' : true};
+    if (req.body.goal.dueDate !== undefined) {
+        goal.dueDate = req.body.goal.dueDate;
+    }
     return Model.findOneAndUpdate(query, goal, options, function (err, data) {
         return modelUtil.constructResponse(res, err, {'goal' : data});
     });

@@ -18,7 +18,8 @@ describe('Goal and goal notes API', function () {
         'description' : 'Sample Description for Read Update',
         'type'        : 'Long term(10 to 20 Year)',
         'status'      : 'New',
-        'createDate'  : new Date()
+        'createDate'  : new Date(),
+        'dueDate'     : new Date()
     };
 
     var dummyUser = testConfig.dummyUser;
@@ -36,7 +37,8 @@ describe('Goal and goal notes API', function () {
         'description' : 'Sample Description for Insert',
         'type'        : 'Annually',
         'status'      : 'In Progress',
-        'createDate'  : new Date()
+        'createDate'  : new Date(),
+        'dueDate'     : new Date()
     };
 
     var decorateSession = function (callback) {
@@ -121,6 +123,7 @@ describe('Goal and goal notes API', function () {
                                 testUtil.assertDefined(res.body.goal);
                                 updatedGoalObj._id = id;
                                 updatedGoalObj.createDate = goalObj.createDate;
+                                updatedGoalObj.dueDate    = goalObj.dueDate;
                                 testUtil.assertGoalObj(updatedGoalObj, res.body.goal);
                                 done();
                             });
