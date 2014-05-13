@@ -57,7 +57,7 @@ input.ng-invalid, select.ng-invalid, textarea.ng-invalid {
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
 
 .icon-header-th, .icon-td {
-    width: 100px;
+    width: 60px;
     text-align:center;
 }
 
@@ -96,4 +96,9 @@ h3 {
 
 .goal-list-desc-icon {
     color: #428bca; cursor: help;
+}
+
+.goal-date {
+    width:265px !important;
+    float:right;
 }

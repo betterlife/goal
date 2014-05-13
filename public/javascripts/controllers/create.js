@@ -1,4 +1,4 @@
-var createCtrl = function($scope, $http, $location, loginService, $routeParams) {
+var createCtrl = function($scope, $http, $location, loginService, dueDateService, $routeParams) {
     "use strict";
     $scope.action = "Create";
     $scope.goal = { createDate : new Date()};
@@ -15,8 +15,15 @@ var createCtrl = function($scope, $http, $location, loginService, $routeParams) 
             console.info("Current login user is null");
         }
     };
+
+    $scope.dateOptions = dueDateService.dateOptions;
+
+    $scope.goalDueDateMsg = function () {
+        return dueDateService.goalDueDateMsg($scope.goal);
+    };
+
 };
 
-createCtrl.$inject = ['$scope', '$http', '$location', 'loginService', '$routeParams'];
+createCtrl.$inject = ['$scope', '$http', '$location', 'loginService', 'dueDateService', '$routeParams'];
 
 angular.module('mainApp').controller('createCtrl', createCtrl);

@@ -12,6 +12,7 @@ exports.getSchema = function (Schema) {
         description : { type : String },
         type        : { type : String, required : true },
         createDate  : { type : Date,   default  : Date.now },
+        dueDate     : { type : Date},
         status      : { type : String },
         comments: [{
             date    : { type : Date, default : Date.now },

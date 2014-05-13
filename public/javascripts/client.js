@@ -2,7 +2,7 @@
 (function () {
     "use strict";
 
-    angular.module('mainApp', ['ngRoute', 'ngCookies', 'ui.bootstrap'])
+    angular.module('mainApp', ['ngRoute', 'ngCookies', 'ui.bootstrap', 'ui.date'])
         .filter('to_trusted', ['$sce', function ($sce) {
             return function (text) {
                 return $sce.trustAsHtml(text);
@@ -20,7 +20,7 @@
                         authenticate: true
                     }).when('/goal/archived', {
                         templateUrl: '/partials/goal/list',
-                        controller: listArchivedCtrl,
+                        controller: listCtrl,
                         authenticate: true
                     }).when('/goal/delete/:id', {
                         templateUrl: '/partials/goal/delete',

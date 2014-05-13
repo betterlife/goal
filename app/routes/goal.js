@@ -29,6 +29,7 @@ exports.create = function (req, res) {
         description: req.body.goal.description === undefined ? '' : req.body.goal.description,
         type: req.body.goal.type,
         status: req.body.goal.status,
+        dueDate: req.body.goal.dueDate,
         createDate: req.body.goal.createDate,
         userId: req.body.goal.userId
     });
@@ -55,6 +56,7 @@ exports.update = function (req, res) {
             title: req.body.goal.title,
             description: req.body.goal.description === undefined ? '' : req.body.goal.description,
             type: req.body.goal.type,
+            dueDate: req.body.goal.dueDate,
             status: req.body.goal.status
         },
         query   = {'_id' : req.params.id},

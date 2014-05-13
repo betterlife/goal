@@ -4,24 +4,25 @@ html(data-ng-app='mainApp')
         title #{title}
         script(src='/bower_components/jquery/dist/jquery.min.js')
         script(src='/bower_components/jquery-ui/ui/jquery-ui.js')
-        script(src='/bower_components/jquery-ui/ui/jquery.ui.datepicker.js')
         script(src='/bower_components/bootstrap/dist/js/bootstrap.min.js')
         script(src='/bower_components/angular/angular.min.js')
         script(src='/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js')
         script(src='/bower_components/angular-route/angular-route.min.js')
         script(src='/bower_components/angular-cookies/angular-cookies.min.js')
+        script(src='/bower_components/angular-ui-date/src/date.js')
+        script(src='/bower_components/momentjs/min/moment.min.js')
         if env == 'development'
             script(src='/javascripts/client.js')
             script(src='/javascripts/controllers/create.js')
             script(src='/javascripts/controllers/edit.js')
             script(src='/javascripts/controllers/list.js')
-            script(src='/javascripts/controllers/listArchived.js')
             script(src='/javascripts/controllers/login.js')
             script(src='/javascripts/controllers/modal.js')
             script(src='/javascripts/controllers/navbar.js')
             script(src='/javascripts/controllers/register.js')
             script(src='/javascripts/controllers/view.js')
             script(src='/javascripts/services/auth.js')
+            script(src='/javascripts/services/dueDate.js')
         else
             script(src='/javascripts/client.min.js')
         if env == 'development'
@@ -29,7 +30,7 @@ html(data-ng-app='mainApp')
         else
             link(rel='stylesheet', href='/stylesheets/style.min.css')
         link(rel='stylesheet', href='/bower_components/jquery-ui/themes/base/jquery-ui.css')
-        link(rel='stylesheet', href='/bower_components/jquery-ui/themes/base/jquery.ui.datepicker.css')
+
         link(rel='stylesheet', href='/bower_components/bootstrap/dist/css/bootstrap.min.css')
         base(href="/")
     body

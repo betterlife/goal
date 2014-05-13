@@ -1,6 +1,6 @@
 'use strict';
 
-var viewCtrl = function($scope, $http, $location, $modal, $routeParams) {
+var viewCtrl = function ($scope, $http, $location, $modal, dueDateService, $routeParams) {
     var id = $routeParams.id;
     $http.get('/api/goals/' + id).success(function (data, status, headers, config) {
         $scope.goal = data.goal;
@@ -11,7 +11,7 @@ var viewCtrl = function($scope, $http, $location, $modal, $routeParams) {
         if ($scope.showAddNoteForm !== true) {
             if (!$scope.comment) {
                 $scope.comment = {};
-            } 
+            }
             $scope.comment.date = new Date();
             $scope.showAddNoteForm = true;
         } else {
@@ -19,9 +19,13 @@ var viewCtrl = function($scope, $http, $location, $modal, $routeParams) {
         }
     };
 
+    $scope.goalDueDateMsg = function () {
+        return dueDateService.goalDueDateMsg($scope.goal);
+    };
+
     $scope.saveNote = function () {
         $http.post('/api/goal/notes/' + id, {
-            'comment' : $scope.comment 
+            'comment' : $scope.comment
         }).success(function (data) {
             $scope.toggleAddNoteForm();
             $scope.comment = undefined;
@@ -62,6 +66,6 @@ var viewCtrl = function($scope, $http, $location, $modal, $routeParams) {
     };
 };
 
-viewCtrl.$inject = ['$scope', '$http', '$location', '$modal', '$routeParams'];
+viewCtrl.$inject = ['$scope', '$http', '$location', '$modal', 'dueDateService', '$routeParams'];
 
 angular.module('mainApp').controller('viewCtrl', viewCtrl);

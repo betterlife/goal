@@ -8,6 +8,8 @@ div(class='jumbotron')
               pre(ng-bind-html="goal.markedDescription | to_trusted" class="goal-description")
           div(class='col-sm-2') Type: 
           div(id='type' class='col-sm-10') {{goal.type}}
+          div(class='col-sm-2') Due:
+          div(id='type' class='col-sm-10') {{goalDueDateMsg()}}
           div(class='col-sm-2') Status: 
           div(id='status' class='col-sm-10') {{goal.status}}
         div(class="panel-footer")
