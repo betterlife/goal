@@ -15,16 +15,16 @@ div(class='jumbotron')
                   div(class='col-sm-10 pt-10')
                     textarea(name='description' ng-model='goal.description' id='description' class='form-control' rows='6')
               div(class='form-group')
+                  label(for='type' class='control-label col-sm-2') Goal Due
+                  div(class='col-sm-10 pt-10')
+                      div(style="float:left;text-align:left;font-size:16px") {{goalDueDateMsg()}}
+                      input(ui-date="dateOptions" class="form-control goal-date" name="dueDate" ng-model="goal.dueDate")
+              div(class='form-group')
                   label(for='type' class='control-label col-sm-2') Type
                   div(class='col-sm-10 pt-10')
                     select(name='type' ng-model='goal.type' id='type' class='form-control' ng-required='true')
                         for item in goalTypes
                           option #{item}
-              div(class='form-group')
-                  label(for='type' class='control-label col-sm-2') Goal Due
-                  div(class='col-sm-10 pt-10')
-                      div(style="float:left;text-align:left;font-size:16px") {{goalDueDateMsg()}}
-                      input(ui-date="dateOptions" class="form-control goal-date" name="dueDate" ng-model="goal.dueDate")
               div(class='form-group')
                   label(for='status' class='control-label col-sm-2') Status
                   div(class='col-sm-10 pt-10')
