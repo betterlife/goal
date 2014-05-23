@@ -11,8 +11,8 @@
         .config(['$routeProvider', '$locationProvider', '$tooltipProvider',
             function ($routeProvider, $locationProvider, $tooltipProvider) {
                 $routeProvider.when('/', {
-                        templateUrl: '/partials/goal/list',
-                        controller: listCtrl,
+                        templateUrl: '/partials/goal/dashboard',
+                        controller: dashboardCtrl,
                         authenticate: true
                     }).when('/goal/list', {
                         templateUrl: '/partials/goal/list',

@@ -1,4 +1,4 @@
-var createCtrl = function($scope, $http, $location, loginService, dueDateService, $routeParams) {
+var createCtrl = function ($scope, $http, $location, loginService, dueDateService, $routeParams) {
     "use strict";
     $scope.action = "Create";
     $scope.goal = { createDate : new Date()};

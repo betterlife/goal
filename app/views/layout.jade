@@ -21,16 +21,16 @@ html(data-ng-app='mainApp')
             script(src='/javascripts/controllers/navbar.js')
             script(src='/javascripts/controllers/register.js')
             script(src='/javascripts/controllers/view.js')
+            script(src='/javascripts/controllers/dashboard.js')
             script(src='/javascripts/services/auth.js')
             script(src='/javascripts/services/dueDate.js')
+            link(rel='stylesheet', href='/stylesheets/style.css')
+            link(rel='stylesheet', href='/stylesheets/widget.css')
         else
             script(src='/javascripts/client.min.js')
-        if env == 'development'
-            link(rel='stylesheet', href='/stylesheets/style.css')
-        else
             link(rel='stylesheet', href='/stylesheets/style.min.css')
+            link(rel='stylesheet', href='/stylesheets/widget.min.css')
         link(rel='stylesheet', href='/bower_components/jquery-ui/themes/base/jquery-ui.css')
-
         link(rel='stylesheet', href='/bower_components/bootstrap/dist/css/bootstrap.min.css')
         base(href="/")
     body
