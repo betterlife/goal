@@ -1,6 +1,6 @@
 "use strict";
 
-var listCtrl = function ($scope, $http, $modal, $location, dueDateService, $routeParams) {
+var listCtrl = function ($scope, $http, $modal, $location, dueDateService, goalService, $routeParams) {
     var getUrl;
 
     if ($location.$$url === "/goal/archived") {
@@ -43,17 +43,10 @@ var listCtrl = function ($scope, $http, $modal, $location, dueDateService, $rout
         });
     };
 
+
     $scope.finishGoal = function () {
         var id = this.goal._id;
-        $http.get('/api/goals/' + id).success(function (data, status, headers, config) {
-            var goal = data.goal;
-            goal.status = 'Finished';
-            $http.put('/api/goals/' + id, {
-                'goal' : goal
-            }).success(function (data) {
-                $("#item_" + id).fadeOut();
-            });
-        });
+        goalService.finishGoal(id);
     };
 
     $scope.home = function () {
@@ -65,6 +58,6 @@ var listCtrl = function ($scope, $http, $modal, $location, dueDateService, $rout
     };
 };
 
-listCtrl.$inject = ['$scope', '$http', '$modal', '$location', 'dueDateService', '$routeParams'];
+listCtrl.$inject = ['$scope', '$http', '$modal', '$location', 'dueDateService', 'goalService', '$routeParams'];
 
 angular.module('mainApp').controller('listCtrl', listCtrl);
