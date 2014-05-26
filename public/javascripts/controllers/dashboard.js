@@ -12,6 +12,8 @@ var dashboardCtrl = function ($scope, $http, $location, dueDateService, goalServ
         }
     });
 
+    goalService.setUpcomingGoal($scope);
+
     $scope.finishGoal = function () {
         var id = this.goal._id, tempGoals = [];
         angular.forEach($scope.overDueGoals, function (value) {
@@ -23,6 +25,15 @@ var dashboardCtrl = function ($scope, $http, $location, dueDateService, goalServ
         goalService.finishGoal(id, function (data) {
             $("#overdue_item_" + id).fadeOut();
         });
+    };
+
+    $scope.finishUpcomingGoal = function () {
+        var id = $scope.upcomingGoal[0]._id;
+        if (id !== null && id !== undefined) {
+            goalService.finishGoal(id, function (data) {
+                goalService.setUpcomingGoal($scope);
+            });
+        }
     };
 
     $scope.goalDueDateMsg = function () {

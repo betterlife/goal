@@ -18,7 +18,6 @@ var queryGoalsByStatusAndDue = function (req, res, statusWhere, dueDateWhere) {
     if (null !== statusWhere && undefined !== statusWhere) {
         where.status = statusWhere;
     }
-    console.dir(where);
     return Model.find(where, function (err, goals) {
         return modelUtil.constructResponse(res, err, {'goals' : goals});
     });
@@ -26,8 +25,6 @@ var queryGoalsByStatusAndDue = function (req, res, statusWhere, dueDateWhere) {
 
 exports.getByDueDateRange = function (req, res) {
     var start = req.params.dueDateStart, stop = req.params.dueDateStop;
-    console.log(start);
-    console.log(stop);
     var dueDateWhere = {};
     if (start !== '0') {
         dueDateWhere.$gt = new Date(start);
@@ -44,6 +41,20 @@ exports.list = function (req, res) {
 
 exports.listArchived = function (req, res) {
     return queryGoalsByStatusAndDue(req, res, archivedStatusWhere);
+};
+
+exports.getUpcomingOne = function (req, res) {
+    var where = {};
+    where.dueDate = {$gt : new Date()};
+    where.status = activeStatusWhere;
+    console.dir(where);
+    return Model.find(where)
+        .limit(1)
+        .sort('dueDate')
+        .exec(function (err, goal) {
+            console.log(goal);
+            return modelUtil.constructResponse(res, err, {'goal' : goal});
+        });
 };
 
 exports.create = function (req, res) {
@@ -124,6 +135,7 @@ exports.registerMe = function (app) {
     var checkLoggedIn = authUtil.isLoggedIn;
     app.get('/api/goals', checkLoggedIn, this.list);
     app.get('/api/goals/archived', checkLoggedIn, this.listArchived);
+    app.get('/api/goals/upcoming', checkLoggedIn, this.getUpcomingOne);
     app.get('/api/goals/:dueDateStart/:dueDateStop', checkLoggedIn, this.getByDueDateRange);
     app.post('/api/goals', checkLoggedIn, this.create);
     app.get('/api/goals/:id', checkLoggedIn, this.get);

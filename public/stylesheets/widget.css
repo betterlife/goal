@@ -78,6 +78,11 @@
     margin:auto;
     text-align:center;
 }
+
+.upcoming-panel .big-font {
+    color: #428bca;
+}
+
 .text-panel header h2 {
     display:none;
 }

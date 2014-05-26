@@ -12,6 +12,16 @@ var goalService = function ($rootScope, $http, $location) {
             });
         });
     };
+
+    internal.setUpcomingGoal = function (scope) {
+        $http.get('/api/goals/upcoming').success(function (data, status, headers, config) {
+            if (data.error === true) {
+                $location.url("/login");
+            } else {
+                scope.upcomingGoal = data.goal;
+            }
+        });
+    };
     return internal;
 };
 

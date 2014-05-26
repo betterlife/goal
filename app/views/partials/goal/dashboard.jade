@@ -1,6 +1,18 @@
+.panel.col-sm-12.upcoming-panel.text-panel(ng-show="upcomingGoal[0] != null")
+    header
+        h2 FOCUS
+    section
+        p.big-font
+            span(style="float:left") FOCUS: {{upcomingGoal[0].title}}
+            span(style="float:right")
+                span(id="upcoming-goal-detail" style="padding-right:40px"
+                popover="<div class='small'>{{upcomingGoal[0].markedDescription}}</div>" popover-placement="left" popover-title="")
+                    span.glyphicon.glyphicon-info-sign.goal-list-desc-icon
+                i(class='glyphicon glyphicon-ok goal-list-finish-icon' ng-click='finishUpcomingGoal()')
+
 .widget.col-sm-12.overdue-widget(ng-show="overDueGoals.length > 0")
     header
-       h2 Overdue goals
+       h2 OVERDUE
     section
        table(class="table table-striped table-condensed table-hover")
            thead
@@ -22,32 +34,26 @@
                    td.icon-td
                        i(class='glyphicon glyphicon-ok goal-list-finish-icon' ng-click='finishGoal()')
 
-.panel.col-sm-12.overdue-widget.text-panel(ng-hide="overDueGoals.length > 0")
+.panel.col-sm-3.overdue-widget.text-panel(ng-hide="overDueGoals.length > 0")
     header
-        h2 Congurations!
+        h2 Congurations
     section
-        p.big-font All goals has been achived according to their due date, super man!
+        p.big-font Overdue &nbsp;&nbsp;
+            i(class='glyphicon glyphicon-ok goal-list-finish-icon' ng-click='finishGoal()')
 
-
-.widget.col-sm-6.upcoming-widget
-    header
-       h2 Upcoming goals
-    section
-       p List of upcoming goals
-
-.widget.col-sm-6.year-widget
+.widget.col-sm-12.year-widget
     header
        h2 Goal of current year
     section
        p List of current year's goal
 
-.widget.col-sm-6.month-widget
+.widget.col-sm-12.month-widget
     header
        h2 Goal of current Month
     section
        p List of current month's goal
 
-.widget.col-sm-6.week-widget
+.widget.col-sm-12.week-widget
     header
        h2 Goal of current week
     section
