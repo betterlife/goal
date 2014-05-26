@@ -1,4 +1,4 @@
-.widget.col-sm-12
+.widget.col-sm-12.overdue-widget(ng-show="overDueGoals.length > 0")
     header
        h2 Overdue goals
     section
@@ -10,7 +10,7 @@
                th.icon-header-th Detail
                th.icon-header-th Finish
            tbody
-               tr(ng-repeat='goal in overDueGoals' id='item_{{goal._id}}')
+               tr(ng-repeat='goal in overDueGoals' id='overdue_item_{{goal._id}}')
                    td
                        a(href='/#/goal/view/{{goal._id}}') {{goal.title}}
                    td {{goal.type}}
@@ -21,31 +21,39 @@
                            span.glyphicon.glyphicon-info-sign.goal-list-desc-icon
                    td.icon-td
                        i(class='glyphicon glyphicon-ok goal-list-finish-icon' ng-click='finishGoal()')
-.widget.col-sm-6
+
+.panel.col-sm-12.overdue-widget.text-panel(ng-hide="overDueGoals.length > 0")
+    header
+        h2 Congurations!
+    section
+        p.big-font All goals has been achived according to their due date, super man!
+
+
+.widget.col-sm-6.upcoming-widget
     header
        h2 Upcoming goals
     section
        p List of upcoming goals
 
-.widget.col-sm-6
+.widget.col-sm-6.year-widget
     header
        h2 Goal of current year
     section
        p List of current year's goal
 
-.widget.col-sm-6
+.widget.col-sm-6.month-widget
     header
        h2 Goal of current Month
     section
        p List of current month's goal
 
-.widget.col-sm-6
+.widget.col-sm-6.week-widget
     header
        h2 Goal of current week
     section
        p List of current week's goal
 
-.panel.col-sm-12
+.panel.col-sm-12.shortcut-widget
     header
         h2 Add New Goal
     section

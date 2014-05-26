@@ -13,8 +13,16 @@ var dashboardCtrl = function ($scope, $http, $location, dueDateService, goalServ
     });
 
     $scope.finishGoal = function () {
-        var id = this.goal._id;
-        goalService.finishGoal(id);
+        var id = this.goal._id, tempGoals = [];
+        angular.forEach($scope.overDueGoals, function (value) {
+            if (value._id !== id) {
+                tempGoals.push(value);
+            }
+        });
+        $scope.overDueGoals = tempGoals;
+        goalService.finishGoal(id, function (data) {
+            $("#overdue_item_" + id).fadeOut();
+        });
     };
 
     $scope.goalDueDateMsg = function () {

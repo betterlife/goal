@@ -84,3 +84,13 @@
 .widget .table {
     margin-bottom: 0;
 }
+
+.text-panel .big-font{
+    font-size: 200%;
+    color: darkgray;
+    margin:auto;
+    text-align:center;
+}
+.text-panel header h2 {
+    display:none;
+}
