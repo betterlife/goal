@@ -2,8 +2,20 @@
 "use strict";
 var marked = require('marked'),
     mongoose = require('mongoose'),
+    moment  = require('moment'),
     Schema = mongoose.Schema;
 var model;
+
+moment.lang('en', {
+    calendar : {
+        lastDay : '[Yesterday] ',
+        sameDay : '[Today] ',
+        nextDay : '[Tomorrow] ',
+        lastWeek : '[Last] dddd ',
+        nextWeek : '[Next] dddd ',
+        sameElse : 'L'
+    }
+});
 
 exports.getSchema = function (Schema) {
     var schema = new Schema({
@@ -24,6 +36,24 @@ exports.getSchema = function (Schema) {
             return marked(this.description);
         }
         return ' ';
+    });
+    schema.virtual('dueDateDisplay').get(function () {
+        var date, m, prefix, diff, thisMoment;
+        if (this.dueDate !== '' && this.dueDate !== undefined && this.dueDate !== null) {
+            m = moment(this.dueDate);
+            if (null !== m) {
+                thisMoment = moment(new Date());
+                diff = m.diff(thisMoment, 'days');
+                if (diff > 7 || diff < -7) {
+                    prefix = m.format("dddd, MMMM Do YYYY");
+                } else {
+                    prefix = m.calendar();
+                }
+                return  prefix + " (" + m.fromNow() + ")";
+            }
+            return " ";
+        }
+        return 'No Due Date';
     });
     schema.set('toJSON', { virtuals: true });
     return schema;

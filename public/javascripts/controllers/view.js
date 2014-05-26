@@ -19,10 +19,6 @@ var viewCtrl = function ($scope, $http, $location, $modal, dueDateService, $rout
         }
     };
 
-    $scope.goalDueDateMsg = function () {
-        return dueDateService.goalDueDateMsg($scope.goal);
-    };
-
     $scope.saveNote = function () {
         $http.post('/api/goal/notes/' + id, {
             'comment' : $scope.comment

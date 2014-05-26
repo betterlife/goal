@@ -55,9 +55,6 @@ var listCtrl = function ($scope, $http, $modal, $location, dueDateService, goalS
         $location.url('/goal/list');
     };
 
-    $scope.goalDueDateMsg = function () {
-        return dueDateService.goalDueDateMsg(this.goal);
-    };
 };
 
 listCtrl.$inject = ['$scope', '$http', '$modal', '$location', 'dueDateService', 'goalService', '$routeParams'];
