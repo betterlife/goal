@@ -13,32 +13,25 @@ var dashboardCtrl = function ($scope, $http, $location, dueDateService, goalServ
     });
 
     goalService.setUpcomingGoal($scope);
+    goalService.setCurrentYearGoal($scope);
+    goalService.setCurrentMonthGoal($scope);
+    goalService.setCurrentWeekGoal($scope);
 
-    $scope.finishGoal = function () {
-        var id = this.goal._id, tempGoals = [];
-        angular.forEach($scope.overDueGoals, function (value) {
-            if (value._id !== id) {
-                tempGoals.push(value);
-            }
-        });
-        $scope.overDueGoals = tempGoals;
-        goalService.finishGoal(id, function (data) {
-            $("#overdue_item_" + id).fadeOut();
+    $scope.finishGoal = function (goal, goals, listName) {
+        goalService.finishGoal(goal._id, $scope, listName, function(data) {
+            goalService.setUpcomingGoal($scope);
         });
     };
 
     $scope.finishUpcomingGoal = function () {
         var id = $scope.upcomingGoal[0]._id;
         if (id !== null && id !== undefined) {
-            goalService.finishGoal(id, function (data) {
+            goalService.finishGoal(id, undefined, undefined, function (data) {
                 goalService.setUpcomingGoal($scope);
             });
         }
     };
 
-    $scope.goalDueDateMsg = function () {
-        return dueDateService.goalDueDateMsg(this.goal);
-    };
 };
 
 dashboardCtrl.$inject = ['$scope', '$http', '$location', 'dueDateService', 'goalService', '$routeParams'];

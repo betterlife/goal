@@ -14,16 +14,17 @@
     background: -moz-linear-gradient(top,  #f7f7f7,  #e1e1e1);
     filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#e1e1e1');
     border: 1px solid #ccc;
-    color: #333;
-    font-size: 13px;
+    color: #777777;
+    font-size: 140%;
     text-shadow: 0 1px 0 #fff;
-    height: 30px;
-    line-height: 30px;
+    height: 40px;
+    line-height: 40px;
     margin: 0;
     padding: 0 10px;
     -moz-box-shadow:inset 0 1px 0 #fff;
     -webkit-box-shadow:inset 0 1px 0 #fff;
     box-shadow:inset 0 1px 0 #fff;
+    text-align: center;
 }
 .widget section, #calbody {
     border-left: 1px solid #ccc;

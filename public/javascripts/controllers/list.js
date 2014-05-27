@@ -46,9 +46,7 @@ var listCtrl = function ($scope, $http, $modal, $location, dueDateService, goalS
 
     $scope.finishGoal = function () {
         var id = this.goal._id;
-        goalService.finishGoal(id, function (data) {
-            $("#item_" + id).fadeOut();
-        });
+        goalService.finishGoal(id, $scope, "goals");
     };
 
     $scope.home = function () {

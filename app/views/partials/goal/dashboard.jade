@@ -5,65 +5,21 @@
         p.big-font
             span(style="float:left") FOCUS: {{upcomingGoal[0].title}}
             span(style="float:right")
-                span(id="upcoming-goal-detail" style="padding-right:40px"
+                a(href="/#/goal/view/{{upcomingGoal[0]._id}}")
+                    i(class='glyphicon glyphicon-eye-open')
+                span(id="upcoming-goal-detail" style="padding-left:40px;padding-right:40px"
                 popover="<div class='small'>{{upcomingGoal[0].markedDescription}}</div>" popover-placement="left" popover-title="")
                     span.glyphicon.glyphicon-info-sign.goal-list-desc-icon
                 i(class='glyphicon glyphicon-ok goal-list-finish-icon' ng-click='finishUpcomingGoal()')
 
-.widget.col-sm-12.overdue-widget(ng-show="overDueGoals.length > 0")
-    header
-       h2 OVERDUE
-    section
-       table(class="table table-striped table-condensed table-hover")
-           thead
-               th Title
-               th Type
-               th Due Date
-               th.icon-header-th Detail
-               th.icon-header-th Finish
-           tbody
-               tr(ng-repeat='goal in overDueGoals' id='overdue_item_{{goal._id}}')
-                   td
-                       a(href='/#/goal/view/{{goal._id}}') {{goal.title}}
-                   td {{goal.type}}
-                   td {{goalDueDateMsg()}}
-                   td.icon-td
-                       span(id="description{{goal._id}}"
-                       popover="{{goal.markedDescription}}" popover-placement="left" popover-title="<div class='text-center'>Description</div>")
-                           span.glyphicon.glyphicon-info-sign.goal-list-desc-icon
-                   td.icon-td
-                       i(class='glyphicon glyphicon-ok goal-list-finish-icon' ng-click='finishGoal()')
+dashboard-table(ng-show="overDueGoals.length > 0" title="'OVERDUE'" clazz="'overdue-widget'" goals="overDueGoals" list="'overDueGoals'" data-ng-click="finishGoal(goal, goals, list)")
+dashboard-table(ng-show="currentYearGoals.length > 0" title="'THIS YEAR'" clazz="'overdue-widget'" goals="currentYearGoals" list="'currentYearGoals'" data-ng-click="finishGoal(goal, goals, list)")
+dashboard-table(ng-show="currentMonthGoals.length > 0" title="'THIS MONTH'" clazz="'overdue-widget'" goals="currentMonthGoals" list="'currentMonthGoals'" data-ng-click="finishGoal(goal, goals, list)")
+dashboard-table(ng-show="currentWeekGoals.length > 0" title="'THIS WEEK'" clazz="'overdue-widget'" goals="currentWeekGoals" list="'currentWeekGoals'" data-ng-click="finishGoal(goal, goals, list)")
 
-.panel.col-sm-3.overdue-widget.text-panel(ng-hide="overDueGoals.length > 0")
-    header
-        h2 Congurations
-    section
-        p.big-font Overdue &nbsp;&nbsp;
-            i(class='glyphicon glyphicon-ok goal-list-finish-icon' ng-click='finishGoal()')
-
-.widget.col-sm-12.year-widget
-    header
-       h2 Goal of current year
-    section
-       p List of current year's goal
-
-.widget.col-sm-12.month-widget
-    header
-       h2 Goal of current Month
-    section
-       p List of current month's goal
-
-.widget.col-sm-12.week-widget
-    header
-       h2 Goal of current week
-    section
-       p List of current week's goal
-
-.panel.col-sm-12.shortcut-widget
-    header
-        h2 Add New Goal
-    section
-        p Add new goal shortcut
-
+empty-list-panel(ng-hide="overDueGoals.length > 0" title="'Overdue'")
+empty-list-panel(ng-hide="currentYearGoals.length > 0" title="'Current Year'")
+empty-list-panel(ng-hide="currentMonthGoals.length > 0" title="'Current Month'")
+empty-list-panel(ng-hide="currentWeekGoals.length > 0" title="'Current Week'")
 
 .clearfix

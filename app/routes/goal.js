@@ -27,7 +27,7 @@ exports.getByDueDateRange = function (req, res) {
     var start = req.params.dueDateStart, stop = req.params.dueDateStop;
     var dueDateWhere = {};
     if (start !== '0') {
-        dueDateWhere.$gt = new Date(start);
+        dueDateWhere.$gt = new Date().setTime(start);
     }
     if (stop !== '0') {
         dueDateWhere.$lte = new Date().setTime(stop);

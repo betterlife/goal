@@ -1,0 +1,34 @@
+<div ng-show="goals.length > 0" class="widget col-sm-12 {{clazz}} ng-scope">
+  <header>
+    <h2>{{title}}</h2>
+  </header>
+  <section>
+    <table class="table table-striped table-condensed table-hover">
+      <thead>
+        <tr><th>Title</th>
+        <th>Type</th>
+        <th>Due Date</th>
+        <th class="icon-header-th">Detail</th>
+        <th class="icon-header-th">Finish</th>
+      </tr></thead>
+      <tbody>
+        <tr ng-repeat="goal in goals" id="overdue_item_{{goal._id}}">
+          <td><a href="/#/goal/view/{{goal._id}}">{{goal.title}}</a></td>
+          <td class="ng-binding">{{goal.type}}</td>
+          <td class="ng-binding">{{goal.dueDateDisplay}}</td>
+          <td class="icon-td">
+              <span id="description_{{goal._id}}" popover="{{goal.markedDescription}}"
+                    popover-placement="left"
+                    popover-title="<div class='text-center'>Description</div>">
+                  <span class="glyphicon glyphicon-info-sign goal-list-desc-icon"></span>
+              </span>
+          </td>
+          <td class="icon-td">
+              <i ng-click="eventHandler({goal: goal, goals: goals, list: list})"
+                 class="glyphicon glyphicon-ok goal-list-finish-icon"></i>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</div>
