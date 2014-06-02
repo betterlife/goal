@@ -1,6 +1,6 @@
 var registerCtrl = function ($scope, $http, $location, loginService, $routeParams) {
     "use strict";
-    if ($scope.errors === undefined) {
+    if ($scope.errors === undefined || $scope.errors === null) {
         $scope.errors = [];
     }
     $scope.register = function () {

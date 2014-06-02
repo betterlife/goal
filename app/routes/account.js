@@ -29,7 +29,7 @@ exports.registerUser = function (req, res) {
         function (err, account) {
             if (err) {
                 console.error(err);
-                return res.send({"error" : err});
+                return res.send({"error" : err.message});
             }
             return res.send({
                 "__v"      : account.__v,
