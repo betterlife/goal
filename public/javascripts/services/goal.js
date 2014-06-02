@@ -34,27 +34,37 @@ var goalService = function ($rootScope, $http, $location) {
         });
     };
 
-    internal.setCurrentYearGoal = function (scope) {
-        var currentDate = new Date(), endOfYear = new Date(), start, end;
-        endOfYear.setFullYear(currentDate.getFullYear(), 12, 31);
-        start = currentDate.getTime();
-        end = endOfYear.getTime();
+    var getGoalAndSetArray = function (scope, start, end, key) {
         $http.get('/api/goals/' + start + '/' + end)
             .success(function (data, status, headers, config) {
                 if (data.error === true) {
                     $location.url("/login");
                 } else {
-                    scope.currentYearGoals = data.goals;
+                    scope[key] = data.goals;
                 }
             });
     };
 
+    internal.setCurrentYearGoal = function (scope) {
+        var currentDate = new Date(), endOfYear = new Date();
+        endOfYear.setFullYear(currentDate.getFullYear(), 12, 31);
+        getGoalAndSetArray(scope, currentDate.getTime(), endOfYear.getTime(), 'currentYearGoals');
+    };
+
     internal.setCurrentMonthGoal = function (scope) {
-        scope.currentMonthGoals = [];
+        var currentDate = new Date(),
+            start = new Date(currentDate.getFullYear(), currentDate.getMonth(), 1),
+            end = new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 0);
+        getGoalAndSetArray(scope, start.getTime(), end.getTime(), 'currentMonthGoals');
     };
 
     internal.setCurrentWeekGoal = function (scope) {
-        scope.currentWeekGoals = [];
+        var currentDate = new Date(),
+            start = currentDate.getDate() - currentDate.getDay(),
+            end = start + 6;
+        var firstDay = new Date(currentDate.setDate(start));
+        var lastDay = new Date(currentDate.setDate(end));
+        getGoalAndSetArray(scope, firstDay.getTime(), lastDay.getTime(), 'currentWeekGoals');
     };
     return internal;
 };
