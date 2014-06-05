@@ -29,15 +29,16 @@ exports.registerUser = function (req, res) {
         function (err, account) {
             if (err) {
                 console.error(err);
-                return res.send({"error" : err.message});
+                res.send({"error" : err});
+            } else {
+                res.send({
+                    "__v"      : account.__v,
+                    "_id"      : account._id,
+                    "username" : account.username,
+                    "email"    : account.email,
+                    "nickname" : account.nickname
+                });
             }
-            return res.send({
-                "__v"      : account.__v,
-                "_id"      : account._id,
-                "username" : account.username,
-                "email"    : account.email,
-                "nickname" : account.nickname
-            });
         }
     );
 };

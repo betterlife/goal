@@ -22,7 +22,7 @@ var registerCtrl = function ($scope, $http, $location, loginService, $routeParam
                 $scope.errors.push("Please input password confirmation");
             }
             if (signup.password !== signup.password2) {
-                $scope.errors.push('Two password input is not the same, please confirm');
+                $scope.errors.push('Two password input are not the same, please confirm');
             }
             if ($scope.errors.length !== undefined && $scope.errors.length !== 0) {
                 return;
@@ -36,8 +36,11 @@ var registerCtrl = function ($scope, $http, $location, loginService, $routeParam
                 }
             }).success(function (data, status, headers, config) {
                 if (data.error !== undefined) {
-                    $scope.errors.push(data.error.message);
-                    return;
+                    if (data.error.message !== undefined && data.error.message !== null) {
+                        $scope.errors.push(data.error.message);
+                    } else if (data.error.err !== undefined && data.error.err !== null) {
+                        $scope.errors.push(data.error.err);
+                    }
                 } else {
                     $scope.regSuccess = true;
                     setTimeout(function () {
@@ -47,7 +50,6 @@ var registerCtrl = function ($scope, $http, $location, loginService, $routeParam
             });
         } else {
             $scope.errors.push("Please input all required data above");
-            return;
         }
     };
 };

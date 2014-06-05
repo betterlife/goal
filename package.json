@@ -1,6 +1,6 @@
 {
     "name"    : "betterlife",
-    "version" : "0.0.3",
+    "version" : "0.0.4",
     "author"  : "Lawrence Liu(xqliu) (http://github.com/xqliu)",
     "scripts" : {
       "start" : "supervisor -- --debug=5858 app/server.js",
