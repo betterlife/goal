@@ -44,7 +44,9 @@ exports.listArchived = function (req, res) {
 };
 
 exports.getUpcomingOne = function (req, res) {
-    var where = {};
+    var where = {
+        userId: req.user._id
+    };
     where.dueDate = {$gt : new Date()};
     where.status = activeStatusWhere;
     console.dir(where);
