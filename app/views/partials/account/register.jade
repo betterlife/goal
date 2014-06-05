@@ -1,6 +1,6 @@
 .row
     .col-sm-5(class='center-block' style='float:none')
-        form(role='form' class='form-horizontal' name='signupform')
+        form(role='form' class='form-horizontal' name='signupform' novalidate)
               div(class='form-group')
                   div.alert.alert-danger.alert-dismissable(ng-show="errors.length > 0" style="margin-bottom:0;")
                     span(ng-repeat='error in errors') {{error}}
@@ -16,11 +16,13 @@
               div(class='form-group')
                   label(for='password') Password
                   input#password(name='password', type='password', ng-model='signup.password', 
-                                 class='form-control', ng-required='true', placeholder='Password')
+                                 class='form-control', ng-required='true', placeholder='Password'
+                                 equals='{{signup.password2}}')
               div(class='form-group')
                   label(for='password2') Password again
                   input#password(name='password2', type='password', ng-model='signup.password2', 
-                                 class='form-control', ng-required='true', placeholder='Password again')
+                                 class='form-control', ng-required='true', placeholder='Password again'
+                                 equals='{{signup.password}}')
               div(class='form-group')
                   label(for='nickname') Nickname
                   input#nickname(name="nickname", placeholder='Your nickname (Will be displayed)', 
