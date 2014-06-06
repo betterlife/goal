@@ -4,7 +4,7 @@
     "author"  : "Lawrence Liu(xqliu) (http://github.com/xqliu)",
     "scripts" : {
       "start" : "supervisor -- --debug=5858 app/server.js",
-      "test"  : "grunt; istanbul cover _mocha -- -u exports -R spec; cp -R coverage/* $CIRCLE_ARTIFACTS;CODECLIMATE_REPO_TOKEN=983efae2002e8a4f185b914c1d01a94bb86d59b34795728bb65e7a184b07c3d2 ./node_modules/.bin/codeclimate < coverage/lcov.info",
+      "test"  : "grunt; istanbul cover _mocha -- -u exports -R spec ./test/cases; cp -R coverage/* $CIRCLE_ARTIFACTS;CODECLIMATE_REPO_TOKEN=983efae2002e8a4f185b914c1d01a94bb86d59b34795728bb65e7a184b07c3d2 ./node_modules/.bin/codeclimate < coverage/lcov.info",
       "postinstall" : "./node_modules/bower/bin/bower install; ./node_modules/.bin/grunt deploy"
     },
     "dependencies" : {

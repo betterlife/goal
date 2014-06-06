@@ -3,9 +3,9 @@ var should     = require('should');
 var assert     = require('assert');
 var request    = require('supertest');
 var mongoose   = require('mongoose');
-var testUtil   = require('./../app/util/testUtil');
-var app        = require('../app/app');
-var testConfig = require('./../app/util/testConfig');
+var testUtil   = require('./../util/testUtil');
+var app        = require('../../app/app');
+var testConfig = require('./../util/testConfig');
 
 describe('Routing', function () {
     var url = testConfig.url;

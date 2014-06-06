@@ -1,8 +1,8 @@
 "use strict";
 var request = require('supertest');
-var goalModel  =  require('../models/goal.js').getModel();
+var goalModel  =  require('../../app/models/goal.js').getModel();
 var should     = require('should');
-var accountModel = require('../models/account.js').getModel();
+var accountModel = require('../../app/models/account.js').getModel();
 var testConfig  = require('./testConfig');
 var assert     = require('assert');
 

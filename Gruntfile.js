@@ -77,7 +77,7 @@ module.exports = function (grunt) {
                     require: [
                     ]
                 },
-                src: ['test/*Test.js']
+                src: ['test/cases/*Test.js']
             }
         },
         watch : {

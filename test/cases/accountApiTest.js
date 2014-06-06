@@ -4,10 +4,10 @@ var superTest = require('supertest');
 var superAgent = require('superagent');
 var userAgent  = superAgent.agent();
 var mongoose = require('mongoose');
-var testUtil = require('./../app/util/testUtil');
-var testConfig = require('./../app/util/testConfig');
-var commonUtil = require('../app/util/commonUtil');
-var app = require('../app/app');
+var testUtil = require('./../util/testUtil');
+var testConfig = require('./../util/testConfig');
+var commonUtil = require('../../app/util/commonUtil');
+var app = require('../../app/app');
 
 describe('Account API', function () {
     "use strict";
