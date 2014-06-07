@@ -1,10 +1,10 @@
 {
     "name"    : "betterlife",
-    "version" : "0.0.2",
+    "version" : "0.0.4",
     "author"  : "Lawrence Liu(xqliu) (http://github.com/xqliu)",
     "scripts" : {
       "start" : "supervisor -- --debug=5858 app/server.js",
-      "test"  : "grunt; istanbul cover _mocha -- -u exports -R spec; cp -R coverage/* $CIRCLE_ARTIFACTS",
+      "test"  : "grunt; istanbul cover _mocha -- -u exports -R spec ./test/cases; cp -R coverage/* $CIRCLE_ARTIFACTS;CODECLIMATE_REPO_TOKEN=983efae2002e8a4f185b914c1d01a94bb86d59b34795728bb65e7a184b07c3d2 ./node_modules/.bin/codeclimate < coverage/lcov.info",
       "postinstall" : "./node_modules/bower/bin/bower install; ./node_modules/.bin/grunt deploy"
     },
     "dependencies" : {
@@ -22,14 +22,17 @@
       "grunt-contrib-uglify"    : "~0.3.2",
       "grunt-contrib-concat"    : "~0.3.0",
       "grunt-contrib-cssmin"    : "~0.6.2",
-      "connect-flash"           : "*"
+      "connect-flash"           : "*",
+      "moment"                  : "*"
     },
     "devDependencies": {
       "mocha"                 : "*",
+      "superagent"            : "*",
       "supertest"             : "*",
       "should"                : "*",
       "reload"                : "*",
       "istanbul"              : "*",
+      "codeclimate-test-reporter" : "*",
       "grunt-cli"             : "*",
       "grunt"                 : "~0.4.2",
       "grunt-contrib-uglify"  : "~0.3.2",

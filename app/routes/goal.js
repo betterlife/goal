@@ -3,25 +3,71 @@
 var goalModel  = require('../models/goal.js'),
     modelUtil  = require('../util/modelUtil.js'),
     marked     = require('marked'),
-    Model      = goalModel.getModel();
+    authUtil   = require('../util/authUtil.js'),
+    Model      = goalModel.getModel(),
+    activeStatusWhere = {$nin: goalModel.getArchivedStatuses()},
+    archivedStatusWhere = {$in: goalModel.getArchivedStatuses()};
 
-exports.list = function (req, res) {
-    return Model.find({
+var queryGoalsByStatusAndDue = function (req, res, statusWhere, dueDateWhere) {
+    var where = {
         userId: req.user._id
-    }, function (err, goals) {
+    };
+    if (null !== dueDateWhere && undefined !== dueDateWhere) {
+        where.dueDate = dueDateWhere;
+    }
+    if (null !== statusWhere && undefined !== statusWhere) {
+        where.status = statusWhere;
+    }
+    return Model.find(where, function (err, goals) {
         return modelUtil.constructResponse(res, err, {'goals' : goals});
     });
 };
 
+exports.getByDueDateRange = function (req, res) {
+    var start = req.params.dueDateStart, stop = req.params.dueDateStop;
+    var dueDateWhere = {};
+    if (start !== '0') {
+        dueDateWhere.$gt = new Date().setTime(start);
+    }
+    if (stop !== '0') {
+        dueDateWhere.$lte = new Date().setTime(stop);
+    }
+    return queryGoalsByStatusAndDue(req, res, activeStatusWhere, dueDateWhere);
+};
+
+exports.list = function (req, res) {
+    return queryGoalsByStatusAndDue(req, res, activeStatusWhere);
+};
+
+exports.listArchived = function (req, res) {
+    return queryGoalsByStatusAndDue(req, res, archivedStatusWhere);
+};
+
+exports.getUpcomingOne = function (req, res) {
+    var where = {
+        userId: req.user._id
+    };
+    where.dueDate = {$gt : new Date()};
+    where.status = activeStatusWhere;
+    console.dir(where);
+    return Model.find(where)
+        .limit(1)
+        .sort('dueDate')
+        .exec(function (err, goal) {
+            console.log(goal);
+            return modelUtil.constructResponse(res, err, {'goal' : goal});
+        });
+};
+
 exports.create = function (req, res) {
-    var goal;
-    goal = new Model({
-        title       : req.body.goal.title,
-        description : req.body.goal.description === undefined ? '' : req.body.goal.description,
-        type        : req.body.goal.type,
-        status      : req.body.goal.status,
-        createDate  : req.body.goal.createDate,
-        userId      : req.body.goal.userId
+    var goal = new Model({
+        title: req.body.goal.title,
+        description: req.body.goal.description === undefined ? '' : req.body.goal.description,
+        type: req.body.goal.type,
+        status: req.body.goal.status,
+        dueDate: req.body.goal.dueDate,
+        createDate: req.body.goal.createDate,
+        userId: req.body.goal.userId
     });
     if (req.body.goal._id) {
         goal._id = req.body.goal._id;
@@ -50,6 +96,9 @@ exports.update = function (req, res) {
         },
         query   = {'_id' : req.params.id},
         options = {'new' : true};
+    if (req.body.goal.dueDate !== undefined) {
+        goal.dueDate = req.body.goal.dueDate;
+    }
     return Model.findOneAndUpdate(query, goal, options, function (err, data) {
         return modelUtil.constructResponse(res, err, {'goal' : data});
     });
@@ -85,12 +134,15 @@ exports.removeNote = function (req, res) {
 };
 
 exports.registerMe = function (app) {
-    //TODO.xqliu Change /goals --> /internal/goal to make it the same for all URLs.
-    app.get('/goals', this.list);
-    app.post('/goals', this.create);
-    app.get('/goals/:id', this.get);
-    app.put('/goals/:id', this.update);
-    app.delete('/goals/:id', this.remove);
-    app.post('/goal/notes/:id', this.createNote);
-    app.delete('/goal/notes/:id/:noteId', this.removeNote);
+    var checkLoggedIn = authUtil.isLoggedIn;
+    app.get('/api/goals', checkLoggedIn, this.list);
+    app.get('/api/goals/archived', checkLoggedIn, this.listArchived);
+    app.get('/api/goals/upcoming', checkLoggedIn, this.getUpcomingOne);
+    app.get('/api/goals/:dueDateStart/:dueDateStop', checkLoggedIn, this.getByDueDateRange);
+    app.post('/api/goals', checkLoggedIn, this.create);
+    app.get('/api/goals/:id', checkLoggedIn, this.get);
+    app.put('/api/goals/:id', checkLoggedIn, this.update);
+    app.delete('/api/goals/:id', checkLoggedIn, this.remove);
+    app.post('/api/goal/notes/:id', checkLoggedIn, this.createNote);
+    app.delete('/api/goal/notes/:id/:noteId', checkLoggedIn, this.removeNote);
 };

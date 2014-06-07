@@ -1,23 +1,34 @@
 .row
     .col-sm-5(class='center-block' style='float:none')
-        form(role='form' class='form-horizontal' name='signupform')
-            div(class='form-group')
+        form(role='form' class='form-horizontal' name='signupform' novalidate)
+              div(class='form-group')
+                  div.alert.alert-danger.alert-dismissable(ng-show="errors.length > 0" style="margin-bottom:0;")
+                    span(ng-repeat='error in errors') {{error}}
+                        br
+              div(class='form-group')
                   label(for='username') Username
-                  input#username(name="username", placeholder='Username', class='form-control', ng-required='true', ng-model='signup.username')
+                  input#username(name="username", placeholder='Username', class='form-control', 
+                                 ng-required='true', ng-model='signup.username')
               div(class='form-group')
                   label(for='email') Email Address
-                  input#username(name="email", placeholder='Email Address', class='form-control', ng-required='true', ng-model='signup.email' type='email')
+                  input#username(name="email", placeholder='Email Address', class='form-control', 
+                                 ng-required='true', ng-model='signup.email' type='email')
               div(class='form-group')
                   label(for='password') Password
-                  input#password(name='password', type='password', ng-model='signup.password', class='form-control', ng-required='true', placeholder='Password')
+                  input#password(name='password', type='password', ng-model='signup.password', 
+                                 class='form-control', ng-required='true', placeholder='Password'
+                                 equals='{{signup.password2}}')
               div(class='form-group')
                   label(for='password2') Password again
-                  input#password(name='password2', type='password', ng-model='signup.password2', class='form-control', ng-required='true', placeholder='Password again')
+                  input#password(name='password2', type='password', ng-model='signup.password2', 
+                                 class='form-control', ng-required='true', placeholder='Password again'
+                                 equals='{{signup.password}}')
               div(class='form-group')
                   label(for='nickname') Nickname
-                  input#nickname(name="nickname", placeholder='Your nickname (Will be displayed)', class='form-control', ng-model='signup.nickname')
-              div(class='form-group has-error')
-                  p.help-block {{errors.other}}
+                  input#nickname(name="nickname", placeholder='Your nickname (Will be displayed)', 
+                                 class='form-control', ng-model='signup.nickname')
+              div(class='form-group')
+                  div.alert.alert-success(ng-show="regSuccess") Signup successfully, login now...
               ul(class='list-inline text-center')
                   li
                       button(ng-click='register()' class='btn btn-primary') Signup

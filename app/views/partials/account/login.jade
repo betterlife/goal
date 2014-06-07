@@ -1,15 +1,18 @@
 .row
     .col-sm-5(class='center-block' style='float:none')
-        h3#title(style='float:none;text-align:center') GOAL  |  Track --> Action --> Attain
+        h3.login-h3-title GOAL  |  Track --> Action --> Attain
+        hr.login-hr
         form(role='form' class='form-horizontal' name='loginform' class='form')
+            div(class='form-group has-error')
+                div.alert.alert-danger.alert-dismissable(ng-show="errors.other.length > 0") {{errors.other}}
             div(class='form-group')
                 label(for='username') Username
-                input#username(name="username", placeholder='Username', class='form-control', ng-required='true', ng-model='username')
+                input#username(name="username", placeholder='Username', class='form-control', 
+                               ng-required='true', ng-model='username')
             div(class='form-group')
                 label(for='password') Password
-                input#password(name='password', type='password', ng-model='password', class='form-control', ng-required='true', placeholder='Password')
-            div(class='form-group has-error')
-                p.help-block {{errors.other}}
+                input#password(name='password', type='password', ng-model='password', 
+                               class='form-control', ng-required='true', placeholder='Password')
             ul(class='list-inline text-center')
                 li
                     button(ng-click='login()' class='btn btn-primary') Login

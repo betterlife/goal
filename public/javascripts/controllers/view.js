@@ -1,8 +1,8 @@
 'use strict';
 
-var viewCtrl = function($scope, $http, $location, $modal, $routeParams) {
+var viewCtrl = function ($scope, $http, $location, $modal, dueDateService, $routeParams) {
     var id = $routeParams.id;
-    $http.get('/goals/' + id).success(function (data, status, headers, config) {
+    $http.get('/api/goals/' + id).success(function (data, status, headers, config) {
         $scope.goal = data.goal;
         $scope.showNotePanel = ($scope.goal.comments.length > 0);
     });
@@ -11,7 +11,7 @@ var viewCtrl = function($scope, $http, $location, $modal, $routeParams) {
         if ($scope.showAddNoteForm !== true) {
             if (!$scope.comment) {
                 $scope.comment = {};
-            } 
+            }
             $scope.comment.date = new Date();
             $scope.showAddNoteForm = true;
         } else {
@@ -20,11 +20,12 @@ var viewCtrl = function($scope, $http, $location, $modal, $routeParams) {
     };
 
     $scope.saveNote = function () {
-        $http.post('/goal/notes/' + id, {
-            'comment' : $scope.comment 
+        $http.post('/api/goal/notes/' + id, {
+            'comment' : $scope.comment
         }).success(function (data) {
             $scope.toggleAddNoteForm();
-            $http.get('/goals/' + id).success(function (data, status, headers, config) {
+            $scope.comment = undefined;
+            $http.get('/api/goals/' + id).success(function (data, status, headers, config) {
                 $scope.goal = data.goal;
                 $scope.showNotePanel = ($scope.goal.comments.length > 0);
             });
@@ -49,8 +50,8 @@ var viewCtrl = function($scope, $http, $location, $modal, $routeParams) {
             }
         });
         modalInstance.result.then(function (noteId) {
-            $http.delete('/goal/notes/' + id + '/' + noteId).success(function (data) {
-                $http.get('/goals/' + id).success(function (data, status, headers, config) {
+            $http.delete('/api/goal/notes/' + id + '/' + noteId).success(function (data) {
+                $http.get('/api/goals/' + id).success(function (data, status, headers, config) {
                     $scope.goal = data.goal;
                     $scope.showNotePanel = ($scope.goal.comments.length > 0);
                 });
@@ -61,6 +62,6 @@ var viewCtrl = function($scope, $http, $location, $modal, $routeParams) {
     };
 };
 
-viewCtrl.$inject = ['$scope', '$http', '$location', '$modal', '$routeParams'];
+viewCtrl.$inject = ['$scope', '$http', '$location', '$modal', 'dueDateService', '$routeParams'];
 
 angular.module('mainApp').controller('viewCtrl', viewCtrl);

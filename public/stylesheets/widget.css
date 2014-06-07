@@ -1,0 +1,89 @@
+
+/**
+ * Widgets
+ */
+.widget, .panel, #calroot {
+}
+.widget, .panel {
+    border-radius: 5px;
+    margin: 18px 0;
+}
+.widget header h2, #calhead {
+    background: #f7f7f7;
+    background: -webkit-gradient(linear, left top, left bottom, from(#f7f7f7), to(#e1e1e1));
+    background: -moz-linear-gradient(top,  #f7f7f7,  #e1e1e1);
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#e1e1e1');
+    border: 1px solid #ccc;
+    color: #777777;
+    font-size: 140%;
+    text-shadow: 0 1px 0 #fff;
+    height: 40px;
+    line-height: 40px;
+    margin: 0;
+    padding: 0 10px;
+    -moz-box-shadow:inset 0 1px 0 #fff;
+    -webkit-box-shadow:inset 0 1px 0 #fff;
+    box-shadow:inset 0 1px 0 #fff;
+    text-align: center;
+}
+.widget section, #calbody {
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+
+    -moz-border-radius-bottomleft: 5px;
+    -moz-border-radius-bottomright: 5px;
+    -webkit-border-bottom-left-radius: 5px;
+    -webkit-border-bottom-right-radius: 5px;
+    -khtml-border-bottom-left-radius: 5px;
+    -khtml-border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+.widget section {
+    background: #fafafa;
+    padding: 10px;
+}
+
+.widget.modal {
+    display:none;
+    width:350px;
+}
+
+.panel {
+    background: #f7f7f7;
+    background: -webkit-gradient(linear, left top, left bottom, from(#f7f7f7), to(#eaeaea));
+    background: -moz-linear-gradient(top,  #f7f7f7,  #eaeaea);
+    filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#f7f7f7', endColorstr='#eaeaea');
+    padding: 10px;
+    -moz-box-shadow:inset 0 1px 0 #fff;
+    -webkit-box-shadow:inset 0 1px 0 #fff;
+    box-shadow:inset 0 1px 0 #fff;
+    border: 1px solid #ccc;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+}
+.panel header h2 {
+    margin-top: 0;
+    font-size: 13px;
+}
+.widget .table {
+    margin-bottom: 0;
+}
+
+.text-panel .big-font{
+    font-size: 200%;
+    color: darkgray;
+    margin:auto;
+    text-align:right;
+}
+
+.upcoming-panel .big-font {
+    color: #428bca;
+}
+
+.text-panel header h2 {
+    display:none;
+}

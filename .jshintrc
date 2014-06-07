@@ -1,13 +1,18 @@
 {
-  "globals": {
-    "angular"  : false,
-    "$"        : false,
-    "console"  : false,
-    "describe" : false,
-    "require"  : false,
-    "before"   : false,
-    "after"    : false,
-    "it"       : false,
-    "exports"  : false
+    "globals": {
+        "angular"   : false,
+        "$"         : false,
+        "console"   : false,
+        "describe"  : false,
+        "require"   : false,
+        "before"    : false,
+        "after"     : false,
+        "it"        : false,
+        "exports"   : false,
+        "__dirname" : false,
+        "process"   : false,
+        "beforeEach": false,
+        "afterEach" : false,
+        "moment"    : false
   }
 }

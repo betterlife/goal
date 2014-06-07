@@ -1,4 +1,4 @@
-module.exports = function(grunt){
+module.exports = function (grunt) {
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
@@ -20,7 +20,13 @@ module.exports = function(grunt){
                 stripBanners: true
             },
             dist: {
-                src  : ['public/javascripts/clientUtil.js', 'public/javascripts/client.js', 'public/javascripts/controllers/*.js', 'public/javascripts/services/*.js'],
+                src  : [
+                    'public/javascripts/clientUtil.js',
+                    'public/javascripts/client.js',
+                    'public/javascripts/controllers/*.js',
+                    'public/javascripts/services/*.js',
+                    'public/javascripts/directives/*.js'
+                ],
                 dest : 'public/javascripts/client.concat.js'
             }
         },
@@ -71,7 +77,7 @@ module.exports = function(grunt){
                     require: [
                     ]
                 },
-                src: ['test/*Test.js']
+                src: ['test/cases/*Test.js']
             }
         },
         watch : {

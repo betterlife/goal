@@ -4,11 +4,13 @@ html(data-ng-app='mainApp')
         title #{title}
         script(src='/bower_components/jquery/dist/jquery.min.js')
         script(src='/bower_components/jquery-ui/ui/jquery-ui.js')
-        script(src='/bower_components/jquery-ui/ui/jquery.ui.datepicker.js')
         script(src='/bower_components/bootstrap/dist/js/bootstrap.min.js')
         script(src='/bower_components/angular/angular.min.js')
         script(src='/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js')
         script(src='/bower_components/angular-route/angular-route.min.js')
+        script(src='/bower_components/angular-cookies/angular-cookies.min.js')
+        script(src='/bower_components/angular-ui-date/src/date.js')
+        script(src='/bower_components/momentjs/min/moment.min.js')
         if env == 'development'
             script(src='/javascripts/client.js')
             script(src='/javascripts/controllers/create.js')
@@ -19,31 +21,42 @@ html(data-ng-app='mainApp')
             script(src='/javascripts/controllers/navbar.js')
             script(src='/javascripts/controllers/register.js')
             script(src='/javascripts/controllers/view.js')
+            script(src='/javascripts/controllers/dashboard.js')
             script(src='/javascripts/services/auth.js')
+            script(src='/javascripts/services/dueDate.js')
+            script(src='/javascripts/services/goal.js')
+            script(src='/javascripts/directives/emptyListPanel.js')
+            script(src='/javascripts/directives/dashboardTable.js')
+            script(src='/javascripts/directives/equals.js')
+            link(rel='stylesheet', href='/stylesheets/style.css')
+            link(rel='stylesheet', href='/stylesheets/widget.css')
         else
             script(src='/javascripts/client.min.js')
-        link(rel='stylesheet', href='/stylesheets/style.min.css')
+            link(rel='stylesheet', href='/stylesheets/style.min.css')
+            link(rel='stylesheet', href='/stylesheets/widget.min.css')
         link(rel='stylesheet', href='/bower_components/jquery-ui/themes/base/jquery-ui.css')
-        link(rel='stylesheet', href='/bower_components/jquery-ui/themes/base/jquery.ui.datepicker.css')
         link(rel='stylesheet', href='/bower_components/bootstrap/dist/css/bootstrap.min.css')
         base(href="/")
     body
         div.container
             div.header(ng-controller='navController')
                 ul(class='nav nav-pills pull-right')
-                    li(ng-class="{active: isActive('/')}")
-                        a(href='/' ng-show='user') Home
+                    li#menu-welcome(ng-show="isLoggedIn()" ng-class="{active: isActive('/')}")
+                        a(href="#") Welcome, {{getLoggedInUserDisplay()}}
                     li(ng-class="{active: isActive('/goal/list')}")
-                        a(href='/#/goal/list' ng-show="user") All Goals
+                        a(href='/#/goal/list' ng-show="isLoggedIn()") Active Goals
+                    li(ng-class="{active: isActive('/goal/archived')}")
+                        a(href='/#/goal/archived' ng-show="isLoggedIn()") Archived Goals
                     li(ng-class="{active: isActive('/goal/add')}")
-                        a(href='/#/goal/add' ng-show='user') New Goal
+                        a(href='/#/goal/add' ng-show='isLoggedIn()') New Goal
                     li(ng-class="{active: isActive('/logout')}")
-                        a(href='/logout' ng-show='user') Logout
+                        a(href='/logout' ng-show='isLoggedIn()') Logout
                     li(ng-class="{active: isActive('/login')}")
-                        a(href='/login' ng-hide='user') Login
+                        a(href='/login' ng-hide='isLoggedIn()') Login
                     li(ng-class="{active: isActive('/register')}")
-                        a(href='/register' ng-hide='user') Register
-                h3.text-muted GOAL | Betterlife
+                        a(href='/register' ng-hide='isLoggedIn()') Register
+                h3.text-muted 
+                    a.text-muted(href="/") GOAL | Betterlife
             block content
             if env == 'development'
                 hr

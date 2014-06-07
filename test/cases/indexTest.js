@@ -3,9 +3,9 @@ var should     = require('should');
 var assert     = require('assert');
 var request    = require('supertest');
 var mongoose   = require('mongoose');
-var testUtil   = require('../app/util/testUtil');
-var app        = require('../app/app');
-var testConfig = require('../app/util/testConfig');
+var testUtil   = require('./../util/testUtil');
+var app        = require('../../app/app');
+var testConfig = require('./../util/testConfig');
 
 describe('Routing', function () {
     var url = testConfig.url;
@@ -28,9 +28,9 @@ describe('Routing', function () {
                     return testUtil.done(err, res, done);
                 });
         });
-        testUtil.textVerify('Home', url, '');
         testUtil.textVerify('GOAL | Betterlife', url, '');
         testUtil.textVerify('Login', url, '');
         testUtil.textVerify('Register', url, '');
+        testUtil.textVerify('<div ng-view></div>', url, '');
     });
 });

@@ -1,8 +1,20 @@
 "use strict";
 
-var listCtrl = function ($scope, $http, $modal, $location, $routeParams) {
-    $http.get('/goals').success(function (data, status, headers, config) {
-        $scope.goals = data.goals;
+var listCtrl = function ($scope, $http, $modal, $location, dueDateService, goalService, $routeParams) {
+    var getUrl;
+
+    if ($location.$$url === "/goal/archived") {
+        getUrl = '/api/goals/archived';
+    } else {
+        getUrl = '/api/goals';
+    }
+
+    $http.get(getUrl).success(function (data, status, headers, config) {
+        if (data.error === true) {
+            $location.url("/login");
+        } else {
+            $scope.goals = data.goals;
+        }
     });
 
     $scope.deleteGoal = function () {
@@ -23,7 +35,7 @@ var listCtrl = function ($scope, $http, $modal, $location, $routeParams) {
             }
         });
         modalInstance.result.then(function (id) {
-            $http.delete('/goals/' + id).success(function (data) {
+            $http.delete('/api/goals/' + id).success(function (data) {
                 $("#item_" + id).fadeOut();
             });
         }, function () {
@@ -31,24 +43,18 @@ var listCtrl = function ($scope, $http, $modal, $location, $routeParams) {
         });
     };
 
-    $scope.finishGoal = function() {
+
+    $scope.finishGoal = function () {
         var id = this.goal._id;
-        $http.get('/goals/' + id).success(function (data, status, headers, config) {
-            var goal = data.goal;
-            goal.status = 'Finished';
-            $http.put('/goals/' + id, {
-                'goal' : goal
-            }).success(function (data) {
-                $location.path('/goal/list');
-            });
-        });
+        goalService.finishGoal(id, $scope, "goals");
     };
 
     $scope.home = function () {
         $location.url('/goal/list');
     };
+
 };
 
-listCtrl.$inject = ['$scope', '$http', '$modal', '$location', '$routeParams'];
+listCtrl.$inject = ['$scope', '$http', '$modal', '$location', 'dueDateService', 'goalService', '$routeParams'];
 
 angular.module('mainApp').controller('listCtrl', listCtrl);
