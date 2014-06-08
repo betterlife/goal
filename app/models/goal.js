@@ -35,7 +35,7 @@ exports.getSchema = function (Schema) {
         if (this.description !== '' && this.description !== undefined && this.description !== null) {
             return marked(this.description);
         }
-        return ' ';
+        return '<p>&nbsp;</p>';
     });
     schema.virtual('dueDateDisplay').get(function () {
         var date, m, prefix, diff, thisMoment;
