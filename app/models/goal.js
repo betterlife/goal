@@ -67,7 +67,7 @@ exports.getModel = function () {
 };
 
 exports.getGoalTypes = function () {
-    return [ 'Long term(10 to 20 Year)', 'Middle term(3-5 Year)', 'Annually', 'Half-Year', 'Monthly', 'Weekly'];
+    return ['Life Goal', 'Long Term(10 to 20 Year)', 'Middle Term(3-5 Year)', 'Short Term'];
 };
 
 exports.getStatuses = function () {
