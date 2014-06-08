@@ -110,7 +110,7 @@ form[novalidate] input[required].ng-pristine,
 input[required].ng-pristine,
 textarea[required].ng-pristine,
 select[required].ng-pristine {
-    border-color: #e74c3c;
+    /*border-color: #e74c3c;*/
 }
 
 form[novalidate] input.ng-invalid.ng-dirty,
