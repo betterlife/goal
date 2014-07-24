@@ -21,6 +21,10 @@ Build Status
 
 [![Build Status](https://circleci.com/gh/betterlife/goal/tree/stable.png?circle-token=83fba687a4197e2606dd67f7ace9d06e3e8d474b)](https://circleci.com/gh/betterlife/goal/tree/stable)
 
+### CODESHIP
+
+[ ![Codeship Status for redchamber/goal](https://www.codeship.io/projects/31663200-f508-0131-c885-66d051ef0dad/status)](https://www.codeship.io/projects/28242)
+
 Code Quantity
 =====
 
