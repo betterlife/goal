@@ -60,7 +60,6 @@ exports.startServer = function (serverConfig) {
         mainApp.use(express.errorHandler({ dumpExceptions: true, showStack: true }));
     }
     server.listen(mainApp.get('port'), function () {
-        console.info("Server start on port " + mainApp.get('port'));
     });
 };
 
