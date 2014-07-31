@@ -54,7 +54,6 @@ exports.getUpcomingOne = function (req, res) {
         .limit(1)
         .sort('dueDate')
         .exec(function (err, goal) {
-            console.log(goal);
             return modelUtil.constructResponse(res, err, {'goal' : goal});
         });
 };

@@ -1,3 +1,38 @@
-//
-   Created by larry on 14/6/8.
-
+form(role='form' class='form-horizontal' name='profileeditform')
+    div(class='form-group')
+        label(for='username' class='control-label col-sm-4') User name
+        div(class='col-sm-4')
+            input(name='username', ng-model='account.username',
+            id='username', class='form-control', readonly="true")
+    div(class='form-group')
+        label(for='email' class='control-label col-sm-4') Email Address
+        div(class='col-sm-4')
+            input(name='email', ng-model='account.email', id='email',
+            class='form-control', ng-required='true')
+    div(class='form-group')
+        label(for='currentPassword' class='control-label col-sm-4') Current Password
+        div(class='col-sm-4')
+            input(name='currentPassword', ng-model='account.currentPassword',
+            placeholder='Leave blank if you don\'t want to change password',
+            id='currentPassword', class='form-control' type='password')
+    div(class='form-group')
+        label(for='password1' class='control-label col-sm-4') New Password
+        div(class='col-sm-4')
+            input(name='password1', ng-model='account.password1',
+            id='password1', class='form-control' type='password',
+            placeholder='Input new password',
+            equals='{{account.password2}}')
+    div(class='form-group')
+        label(for='password2' class='control-label col-sm-4') Confirm New Password
+        div(class='col-sm-4')
+            input(name='password2', ng-model='account.password2',
+            id='password2', class='form-control' type='password',
+            placeholder='Input the new password again',
+            equals='{{account.password1}}')
+    div(class='form-group')
+        label(for='nickname' class='control-label col-sm-4') Nick Name
+        div(class='col-sm-4')
+            input(name='nickname', ng-model='account.nickname', id='nickname', class='form-control')
+    ul(class='list-inline text-center')
+        li
+            button(class='btn btn-primary' ng-click='updateProfile()') Update Profile

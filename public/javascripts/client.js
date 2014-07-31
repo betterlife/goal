@@ -48,6 +48,10 @@
                     }).when('/register', {
                         templateUrl : '/partials/account/register',
                         controller: registerCtrl
+                    }).when('/profile', {
+                        templateUrl : '/partials/account/profile',
+                        controller : profileCtrl,
+                        authenticate: true
                     }).otherwise({
                         redirectTo: '/'
                     });
@@ -77,7 +81,7 @@
                            "\n" +
                            "  <div class=\"popover-inner\">\n" +
                            "      <h3 class=\"popover-title\" ng-bind-html=\"title | to_trusted\" ng-show=\"title\"></h3>\n" +
-                           "      <div class=\"popover-content\"ng-bind-html=\"content | to_trusted\"></div>\n" +
+                           "      <div class=\"popover-content\" ng-bind-html=\"content | to_trusted\"></div>\n" +
                            "  </div>\n" +
                            "</div>\n" +
                            "");

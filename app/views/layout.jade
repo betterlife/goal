@@ -22,6 +22,7 @@ html(data-ng-app='mainApp')
             script(src='/javascripts/controllers/register.js')
             script(src='/javascripts/controllers/view.js')
             script(src='/javascripts/controllers/dashboard.js')
+            script(src='/javascripts/controllers/profile.js')
             script(src='/javascripts/services/auth.js')
             script(src='/javascripts/services/dueDate.js')
             script(src='/javascripts/services/goal.js')
@@ -49,6 +50,8 @@ html(data-ng-app='mainApp')
                         a(href='/#/goal/archived' ng-show="isLoggedIn()") Archived Goals
                     li(ng-class="{active: isActive('/goal/add')}")
                         a(href='/#/goal/add' ng-show='isLoggedIn()') New Goal
+                    li(ng-class="{active: isActive('/profile')}")
+                        a(href='/#/profile' ng-show='isLoggedIn()') Profile
                     li(ng-class="{active: isActive('/logout')}")
                         a(href='/logout' ng-show='isLoggedIn()') Logout
                     li(ng-class="{active: isActive('/login')}")
