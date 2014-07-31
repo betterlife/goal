@@ -3,8 +3,10 @@
     "version" : "0.0.4",
     "author"  : "Lawrence Liu(xqliu) (http://github.com/xqliu)",
     "scripts" : {
-      "start" : "supervisor -- --debug=5858 app/server.js",
-      "test"  : "grunt;mocha -R json ./test/cases > mocha.json; istanbul cover _mocha -- -u exports -R json ./test/cases; cp -R coverage/* $CIRCLE_ARTIFACTS;CODECLIMATE_REPO_TOKEN=983efae2002e8a4f185b914c1d01a94bb86d59b34795728bb65e7a184b07c3d2 ./node_modules/.bin/codeclimate < coverage/lcov.info",
+      "start"       : "supervisor -- --debug=5858 app/server.js",
+      "cc"          : "grunt; istanbul cover _mocha -- -u exports -R json ./test/cases; cp -R coverage/* $CIRCLE_ARTIFACTS;CODECLIMATE_REPO_TOKEN=983efae2002e8a4f185b914c1d01a94bb86d59b34795728bb65e7a184b07c3d2 ./node_modules/.bin/codeclimate < coverage/lcov.info",
+      "bamboo-test" : "grunt; node node_modules/mocha/bin/mocha -R mocha-bamboo-reporter ./test/cases",
+      "test"        : "grunt; node node_modules/mocha/bin/mocha -R spec ./test/cases",
       "postinstall" : "./node_modules/bower/bin/bower install; ./node_modules/.bin/grunt deploy"
     },
     "dependencies" : {
@@ -41,7 +43,8 @@
       "grunt-contrib-jshint"  : "~0.8.0",
       "grunt-contrib-csslint" : "~0.2.0",
       "grunt-contrib-watch"   : "~0.5.3",
-      "grunt-mocha-test"      : "~0.9.0"
+      "grunt-mocha-test"      : "~0.9.0",
+      "mocha-bamboo-reporter" : "*"
     },
     "engines": {
       "node" : "0.10.x"
