@@ -1,3 +1,4 @@
+/*eslint-env node */
 module.exports = function (grunt) {
 
     grunt.initConfig({
@@ -12,7 +13,8 @@ module.exports = function (grunt) {
             }
         },
         csslint : {
-            src: ['public/stylesheets/*.css']
+            src: ['public/stylesheets/*.css'],
+            force: true
         },
         concat: {
             options: {
